@@ -180,7 +180,7 @@
               <span id="loadingCompanyName">회사</span> 실시간 기업 팩트체크 분석 중...
             </div>
             <p class="text-xs text-orange-100 mt-0.5">
-              서버리스 엔진을 통해 최신 공시 자료와 재직자 리뷰, 연봉 데이터를 집계하고 있습니다.
+              Cloudflare Workers 백엔드를 통해 최신 공시 자료와 재직자 리뷰, 연봉 데이터를 집계하고 있습니다.
             </p>
           </div>
         </div>
@@ -188,6 +188,17 @@
           EasyK Cloud Engine
         </span>
       </div>
+    </div>
+
+    <!-- Error Alert Diagnostic Banner (Hidden by default, shown if Worker fails) -->
+    <div id="diagnosticBanner" class="hidden bg-red-50 border border-red-200 rounded-2xl p-4 text-xs text-red-800 space-y-1.5 shadow-sm">
+      <div class="flex items-center gap-2 font-bold text-red-700">
+        <i data-lucide="alert-circle" class="w-4 h-4 shrink-0"></i>
+        <span>Cloudflare Worker 통신 안내</span>
+      </div>
+      <p id="diagnosticMessage" class="text-slate-600 leading-relaxed">
+        Worker 연결 상태를 확인하고 있습니다.
+      </p>
     </div>
 
     <!-- ONE-PAGE COMPLETE COMPANY REPORT CARD -->
@@ -1644,17 +1655,24 @@
       if (!query) return;
       const trimmed = query.trim();
 
+      // Hide diagnostic banner on new search
+      const diagBanner = document.getElementById('diagnosticBanner');
+      if (diagBanner) diagBanner.classList.add('hidden');
+
+      // Check Alias map first (e.g. '토스' -> '비바리퍼블리카(토스)')
+      const resolvedName = companyAliases[trimmed.toLowerCase()] || trimmed;
+
       // 1. Direct key match in cached/preloaded DB
-      if (companiesData[trimmed]) {
-        currentCompanyKey = trimmed;
-        updateDOMWithCompany(companiesData[trimmed]);
+      if (companiesData[resolvedName]) {
+        currentCompanyKey = resolvedName;
+        updateDOMWithCompany(companiesData[resolvedName]);
         return;
       }
 
       // 2. Case-insensitive or shortName match
       const matchedKey = Object.keys(companiesData).find(k => 
-        k.toLowerCase() === trimmed.toLowerCase() || 
-        (companiesData[k].shortName && companiesData[k].shortName.toLowerCase() === trimmed.toLowerCase())
+        k.toLowerCase() === resolvedName.toLowerCase() || 
+        (companiesData[k].shortName && companiesData[k].shortName.toLowerCase() === resolvedName.toLowerCase())
       );
 
       if (matchedKey) {
@@ -1664,14 +1682,26 @@
       }
 
       // 3. Request through Cloudflare Workers backend directly
-      fetchCompanyFromWorker(trimmed);
+      fetchCompanyFromWorker(resolvedName);
     }
 
-    // Seamless Cloudflare Workers connection (Zero API key required for users)
+    // Helper: Sanitize JSON response by stripping markdown fences
+    function sanitizeJsonResponse(raw) {
+      if (!raw) return "{}";
+      let cleaned = raw.trim();
+      if (cleaned.startsWith("```")) {
+        cleaned = cleaned.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "");
+      }
+      return cleaned.trim();
+    }
+
+    // Seamless Cloudflare Workers connection with diagnostic feedback and fallback
     async function fetchCompanyFromWorker(query) {
       const loadingEl = document.getElementById('aiLoadingIndicator');
       const loadingName = document.getElementById('loadingCompanyName');
       const searchBtn = document.getElementById('searchExecuteBtn');
+      const diagBanner = document.getElementById('diagnosticBanner');
+      const diagMsg = document.getElementById('diagnosticMessage');
       
       loadingName.textContent = query;
       loadingEl.classList.remove('hidden');
@@ -1681,50 +1711,70 @@
       showToast(`'${query}' 기업 정보를 서버에서 실시간 조회 중입니다...`);
 
       try {
-        // 15 seconds timeout to allow LLM processing in Workers
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 15000);
+        const timeoutId = setTimeout(() => controller.abort(), 18000);
 
-        // Call your Cloudflare Worker endpoint directly with URL-encoded query
-        const workerUrl = `${CF_WORKER_URL}?q=${encodeURIComponent(query)}`;
-        const response = await fetch(workerUrl, {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json'
-          },
-          signal: controller.signal
-        });
+        const cleanBaseUrl = CF_WORKER_URL.trim().replace(/\/+$/, '');
+        const workerUrl = `${cleanBaseUrl}?q=${encodeURIComponent(query)}`;
+        
+        let response;
+        try {
+          response = await fetch(workerUrl, {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json'
+            },
+            signal: controller.signal
+          });
+        } catch (fetchErr) {
+          clearTimeout(timeoutId);
+          if (fetchErr.name === 'AbortError') {
+            throw new Error(`Cloudflare Worker 응답 시간 초과 (18초).`);
+          }
+          throw new Error(`Worker 네트워크/CORS 에러: ${fetchErr.message}`);
+        }
+        
         clearTimeout(timeoutId);
 
         if (!response.ok) {
-          throw new Error(`Worker responded with status: ${response.status}`);
+          const errDetail = await response.text();
+          if (response.status === 404) {
+            throw new Error(`Worker 또는 모델을 찾을 수 없음 (404 Not Found). 요청 주소: ${workerUrl} | 상세: ${errDetail || '주소를 확인해주세요.'}`);
+          }
+          throw new Error(`Worker 응답 상태 오류 (HTTP ${response.status}): ${errDetail || response.statusText}`);
         }
 
-        const data = await response.json();
+        const rawText = await response.text();
+        const sanitized = sanitizeJsonResponse(rawText);
+        const data = JSON.parse(sanitized);
 
-        // Validate returned schema
-        if (data && (data.name || data.location)) {
-          // Fill missing properties safely
+        if (data && (data.name || data.location || data.overallScore)) {
           if (!data.name) data.name = query;
           if (!data.badgeLetter) data.badgeLetter = query.charAt(0);
           
           companiesData[query] = data;
           currentCompanyKey = query;
           updateDOMWithCompany(data);
+          
+          if (diagBanner) diagBanner.classList.add('hidden');
           showToast(`'${query}' 실시간 분석이 완료되었습니다!`);
           return;
         } else {
-          throw new Error('Invalid data format from Worker');
+          throw new Error('Worker가 반환한 JSON 데이터에 필수 필드가 없습니다.');
         }
       } catch (err) {
         console.warn("Cloudflare Worker fetch error:", err.message);
         
-        // Intelligent Industry-Aware Engine handles it instantly as a resilient backup
+        if (diagBanner && diagMsg) {
+          diagMsg.textContent = `연동 알림: ${err.message}`;
+          diagBanner.classList.remove('hidden');
+        }
+
         const backupData = generateIntelligentCompany(query);
         companiesData[query] = backupData;
         currentCompanyKey = query;
         updateDOMWithCompany(backupData);
-        showToast(`'${query}' 기업 정보를 분석하여 반영했습니다.`);
+        showToast(`'${query}' 기업 정보를 자체 엔진으로 분석하여 반영했습니다.`);
       } finally {
         loadingEl.classList.add('hidden');
         searchBtn.disabled = false;

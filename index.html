@@ -2378,23 +2378,6 @@
       loadingState.classList.remove('hidden');
       detailContainer.style.opacity = '0.3';
 
-      // Use user-provided API key, or empty string for Canvas environment
-      const apiKey = userApiKey || "";
-      const isExternalHosting = window.location.hostname.includes('github.io') || window.location.protocol === 'file:';
-      
-      // If deployed on GitHub Pages and no API key is set, immediately provide the intelligent realistic profiler without throwing a 400 network crash
-      if (isExternalHosting && !apiKey) {
-        setTimeout(() => {
-          loadingState.classList.add('hidden');
-          detailContainer.style.opacity = '1.0';
-          const intelligentProfile = generateIntelligentCompanyProfile(companyName);
-          COMPANY_DATABASE.unshift(intelligentProfile);
-          renderCompanyDetails(intelligentProfile, 0.88);
-          showToast(`'${companyName}' 기업 분석 리포트가 생성되었습니다.`);
-        }, 500);
-        return;
-      }
-
       const apiUrl = `https://easyk.leejs5190601.workers.dev`;
 
       const systemPrompt = `당신은 대한민국 최고의 채용 및 기업 인사이트 전문 애널리스트입니다.

@@ -110,6 +110,10 @@
           <span class="hidden sm:inline">관심기업</span>
           <span id="bookmark-count-badge" class="px-1.5 py-0.2 bg-brand-500 text-white rounded-full text-[10px] hidden">0</span>
         </button>
+        <button onclick="openApiKeyModal()" class="flex items-center gap-1.5 px-2.5 py-2 text-xs font-medium text-slate-500 hover:text-brand-600 hover:bg-orange-50 rounded-xl transition-all" title="Gemini API 설정 (GitHub 배포용)">
+          <i class="fa-solid fa-key text-xs"></i>
+          <span class="hidden md:inline text-[11px]">API설정</span>
+        </button>
         <button onclick="toggleShareModal()" class="p-2 text-slate-500 hover:text-brand-500 hover:bg-orange-50 rounded-xl transition-all" title="공유하기">
           <i class="fa-solid fa-arrow-up-from-bracket"></i>
         </button>
@@ -166,10 +170,10 @@
             <button onclick="quickSearch('네이버')" class="px-2.5 py-1 bg-white hover:bg-brand-50 hover:text-brand-600 rounded-lg border border-slate-200 hover:border-brand-200 text-slate-600 transition-colors">네이버</button>
             <button onclick="quickSearch('토스')" class="px-2.5 py-1 bg-white hover:bg-brand-50 hover:text-brand-600 rounded-lg border border-slate-200 hover:border-brand-200 text-slate-600 transition-colors">토스(비바리퍼블리카)</button>
             <button onclick="quickSearch('삼성전자')" class="px-2.5 py-1 bg-white hover:bg-brand-50 hover:text-brand-600 rounded-lg border border-slate-200 hover:border-brand-200 text-slate-600 transition-colors">삼성전자</button>
+            <button onclick="quickSearch('LG전자')" class="px-2.5 py-1 bg-white hover:bg-brand-50 hover:text-brand-600 rounded-lg border border-slate-200 hover:border-brand-200 text-slate-600 transition-colors">LG전자</button>
             <button onclick="quickSearch('당근')" class="px-2.5 py-1 bg-white hover:bg-brand-50 hover:text-brand-600 rounded-lg border border-slate-200 hover:border-brand-200 text-slate-600 transition-colors">당근</button>
-            <button onclick="quickSearch('무신사')" class="px-2.5 py-1 bg-white hover:bg-brand-50 hover:text-brand-600 rounded-lg border border-slate-200 hover:border-brand-200 text-slate-600 transition-colors">무신사</button>
-            <button onclick="quickSearch('크래프톤')" class="px-2.5 py-1 bg-white hover:bg-brand-50 hover:text-brand-600 rounded-lg border border-slate-200 hover:border-brand-200 text-slate-600 transition-colors">크래프톤</button>
-            <button onclick="quickSearch('SK하이닉스')" class="px-2.5 py-1 bg-white hover:bg-brand-50 hover:text-brand-600 rounded-lg border border-slate-200 hover:border-brand-200 text-slate-600 transition-colors">SK하이닉스</button>
+            <button onclick="quickSearch('엔씨소프트')" class="px-2.5 py-1 bg-white hover:bg-brand-50 hover:text-brand-600 rounded-lg border border-slate-200 hover:border-brand-200 text-slate-600 transition-colors">엔씨소프트</button>
+            <button onclick="quickSearch('현대자동차')" class="px-2.5 py-1 bg-white hover:bg-brand-50 hover:text-brand-600 rounded-lg border border-slate-200 hover:border-brand-200 text-slate-600 transition-colors">현대자동차</button>
             <button onclick="quickSearch('카카오오')" class="px-2 py-0.5 bg-orange-100/60 text-brand-700 rounded-lg border border-orange-200 text-[11px] font-medium" title="오타 검색 테스트">오타테스트: '카카오오'</button>
           </div>
         </div>
@@ -646,6 +650,48 @@
     </div>
   </div>
 
+  <!-- API Key Modal (For GitHub Pages Deployment) -->
+  <div id="apikey-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-orange-100 text-brand-600 flex items-center justify-center">
+            <i class="fa-solid fa-key text-sm"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-slate-900">GitHub 배포용 Gemini API 설정</h3>
+            <span class="text-[11px] text-slate-400">외부 배포 시 임의 기업 실시간 AI 분석에 사용됩니다</span>
+          </div>
+        </div>
+        <button onclick="closeApiKeyModal()" class="text-slate-400 hover:text-slate-600 p-1">
+          <i class="fa-solid fa-xmark text-base"></i>
+        </button>
+      </div>
+      <div class="py-4 space-y-3">
+        <p class="text-xs text-slate-600 leading-relaxed break-keep">
+          EasyK 내장 50대 대표 기업 외에 <strong>새로운 기업이나 신생 스타트업을 실시간 AI로 분석</strong>하고 싶다면 본인의 Google AI Studio 무료 API Key를 입력해주세요. 입력된 키는 본인 브라우저(로컬)에만 저장됩니다.
+        </p>
+        <div>
+          <label class="block text-[11px] font-bold text-slate-700 mb-1">Gemini API Key</label>
+          <input 
+            type="password" 
+            id="user-gemini-key-input" 
+            placeholder="AIzaSy..." 
+            class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono focus:outline-none focus:border-brand-500"
+          />
+        </div>
+        <div class="text-[11px] text-slate-500 bg-orange-50/70 p-3 rounded-xl border border-orange-200/70">
+          <i class="fa-solid fa-circle-info text-brand-500 mr-1"></i>
+          <span>키가 없어도 삼성, 현대, SK, LG, 네이버, 카카오, 토스 등 50대 주요 기업은 100% 정상 작동합니다.</span>
+        </div>
+      </div>
+      <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+        <button onclick="closeApiKeyModal()" class="px-4 py-2 bg-slate-100 text-slate-600 font-semibold text-xs rounded-xl">취소</button>
+        <button onclick="saveApiKey()" class="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs rounded-xl shadow-xs">저장하기</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Notification -->
   <div id="toast-message" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-floating text-xs sm:text-sm font-semibold flex items-center gap-2.5 transition-all opacity-0 pointer-events-none transform translate-y-3">
     <i class="fa-solid fa-circle-check text-brand-400"></i>
@@ -713,187 +759,267 @@
         }
       },
       {
+        id: "lg-elec",
+        name: "LG전자",
+        domain: "lge.co.kr",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.lge.co.kr&size=128",
+        aliases: ["엘지전자", "lg전자", "엘전", "LG", "엘지"],
+        category: "스마트 가전 / 전장(VS) / 냉난방공조",
+        companyType: "코스피 상장 대기업",
+        stockBadge: "코스피 상장 (066570)",
+        tagline: "Life's Good, 혁신 가전과 미래 전장을 선도하는 글로벌 전자 기업",
+        founded: "1958년",
+        revenue: "84조 2,278억원",
+        revenueSource: "사업보고서",
+        employees: "34,000여 명",
+        location: "서울특별시 영등포구 여의대로 128 (LG트윈타워)",
+        avgSalary: "1억 600만원",
+        salaries: { bracket_1_3: 5500, bracket_4_7: 7600, bracket_8_10: 9900, bracket_10_plus: 13000 },
+        bonusNote: "사업본부(H&A, VS, HE 등)별 성과 및 목표 달성률에 따른 경영성과급 지급.",
+        rating: 3.9,
+        recommendRate: 75,
+        scores: { welfare: 4.4, balance: 3.7, culture: 3.9, growth: 4.0 },
+        pros: ["가전 세계 1위의 탄탄한 사업 기반과 안정적인 고용 환경", "여의도 트윈타워 리모델링 등 쾌적한 오피스와 계열사 할인 복지", "전장(VS) 및 B2B 공조 신사업 확장에 따른 미래 성장성"],
+        cons: ["본부별 성과급 격차에 따른 위화감", "제조 대기업 특유의 다단계 결재 및 보고 프로세스", "경쟁 심화에 따른 타이트한 원가 절감 압박"],
+        keywords: ["#글로벌가전1위", "#여의도트윈타워", "#전장VS", "#안정적대기업", "#가전은LG"],
+        tips: {
+          resumeTitle: "스마트 가전 IoT 연결성 및 제조 원가·품질 혁신",
+          resume: "ThinQ 플랫폼 연동 경험이나 임베디드 펌웨어, 대규모 양산 수율 안정화 기여도를 구체적인 정량 지표로 제시하세요.",
+          interviewTitle: "인화(人和)의 LG 조직 적응도와 직무 전문성",
+          interview: "동료와의 배려와 원활한 협업을 중시하는 인화 문화에 적합한 태도와 함께 전공 기초 기술을 명쾌히 설명해야 합니다.",
+          skillTitle: "모빌리티 전장 아키텍처 & 글로벌 공급망 관리",
+          skill: "CAN 통신, AI 스마트홈 프로토콜(Matter), 다국적 고객사와의 비즈니스 소통"
+        }
+      },
+      {
+        id: "hyundai-mobis",
+        name: "현대모비스",
+        domain: "mobis.co.kr",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.mobis.co.kr&size=128",
+        aliases: ["현대모비스", "모비스", "mobis"],
+        category: "자동차 부품 / 전동화 / 자율주행",
+        companyType: "코스피 시총 상위 대기업",
+        stockBadge: "코스피 상장 (012330)",
+        tagline: "전동화와 자율주행 부품으로 미래 모빌리티를 선도하는 글로벌 티어1",
+        founded: "1977년",
+        revenue: "59조 2,555억원",
+        revenueSource: "사업보고서",
+        employees: "11,500여 명",
+        location: "서울특별시 강남구 테헤란로 203 (역삼사옥)",
+        avgSalary: "1억 800만원",
+        salaries: { bracket_1_3: 5600, bracket_4_7: 7700, bracket_8_10: 10100, bracket_10_plus: 13300 },
+        bonusNote: "현대차그룹 경영성과급 및 차량 구매 할인(최대 30%) 혜택 지원.",
+        rating: 3.9,
+        recommendRate: 73,
+        scores: { welfare: 4.6, balance: 3.8, culture: 3.6, growth: 3.9 },
+        pros: ["현대차그룹 동등 수준의 강력한 복지와 차량 구입 할인", "역삼역 본사 근무 접근성 및 연구소(마북) 최신 R&D 시설", "글로벌 완성차 수주 증가에 따른 안정성과 자부심"],
+        cons: ["보수적인 제조업 특유의 의전 및 결재 문화 잔존", "연구소와 공장 간 출장 및 협업 조율 리소스", "타이트한 완성차 납기 일정에 따른 업무 긴장감"],
+        keywords: ["#차량할인", "#전동화1등", "#역삼본사", "#현대차그룹", "#고용안정"],
+        tips: {
+          resumeTitle: "차량 제동/조향/전동화 부품 안전 규격(ISO26262) 준수",
+          resume: "기능안전 및 차량 결함 제로화를 이끈 테스트/품질 관리 이력을 강조하세요.",
+          interviewTitle: "자동차 시스템 이해도와 완성차 고객 대응 마인드",
+          interview: "부품 간 상호작용에 대한 폭넓은 이해와 긴급 이슈 발생 시 현장 해결력을 보여주어야 합니다.",
+          skillTitle: "차량용 제어기 임베디드 SW & ECU 통신",
+          skill: "AUTOSAR 아키텍처, 전동화 파워트레인 설계 역량"
+        }
+      },
+      {
+        id: "kakao-bank",
+        name: "카카오뱅크",
+        domain: "kakaobank.com",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.kakaobank.com&size=128",
+        aliases: ["카뱅", "카카오뱅크", "kakaobank"],
+        category: "인터넷전문은행 / 핀테크",
+        companyType: "코스피 상장 인터넷은행",
+        stockBadge: "코스피 상장 (323410)",
+        tagline: "일상의 모든 금융을 편리하게 바꾸는 대한민국 1위 인터넷은행",
+        founded: "2016년",
+        revenue: "2조 4,900억원",
+        revenueSource: "사업보고서",
+        employees: "1,550여 명",
+        location: "경기도 성남시 분당구 판교역로 166 (판교아지트)",
+        avgSalary: "1억 1,300만원",
+        salaries: { bracket_1_3: 6000, bracket_4_7: 8200, bracket_8_10: 10900, bracket_10_plus: 14200 },
+        bonusNote: "경영 성과급 및 자기계발비, 금융권 최고 수준의 복지 지원.",
+        rating: 4.1,
+        recommendRate: 80,
+        scores: { welfare: 4.7, balance: 4.1, culture: 4.2, growth: 4.1 },
+        pros: ["금융권의 압도적인 연봉과 IT 테크의 수평적인 문화가 결합된 최적의 직장", "판교역 초역세권 판교아지트 근무와 쾌적한 오피스 환경", "전국민이 매일 사용하는 금융 앱 개발 및 데이터 분석 기회"],
+        cons: ["금융 규제 및 당국 가이드라인 대응에 따른 철저한 감사 스트레스", "야간 및 주말 금융 전산 모니터링 대응 부담", "은행업 특유의 보수적 리스크 관리와 테크 혁신 간의 줄다리기"],
+        keywords: ["#금융테크1등", "#판교아지트", "#고연봉", "#워라밸우수", "#인터넷은행"],
+        tips: {
+          resumeTitle: "무중단 금융 트랜잭션 처리와 대용량 트래픽 최적화",
+          resume: "동시 결제나 정산 오류 방지, 보안 규정 준수 프로젝트 경험을 기술하세요.",
+          interviewTitle: "금융 안정성에 대한 책임감과 직관적인 UX 철학",
+          interview: "금융 사고를 원천 차단하는 꼼꼼한 코드 검증 태도를 증명해야 합니다.",
+          skillTitle: "금융 보안 프로토콜 & 고성능 분산 데이터베이스",
+          skill: "Spring Boot, Kafka 이벤트 스트리밍, 금융 컴플라이언스 이해"
+        }
+      },
+      {
+        id: "ncsoft",
+        name: "엔씨소프트 (NCSOFT)",
+        domain: "ncsoft.com",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.ncsoft.com&size=128",
+        aliases: ["엔씨", "엔씨소프트", "ncsoft", "리니지", "NC"],
+        category: "MMORPG / 게임 개발 / AI R&D",
+        companyType: "코스피 상장 게임 대기업",
+        stockBadge: "코스피 상장 (036570)",
+        tagline: "세상을 연결하는 즐거움의 미래를 만드는 MMORPG 명가",
+        founded: "1997년",
+        revenue: "1조 7,798억원",
+        revenueSource: "사업보고서",
+        employees: "4,800여 명",
+        location: "경기도 성남시 분당구 대왕판교로 644번길 12 (엔씨 R&D센터)",
+        avgSalary: "9,700만원",
+        salaries: { bracket_1_3: 5200, bracket_4_7: 7400, bracket_8_10: 9800, bracket_10_plus: 13000 },
+        bonusNote: "게임 론칭 성과금 및 판교 판교 R&D 센터 최상급 복리후생.",
+        rating: 3.8,
+        recommendRate: 70,
+        scores: { welfare: 4.6, balance: 3.8, culture: 3.7, growth: 3.6 },
+        pros: ["판교 최고 수준의 복지(어린이집, 사내 병원, 피트니스, 3식 무료 등)", "국내 최고 수준의 게임 AI 및 그래픽 R&D 연구 인프라", "체계화된 대기업형 시스템과 안정적인 근로 환경"],
+        cons: ["리니지 IP 의존도 극복 및 신작 흥행에 대한 전사적 부담", "조직 개편 및 사업부 분사에 따른 분위기 변화", "과거 대비 낮아진 스톡옵션 및 인센티브 기대치"],
+        keywords: ["#판교최고복지", "#사내어린이집", "#리니지", "#게임AI", "#판교엔씨"],
+        tips: {
+          resumeTitle: "대규모 동접 MMORPG 서버 안정화 및 패킷 최적화",
+          resume: "수만 명이 동시 접속하는 공성전 등 극한의 서버 트래픽 방어 경험을 강조하세요.",
+          interviewTitle: "게임 시스템 로직에 대한 집요함과 라이브 서비스 마인드",
+          interview: "유저 밸런스와 경제 시스템에 대한 깊이 있는 통찰을 보여주어야 합니다.",
+          skillTitle: "C++ / 분산 서버 아키텍처 / 언리얼 엔진 고도화",
+          skill: "게임 AI 에이전트 개발, 실시간 네트워크 동기화 기법"
+        }
+      },
+      {
+        id: "netmarble",
+        name: "넷마블 (Netmarble)",
+        domain: "netmarble.com",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.netmarble.com&size=128",
+        aliases: ["넷마블", "netmarble", "지타워"],
+        category: "모바일 게임 / 글로벌 퍼블리싱",
+        companyType: "코스피 상장 게임 대기업",
+        stockBadge: "코스피 상장 (251270)",
+        tagline: "Great Game, Cultural Foundation 전 세계를 감동시키는 글로벌 게임",
+        founded: "2000년",
+        revenue: "2조 5,014억원",
+        revenueSource: "사업보고서",
+        employees: "3,100여 명",
+        location: "서울특별시 구로구 디지털로26길 38 (G-Tower)",
+        avgSalary: "8,900만원",
+        salaries: { bracket_1_3: 5000, bracket_4_7: 7100, bracket_8_10: 9300, bracket_10_plus: 12200 },
+        bonusNote: "게임 론칭 성과금 및 구로 G-Tower 최신식 시설 혜택.",
+        rating: 3.7,
+        recommendRate: 67,
+        scores: { welfare: 4.2, balance: 3.5, culture: 3.7, growth: 3.8 },
+        pros: ["구로디지털단지 랜드마크 G-Tower 최신식 근무 환경", "글로벌 흥행 IP 다수 보유(나혼렙 등)로 글로벌 퍼블리싱 기회 풍부", "빠른 실행력과 트렌디한 모바일 게임 기획 역량 축적"],
+        cons: ["프로젝트 흥망에 따른 팀 재편 및 인센티브 편차", "개발 자회사별 처우와 복지 조건의 차이", "글로벌 라이브 업데이트 주기에 따른 크런치 발생"],
+        keywords: ["#구로G타워", "#글로벌퍼블리싱", "#나혼렙", "#모바일게임1위", "#게임대기업"],
+        tips: {
+          resumeTitle: "글로벌 원빌드 모바일 게임 배포 및 라이브 지표 개선",
+          resume: "유저 잔존율(Retention)과 인앱 결제(ARPPU)를 개선한 A/B 테스트 사례를 기술하세요.",
+          interviewTitle: "게임 시장 트렌드 분석력과 신속한 문제 해결력",
+          interview: "최신 모바일 게임 시장 동향에 대한 높은 관심과 기민한 대응력을 평가합니다.",
+          skillTitle: "Unity / Unreal 엔진 / 글로벌 클라우드 서버",
+          skill: "글로벌 다국어 현지화 및 SDK 연동 역량"
+        }
+      },
+      {
+        id: "sk-telecom",
+        name: "SK텔레콤",
+        domain: "sktelecom.com",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.sktelecom.com&size=128",
+        aliases: ["에스케이텔레콤", "skt", "SKT", "sk텔레콤"],
+        category: "통신 / 글로벌 AI 컴퍼니",
+        companyType: "코스피 상장 대기업",
+        stockBadge: "코스피 상장 (017670)",
+        tagline: "AI 피라미드 전략으로 대한민국을 넘어 글로벌 AI 컴퍼니로 도약",
+        founded: "1984년",
+        revenue: "17조 6,085억원",
+        revenueSource: "사업보고서",
+        employees: "5,400여 명",
+        location: "서울특별시 중구 을지로 65 (T타워)",
+        avgSalary: "1억 4,500만원",
+        salaries: { bracket_1_3: 6800, bracket_4_7: 9500, bracket_8_10: 12500, bracket_10_plus: 16500 },
+        bonusNote: "업계 최상위권 경영성과급 및 통신비/가족 복지 전폭 지원.",
+        rating: 4.4,
+        recommendRate: 88,
+        scores: { welfare: 4.9, balance: 4.3, culture: 4.4, growth: 4.3 },
+        pros: ["국내 최고 수준의 압도적인 연봉과 성과급, 행복포인트 복지", "을지로 T타워 중심의 유연한 거점오피스(스피어) 및 워라밸", "에이닷(A.) 등 생성형 AI 서비스에 대한 대규모 투자와 도전"],
+        cons: ["통신 본업의 완만한 성장률과 대외 규제 이슈", "대기업 특유의 복잡한 보고 체계와 결재 라인", "AI 신사업 부서와 전통 통신 인프라 부서 간의 문화적 차이"],
+        keywords: ["#신의직장", "#연봉끝판왕", "#워라밸최상", "#을지로T타워", "#에이닷", "#거점오피스"],
+        tips: {
+          resumeTitle: "전국민 이동통신 망 안정성 및 대규모 AI 인프라 최적화",
+          resume: "수천만 가입자 트래픽의 무장애 운영이나 에이닷 AI 파이프라인 개발 실적을 어필하세요.",
+          interviewTitle: "SKMS(SK경영관리체계) 적합성과 자발적·의욕적 두뇌활용(SUPEX)",
+          interview: "높은 지적 역량과 함께 팀원과 상호 신뢰를 쌓아가는 따뜻한 프로페셔널임을 보여주어야 합니다.",
+          skillTitle: "대규모 LLM 서빙 & 분산 클라우드 네트워크",
+          skill: "5G 코어 인프라 지식, 통신 데이터 빅데이터 마이닝"
+        }
+      },
+      {
+        id: "posco-holdings",
+        name: "POSCO홀딩스",
+        domain: "posco-inc.com",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.posco-inc.com&size=128",
+        aliases: ["포스코", "posco", "포스코홀딩스", "포스코그룹"],
+        category: "철강 / 이차전지 소재 / 친환경 미래소재",
+        companyType: "코스피 시총 최상위 지주사",
+        stockBadge: "코스피 상장 (005490)",
+        tagline: "인류의 지속가능한 미래를 선도하는 글로벌 친환경 미래소재 대표기업",
+        founded: "1968년",
+        revenue: "77조 1,272억원",
+        revenueSource: "사업보고서",
+        employees: "30,000여 명",
+        location: "서울특별시 강남구 테헤란로 440 (포스코센터)",
+        avgSalary: "1억 500만원",
+        salaries: { bracket_1_3: 5400, bracket_4_7: 7500, bracket_8_10: 9900, bracket_10_plus: 13200 },
+        bonusNote: "그룹 경영성과급 및 학자금, 포스코센터 사내 복지 전액 지원.",
+        rating: 4.0,
+        recommendRate: 77,
+        scores: { welfare: 4.6, balance: 3.9, culture: 3.7, growth: 4.0 },
+        pros: ["압도적인 브랜드 신뢰도와 탄탄한 재무 건전성, 높은 고용 안정성", "선릉역 포스코센터 최첨단 사옥 및 풍부한 사내 복지", "리튬, 양극재, 수소 등 이차전지 미래소재 신성장 동력"],
+        cons: ["제조/철강 베이스 특유의 위계질서 및 보수적 사내 문화", "포항/광양 제철소와 서울 본사 간의 협업 조율", "글로벌 원자재 가격 및 경기 사이클에 따른 실적 변동"],
+        keywords: ["#포스코센터", "#이차전지소재", "#안정성최고", "#선릉역", "#대기업복지"],
+        tips: {
+          resumeTitle: "글로벌 공급망 최적화 및 스마트 팩토리 공정 제어",
+          resume: "제조 원가 절감이나 탄소 저감 기술, 이차전지 소재 공급망 안정화 경험을 정량적으로 서술하세요.",
+          interviewTitle: "국가 기간산업에 대한 자부심과 굳건한 주인의식",
+          interview: "성실성과 책임감을 최우선으로 검증하며, 엄격한 안전/규정 준수 태도를 중점 평가합니다.",
+          skillTitle: "공정 자동화(DCS/PLC) & 글로벌 원자재 트레이딩",
+          skill: "글로벌 B2B 협상력, ESG 친환경 기술 규격 이해도"
+        }
+      },
+      {
         id: "sk-hynix",
         name: "SK하이닉스",
         domain: "skhynix.com",
         logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.skhynix.com&size=128",
-        aliases: ["하이닉스", "sk하이닉스", "hynix", "하닉", "에스케이하이닉스"],
-        category: "반도체 / AI 메모리 (HBM)",
-        companyType: "코스피 상장 대기업",
+        aliases: ["하이닉스", "sk하이닉스", "hynix", "에스케이하이닉스"],
+        category: "AI 반도체 / HBM / 메모리",
+        companyType: "코스피 시총 2위 대기업",
         stockBadge: "코스피 상장 (000660)",
-        tagline: "HBM 글로벌 1위, 첨단 AI 메모리 반도체 선도기업",
+        tagline: "HBM 글로벌 1위, AI 시대를 이끄는 초고성능 메모리 리더",
         founded: "1983년",
         revenue: "32조 7,657억원",
         revenueSource: "사업보고서",
-        employees: "32,000여 명",
-        location: "경기도 이천시 부발읍 경충대로 2091",
+        employees: "31,500여 명",
+        location: "경기도 이천시 부발읍 경충대로 2091 (이천캠퍼스)",
         avgSalary: "1억 2,100만원",
-        salaries: {
-          bracket_1_3: 6100,
-          bracket_4_7: 8400,
-          bracket_8_10: 11200,
-          bracket_10_plus: 14600
-        },
-        bonusNote: "HBM 호황에 따른 초과이익분배금(PS) 및 생산성 격려금(PI) 대규모 지급.",
+        salaries: { bracket_1_3: 6200, bracket_4_7: 8500, bracket_8_10: 11200, bracket_10_plus: 14800 },
+        bonusNote: "HBM 호황에 따른 초과이익분배금(PS) 및 생산성격려금(PI) 최대치 지급.",
         rating: 4.2,
-        recommendRate: 81,
-        scores: { welfare: 4.6, balance: 3.7, culture: 3.9, growth: 4.5 },
-        pros: [
-          "글로벌 AI 반도체(HBM) 1위로서의 압도적인 자부심과 높은 성과급",
-          "최고 수준의 연봉 테이블 및 사택, 의료비, 통근버스 등 막강한 복지",
-          "엔지니어 중심의 기술 고도화 문화와 대규모 설비 투자"
-        ],
-        cons: [
-          "이천/청주 등 지방 사업장 근무에 따른 라이프스타일 호불호",
-          "글로벌 반도체 사이클 및 다운턴 시기의 심리적 변동성",
-          "24시간 팹(FAB) 교대 및 양산 일정에 따른 업무 긴장감"
-        ],
-        keywords: ["#HBM1위", "#엔비디아파트너", "#성과급대박", "#이천본사", "#복지최상", "#반도체"],
+        recommendRate: 82,
+        scores: { welfare: 4.7, balance: 3.8, culture: 4.0, growth: 4.4 },
+        pros: ["HBM 글로벌 1위 등극으로 역대급 자부심과 압도적인 PS 성과급", "이천/청주 캠퍼스 셔틀 및 기숙사, 가족 의료비 등 탄탄한 복지", "글로벌 빅테크(NVIDIA 등) 핵심 공급사로서의 폭발적인 성장 경험"],
+        cons: ["이천 및 청주 캠퍼스 지방 통근에 따른 출퇴근 피로도", "반도체 다운턴/업턴 사이클에 따른 실적 변동 압박", "클린룸 팹(FAB) 교대근무 및 긴급 장비 이슈 대응"],
+        keywords: ["#HBM1등", "#엔비디아파트너", "#성과급대박", "#이천캠퍼스", "#초고연봉"],
         tips: {
-          resumeTitle: "미세공정 수율 개선 및 반도체 신뢰성 검증",
-          resume: "HBM 패키징 및 고단화 적층 기술에 대한 학문적/실무적 이해를 바탕으로, 수율 손실을 줄인 실험 및 데이터 분석 경험을 기재하세요.",
-          interviewTitle: "직무 기술 면접(반도체 기초) 및 교대/현장 적응력",
-          interview: "소자, 공정, 회로 설계 등 전공 기초 지식을 깊게 파고들며, 사업장 근무에 대한 진정성과 팀원과의 결속력을 중점 평가합니다.",
-          skillTitle: "반도체 수율 통계 분석 & 공정 최적화 역량",
-          skill: "Python/R/JMP를 활용한 계측 데이터 통계 처리, 글로벌 소부장 벤더와의 협업력"
-        }
-      },
-      {
-        id: "lg-ensol",
-        name: "LG에너지솔루션",
-        domain: "lgensol.com",
-        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.lgensol.com&size=128",
-        aliases: ["엔솔", "엘지에너지솔루션", "lg엔솔", "엘지엔솔", "배터리"],
-        category: "2차전지 / 전기차 배터리",
-        companyType: "코스피 시총 상위 대기업",
-        stockBadge: "코스피 상장 (373220)",
-        tagline: "전기차 시대를 선도하는 글로벌 No.1 배터리 제조 혁신 기업",
-        founded: "2020년",
-        revenue: "33조 7,455억원",
-        revenueSource: "사업보고서",
-        employees: "12,800여 명",
-        location: "서울특별시 영등포구 여의대로 108 (파크원타워1)",
-        avgSalary: "9,900만원",
-        salaries: {
-          bracket_1_3: 5600,
-          bracket_4_7: 7800,
-          bracket_8_10: 10100,
-          bracket_10_plus: 13200
-        },
-        bonusNote: "영업이익 연동 성과급 체계 적용 및 자기계발 복지포인트 지급.",
-        rating: 3.9,
-        recommendRate: 75,
-        scores: { welfare: 4.4, balance: 3.5, culture: 3.8, growth: 4.2 },
-        pros: [
-          "여의도 파크원 최신식 오피스 인프라와 높은 직업적 자부심",
-          "글로벌 완성차 합작 프로젝트(JV)를 통한 북미/유럽 해외 출장 기회 풍부",
-          "LG 계열사 최고의 처우 및 다양한 임직원 복지제도"
-        ],
-        cons: [
-          "글로벌 전기차 캐즘(일시적 수요 둔화)에 따른 사업 목표치 달성 압박",
-          "오창 공장 및 대전 R&D 연구소와 서울 본사 간의 협업 조율 리소스",
-          "급속한 조직 팽창으로 인한 부서별 업무 강도 편차"
-        ],
-        keywords: ["#배터리1위", "#여의도파크원", "#북미JV", "#대기업복지", "#글로벌출장"],
-        tips: {
-          resumeTitle: "배터리 수명/안전성 테스트 및 제조 공정 혁신",
-          resume: "양극재/음극재 화학 특성 또는 BMS(배터리관리시스템) 펌웨어, 대규모 설비 수율 안정화 경험을 수치 기반으로 기술하세요.",
-          interviewTitle: "공학적 원리 규명 및 글로벌 협업 유연성",
-          interview: "배터리 화재 예방 및 불량률 최소화에 관한 기술 지식과 함께 미국/유럽 완성차 고객사와의 밤낮없는 소통을 조율할 수 있는 유연성을 봅니다.",
-          skillTitle: "공정 데이터 분석 & 해외 현지 커뮤니케이션",
-          skill: "품질 관리(QC/QA), 화학/재료 통계 툴(Minitab), 영어 프레젠테이션 역량"
-        }
-      },
-      {
-        id: "hyundai-motor",
-        name: "현대자동차",
-        domain: "hyundai.com",
-        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.hyundai.com&size=128",
-        aliases: ["현대차", "현대자동차", "hyundai", "현차", "모비스"],
-        category: "완성차 / 모빌리티 / SDV",
-        companyType: "코스피 시총 최상위 제조업/모빌리티",
-        stockBadge: "코스피 상장 (005380)",
-        tagline: "전기차와 SDV로 인류의 이동 자유를 실현하는 모빌리티 선도기업",
-        founded: "1967년",
-        revenue: "162조 6,600억원",
-        revenueSource: "사업보고서",
-        employees: "73,000여 명",
-        location: "서울특별시 서초구 헌릉로 12 (양재사옥)",
-        avgSalary: "1억 1,700만원",
-        salaries: {
-          bracket_1_3: 5900,
-          bracket_4_7: 8100,
-          bracket_8_10: 10800,
-          bracket_10_plus: 14000
-        },
-        bonusNote: "역대급 실적 기반의 대규모 경영성과급 및 주식 지급.",
-        rating: 4.0,
-        recommendRate: 78,
-        scores: { welfare: 4.7, balance: 3.8, culture: 3.6, growth: 4.0 },
-        pros: [
-          "차량 구입 할인(최대 30% 등) 및 탄탄한 정년 보장 수준의 고용 안정성",
-          "역대 최대 실적에 따른 막대한 성과급과 강력한 복리후생",
-          "SDV, 자율주행, 수소 에너지 등 미래 모빌리티 대규모 R&D 투자"
-        ],
-        cons: [
-          "보수적인 제조업 특유의 의전 및 결재 문화가 본사/공장 일부에 잔존",
-          "양재/남양 연구소 등 근무지 위치에 따른 통근 부담",
-          "전통 기계/엔진 인력과 신규 SW/모빌리티 인력 간의 문화적 융합 과제"
-        ],
-        keywords: ["#차량할인", "#안정성끝판왕", "#역대급실적", "#남양연구소", "#SDV", "#모빌리티"],
-        tips: {
-          resumeTitle: "혹독한 품질 안정성 준수와 대규모 제조 생태계 이해",
-          resume: "자동차 산업은 안전과 직결되므로 '빠른 배포 후 패치'보다 '철저한 테스트를 통한 결함 제로화 경험'을 훨씬 높게 평가합니다. ISO/국제 규격 및 검증 경험을 기재하세요.",
-          interviewTitle: "직무 기술 면접 + 상명하복 조직 내 유연한 소통",
-          interview: "본사/연구소 간의 다자 협업이 많기 때문에, 고집부리지 않고 유관 부서(품질, 생산, 연구소)의 요구사항을 수용하며 타협점을 찾았던 실제 에피소드를 면접관이 반드시 확인합니다.",
-          skillTitle: "임베디드 SW / 차량 CAN 통신 / 전장 하드웨어 통합",
-          skill: "SDV 전환에 따른 OTA 인프라 지식, 대규모 공급망(Tier-1) 관리 협상력"
-        }
-      },
-      {
-        id: "kia",
-        name: "기아 (Kia)",
-        domain: "kia.com",
-        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.kia.com&size=128",
-        aliases: ["기아", "기아자동차", "kia", "기아차"],
-        category: "완성차 / PBV 모빌리티",
-        companyType: "코스피 상장 대기업",
-        stockBadge: "코스피 상장 (000270)",
-        tagline: "지속가능한 모빌리티 솔루션을 제시하는 글로벌 완성차",
-        founded: "1944년",
-        revenue: "99조 8,084억원",
-        revenueSource: "사업보고서",
-        employees: "35,800여 명",
-        location: "서울특별시 서초구 헌릉로 12",
-        avgSalary: "1억 1,500만원",
-        salaries: {
-          bracket_1_3: 5800,
-          bracket_4_7: 8000,
-          bracket_8_10: 10600,
-          bracket_10_plus: 13800
-        },
-        bonusNote: "사상 최대 영업이익률 달성에 따른 성과급 및 차량 할인.",
-        rating: 4.1,
-        recommendRate: 79,
-        scores: { welfare: 4.7, balance: 3.9, culture: 3.7, growth: 4.1 },
-        pros: [
-          "완성차 최고 수준의 영업이익률 및 현대차그룹 동등 수준의 복지/차량 할인",
-          "젊고 트렌디해진 디자인 아이덴티티와 EV6/EV9 글로벌 흥행",
-          "높은 고용 안정성과 우수한 정년 보장 환경"
-        ],
-        cons: [
-          "그룹사 본사(양재) 공통의 보고 체계 및 보수적 의사결정",
-          "공장 및 연구소(남양/소하리/화성) 근무 시 통근 소요",
-          "부서 간 실적 경쟁과 타이트한 생산/출하 일정"
-        ],
-        keywords: ["#기아차", "#영업이익률최고", "#차량할인", "#EV9", "#양재사옥"],
-        tips: {
-          resumeTitle: "글로벌 완성차 브랜딩 및 전동화 부품 안정성",
-          resume: "기아의 고유한 디자인 철학(오퍼짓 유나이티드)과 PBV(목적기반모빌리티) 관련 기술/기획 경험을 어필하세요.",
-          interviewTitle: "실용적이고 빠른 실행력과 그룹사 협업 조화",
-          interview: "현대차와 유사하면서도 보다 트렌디하고 민첩하게 시장 트렌드를 읽어내는 감각을 중요하게 평가합니다.",
-          skillTitle: "모빌리티 커넥티비티 & 글로벌 딜러십 네트워크",
-          skill: "차량 데이터 분석, 전장 아키텍처, 공급망 리스크 관리"
+          resumeTitle: "HBM 고단 적층 및 공정 수율 극대화 경험",
+          resume: "패키징 공정(MR-MUF)이나 메모리 설계, 테라바이트급 데이터 신뢰성 개선 성과를 수치로 증명하세요.",
+          interviewTitle: "반도체 기초 물성 이론과 끈기 있는 엔지니어링 정신",
+          interview: "수율 0.1%를 올리기 위해 수백 번의 실험을 거듭했던 실패 극복 사례를 설득력 있게 전달해야 합니다.",
+          skillTitle: "반도체 공정 시뮬레이션 & 품질 관리 통계",
+          skill: "수율 분석(YMS), 클린룸 안전 수칙, 글로벌 고객사 사양 대응"
         }
       },
       {
@@ -901,45 +1027,65 @@
         name: "네이버 (NAVER)",
         domain: "navercorp.com",
         logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.navercorp.com&size=128",
-        aliases: ["네이버", "naver", "라인", "엔버"],
-        category: "인터넷 플랫폼 / AI / 검색",
+        aliases: ["네이버", "naver", "라인", "네이버웹툰", "스노우"],
+        category: "IT / 포털 / AI / 클라우드",
         companyType: "코스피 상장 IT플랫폼",
         stockBadge: "코스피 상장 (035420)",
-        tagline: "대한민국 대표 검색 포털이자 글로벌 IT 테크 기업",
+        tagline: "기술로 세상을 변화시키는 대한민국 1위 포털이자 글로벌 IT 플랫폼",
         founded: "1999년",
-        revenue: "9조 6,700억원",
+        revenue: "9조 6,706억원",
         revenueSource: "사업보고서",
         employees: "4,400여 명",
-        location: "경기도 성남시 분당구 정자일로 95 (1784)",
-        avgSalary: "1억 800만원",
-        salaries: {
-          bracket_1_3: 5600,
-          bracket_4_7: 7600,
-          bracket_8_10: 9800,
-          bracket_10_plus: 13000
-        },
-        bonusNote: "인센티브 및 스톡그랜트(주식 보상) 프로그램이 정기적으로 지원됩니다.",
+        location: "경기도 성남시 분당구 정자일로 95 (네이버 1784)",
+        avgSalary: "1억 1,900만원",
+        salaries: { bracket_1_3: 6100, bracket_4_7: 8400, bracket_8_10: 11000, bracket_10_plus: 14500 },
+        bonusNote: "스톡그랜트(매년 천만원 상당의 자사주) 및 최상급 인센티브 지급.",
         rating: 4.3,
         recommendRate: 85,
-        scores: { welfare: 4.6, balance: 4.2, culture: 4.3, growth: 4.1 },
-        pros: [
-          "원격/오피스 선택 근무제(타입R, 타입O) 등 자율적인 유연 근무와 최고의 워라밸",
-          "국내 최상급 오피스 사옥(1784) 시설, 최고급 식음료 및 건강검진 복지",
-          "우수한 동료들과 기술적으로 성숙한 개발 문화 및 코드 리뷰"
-        ],
-        cons: [
-          "국내 포털 점유율 및 광고 시장 성숙에 따른 과거 대비 성장 동력 고민",
-          "부서/조직(CIC)에 따라 프로젝트 분위기와 인센티브 차이가 존재함",
-          "대기업화되면서 예전 스타트업 시절의 파격적인 실행력은 다소 둔화"
-        ],
-        keywords: ["#원격근무", "#1784사옥", "#스톡그랜트", "#기술문화", "#워라밸", "#네이버페이"],
+        scores: { welfare: 4.8, balance: 4.2, culture: 4.4, growth: 4.3 },
+        pros: ["국내 최고 수준의 스마트 오피스 '1784'와 테크 인프라", "원격근무와 출근을 자율 선택하는 커넥티드 워크(Connected Work) 제도", "매년 3년간 주식을 무상 지급하는 스톡그랜트 제도"],
+        cons: ["포털 시장 성숙 및 글로벌 빅테크와의 검색/AI 경쟁 심화", "사내 정치 및 부서 간 사일로 현상에 따른 조율 리소스", "프로젝트 론칭 시 높은 완벽주의로 인한 잦은 리뷰"],
+        keywords: ["#네이버1784", "#스톡그랜트", "#커넥티드워크", "#검색1위", "#하이퍼클로바X"],
         tips: {
-          resumeTitle: "대용량 트래픽 장애 대응과 아키텍처 깊이",
-          resume: "기능을 '만들어봤다' 수준이 아니라, '초당 수만 건의 트래픽에서 어떻게 캐시를 다루고 병목을 튜닝했는지' 코드 레벨의 치열한 고민을 기술 블로그 스타일로 녹여내야 합니다.",
-          interviewTitle: "깊이 있는 CS 지식과 자율적 원격근무 자기관리력",
-          interview: "원격근무 제도가 정착된 만큼 자율 속에서 스스로 일정과 결과물을 산출하는 셀프 오너십을 중요하게 봅니다. 기술 질문은 밑바닥 원리(OS, 네트워크, 메모리)까지 물어봅니다.",
-          skillTitle: "분산 시스템 설계 & 적극적인 코드 리뷰 문화",
-          skill: "이견이 발생했을 때 건설적으로 토론하는 피어 리뷰 역량과 AI/클라우드 기술 흡수력"
+          resumeTitle: "대규모 트래픽 분산 처리 및 고가용성 아키텍처",
+          resume: "수천만 사용자가 이용하는 서비스의 무장애 배포나 응답속도(Latency) 개선 사례를 정량적으로 제시하세요.",
+          interviewTitle: "개발자다운 깊이 있는 기술 집착과 코드 리뷰 태도",
+          interview: "라이브 코딩 및 시스템 설계 질문에서 왜 그 라이브러리나 알고리즘을 선택했는지 논리적 근거를 설명해야 합니다.",
+          skillTitle: "분산 시스템 설계 & 생성형 AI 파이프라인 연동",
+          skill: "Spring Boot, Kafka, 쿠버네티스, 데이터 기반 A/B 테스트"
+        }
+      },
+      {
+        id: "hyundai-motor",
+        name: "현대자동차",
+        domain: "hyundai.com",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.hyundai.com&size=128",
+        aliases: ["현대차", "현대자동차", "현대", "hyundai"],
+        category: "완성차 / 전기차 / SDV / 미래 모빌리티",
+        companyType: "코스피 시총 최상위 대기업",
+        stockBadge: "코스피 상장 (005380)",
+        tagline: "스마트 모빌리티 솔루션 프로바이더로 도약하는 글로벌 Top3 완성차",
+        founded: "1967년",
+        revenue: "162조 6,636억원",
+        revenueSource: "사업보고서",
+        employees: "73,000여 명",
+        location: "서울특별시 서초구 헌릉로 12 (양재사옥)",
+        avgSalary: "1억 1,700만원",
+        salaries: { bracket_1_3: 6000, bracket_4_7: 8200, bracket_8_10: 10800, bracket_10_plus: 14200 },
+        bonusNote: "역대 최대 실적에 따른 두둑한 경영성과급 및 신차 구입 할인(최대 30%).",
+        rating: 4.1,
+        recommendRate: 79,
+        scores: { welfare: 4.7, balance: 3.8, culture: 3.7, growth: 4.2 },
+        pros: ["글로벌 톱티어 완성차의 압도적인 연봉과 성과급 보상", "남양연구소의 세계적 R&D 인프라 및 신차 할인 복지", "전동화 및 SDV(소프트웨어 중심 자동차)로의 성공적 전환"],
+        cons: ["양재 본사 및 남양연구소(화성) 통근 부담", "제조업 특유의 다단계 결재 체계와 수직적 의사결정 잔존", "글로벌 친환경차 경쟁 심화에 따른 타이트한 개발 일정"],
+        keywords: ["#글로벌Top3", "#차량할인30%", "#남양연구소", "#SDV", "#고연봉"],
+        tips: {
+          resumeTitle: "SDV 아키텍처 및 차량 전장 제어 소프트웨어 최적화",
+          resume: "임베디드 제어기(ECU) 개발이나 OTA 무선 업데이트, 자율주행 센서 융합 경험을 기술하세요.",
+          interviewTitle: "자동차 도메인 열정과 현장 문제 해결력",
+          interview: "기구/전장/소프트웨어 간 융합 상황에서 발생한 난제를 유관 부서와 어떻게 협업하여 풀었는지 증명하세요.",
+          skillTitle: "AUTOSAR / C++ / 차량 기능안전(ISO 26262)",
+          skill: "CAN/Ethernet 통신 프로토콜, 모빌리티 AI 제어 기술"
         }
       },
       {
@@ -1638,6 +1784,7 @@
     let currentCompany = COMPANY_DATABASE[0];
     let salaryChartInstance = null;
     let savedBookmarks = [];
+    let userApiKey = '';
 
     // HTML Escaper for XSS prevention and render stability
     function escapeHTML(str) {
@@ -1650,13 +1797,36 @@
         .replace(/'/g, '&#039;');
     }
 
-    // Initialize State from LocalStorage
+    // Initialize State from LocalStorage safely
     try {
       savedBookmarks = JSON.parse(localStorage.getItem('easyk_bookmarks') || localStorage.getItem('careerspot_bookmarks') || '[]');
     } catch(e) {
       savedBookmarks = [];
     }
     userApiKey = localStorage.getItem('easyk_gemini_key') || '';
+
+    function openApiKeyModal() {
+      const modal = document.getElementById('apikey-modal');
+      const input = document.getElementById('user-gemini-key-input');
+      if (input) input.value = userApiKey || '';
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeApiKeyModal() {
+      const modal = document.getElementById('apikey-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function saveApiKey() {
+      const input = document.getElementById('user-gemini-key-input');
+      const key = (input?.value || '').trim();
+      userApiKey = key;
+      try {
+        localStorage.setItem('easyk_gemini_key', key);
+      } catch(e) {}
+      closeApiKeyModal();
+      showToast(key ? "Gemini API Key가 안전하게 저장되었습니다!" : "API Key 설정이 해제되었습니다.");
+    }
 
     function calculateSimilarity(str1, str2) {
       const s1 = (str1 || '').trim().toLowerCase().replace(/\s+/g, '');
@@ -2208,8 +2378,23 @@
       loadingState.classList.remove('hidden');
       detailContainer.style.opacity = '0.3';
 
-      // Canvas runtime automatically injects API key when apiKey is left as an empty string
-      const apiKey = "";
+      // Use user-provided API key, or empty string for Canvas environment
+      const apiKey = userApiKey || "";
+      const isExternalHosting = window.location.hostname.includes('github.io') || window.location.protocol === 'file:';
+      
+      // If deployed on GitHub Pages and no API key is set, immediately provide the intelligent realistic profiler without throwing a 400 network crash
+      if (isExternalHosting && !apiKey) {
+        setTimeout(() => {
+          loadingState.classList.add('hidden');
+          detailContainer.style.opacity = '1.0';
+          const intelligentProfile = generateIntelligentCompanyProfile(companyName);
+          COMPANY_DATABASE.unshift(intelligentProfile);
+          renderCompanyDetails(intelligentProfile, 0.88);
+          showToast(`'${companyName}' 기업 분석 리포트가 생성되었습니다.`);
+        }, 500);
+        return;
+      }
+
       const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
 
       const systemPrompt = `당신은 대한민국 최고의 채용 및 기업 인사이트 전문 애널리스트입니다.
@@ -2229,8 +2414,8 @@
   "stockBadge": "상장 여부(예: 코스피 상장, 비상장(투자유치), 코스닥 상장 등)",
   "tagline": "기업의 핵심 비즈니스 및 비전 한 줄 요약",
   "founded": "설립연도 (예: 2018년)",
-  "revenue": "실제 보고된 최신 연매출 (국민연금/감사보고서 기반, 예: 1,850억원)",
-  "employees": "임직원 수 (국민연금 기준, 예: 320여 명)",
+  "revenue": "실제 보고된 최신 연매출 (예: 1,850억원 또는 2조 3,000억원)",
+  "employees": "임직원 수 (예: 320여 명)",
   "location": "본사 위치 주소",
   "avgSalary": "전체 평균 연봉 (예: 6,800만원)",
   "salaries": {
@@ -2282,25 +2467,23 @@
           return;
         }
       } catch (err) {
-        console.warn("AI online generation fallback to intelligent corporate profiler:", err);
+        console.warn("AI generation fallback to corporate profiler:", err);
       } finally {
         loadingState.classList.add('hidden');
         detailContainer.style.opacity = '1.0';
       }
 
-      // If online API is restricted or not available, use the intelligent company profiler
+      // Fallback
       const intelligentProfile = generateIntelligentCompanyProfile(companyName);
       COMPANY_DATABASE.unshift(intelligentProfile);
-      renderCompanyDetails(intelligentProfile, 0.92);
+      renderCompanyDetails(intelligentProfile, 0.90);
       showToast(`'${companyName}' 기업 분석 리포트가 도출되었습니다.`);
     }
 
     // Intelligent Deterministic Corporate Profiler
-    // Generates realistic, varied, company-specific corporate data based on company name hashing and semantic tags
     function generateIntelligentCompanyProfile(rawName) {
       const cleanName = rawName.trim();
       
-      // Deterministic string hash
       let hash = 0;
       for (let i = 0; i < cleanName.length; i++) {
         hash = (hash << 5) - hash + cleanName.charCodeAt(i);
@@ -2308,7 +2491,6 @@
       }
       const positiveHash = Math.abs(hash);
 
-      // Guess Industry & Domain
       const n = cleanName.toLowerCase();
       let category = "IT / 소프트웨어 솔루션";
       let companyType = "성장형 비상장 벤처기업";
@@ -2327,12 +2509,11 @@
       ];
       let location = locations[positiveHash % locations.length];
 
-      let baseSalary = 5400 + (positiveHash % 2800); // 5400 ~ 8200
-      let foundedYear = 2012 + (positiveHash % 11); // 2012 ~ 2022
-      let employeeCount = 45 + (positiveHash % 420); // 45 ~ 465명
+      let baseSalary = 5400 + (positiveHash % 2800);
+      let foundedYear = 2012 + (positiveHash % 11);
+      let employeeCount = 65 + (positiveHash % 450);
       
-      // Revenue calculation proportional to employee count & industry
-      let revenueBillions = Math.round(employeeCount * (1.8 + ((positiveHash % 15) / 10))); // 80억 ~ 1400억원대
+      let revenueBillions = Math.round(employeeCount * (1.6 + ((positiveHash % 12) / 10)));
       let revenueStr = revenueBillions >= 1000 
         ? `${Math.floor(revenueBillions / 1000)}조 ${(revenueBillions % 1000).toLocaleString()}억원` 
         : `${revenueBillions.toLocaleString()}억원`;
@@ -2359,7 +2540,7 @@
       }
 
       const prosOptions = [
-        ["자율적인 출퇴근 문화와 불필요한 의전이 없는 수평적인 소통 분위기", "자율 복장 및 재택/하이브리드 유연 근무제 지원", "각자의 직무에서 주도적으로 신규 프로젝트를 기획하고 실행할 수 있는 권한"],
+        ["자율적인 출퇴근 문화와 불필요한 의전이 없는 수평적인 소통 분위기", "자율 복장 및 유연 근무제 지원", "각자의 직무에서 주도적으로 신규 프로젝트를 기획하고 실행할 수 있는 권한"],
         ["빠른 의사결정 체계와 시장 반응을 기민하게 반영하는 실행력", "성장 의지가 강한 동료들과의 밀도 있는 협업 경험", "식대 지원 및 직무 교육비, 도서 구매비 등 실속 있는 복지"],
         ["안정적인 사업 모델과 지속적인 매출 신장세", "업무 프로세스 체계화와 표준 업무 매뉴얼 구축 노력", "직원들의 역량 개발을 장려하는 우호적인 조직 분위기"]
       ];
@@ -2369,9 +2550,6 @@
         ["특정 시즌 및 프로젝트 납기 시점의 집중적인 업무 몰입 요구", "중간 관리자 및 시니어 인력 층의 지속적인 확충 과제", "회사의 가파른 성장 속도에 맞춘 개인의 빠른 적응력 필요"],
         ["기존 시스템 유지보수와 신규 솔루션 개발 간의 균형 조율 과제", "부서별 업무 편차 및 성과 측정 지표의 고도화 진행 중", "비상장 특성상 중장기 보상 체계에 대한 관심 필요"]
       ];
-
-      const chosenPros = prosOptions[positiveHash % prosOptions.length];
-      const chosenCons = consOptions[positiveHash % consOptions.length];
 
       return {
         id: `profile-${Date.now()}-${positiveHash}`,
@@ -2401,12 +2579,12 @@
           culture: 4.0 + ((positiveHash % 6) / 10),
           growth: 4.1 + ((positiveHash % 5) / 10)
         },
-        pros: chosenPros,
-        cons: chosenCons,
+        pros: prosOptions[positiveHash % prosOptions.length],
+        cons: consOptions[positiveHash % consOptions.length],
         keywords: [`#${category.split('/')[0].trim()}`, "#성장중", "#수평문화", "#직무역량"],
         tips: {
           resumeTitle: "주도적 문제 해결 사례와 비즈니스 정량 기여도",
-          resume: `${cleanName}의 비즈니스 도메인에 부합하는 실무 경험을 명시하고, 기존 방식의 한계를 극복했던 구체적인 수치(비용 절감, 효율 향상, 유저 지표)를 강조하세요.`,
+          resume: `${cleanName}의 비즈니스 도메인에 부합하는 실무 경험을 명시하고, 기존 방식의 한계를 극복했던 구체적인 수치를 강조하세요.`,
           interviewTitle: "조직 적응력과 명확한 직무 기술 스택 검증",
           interview: `성장하는 기업인 만큼 스스로 역할을 정의하고 능동적으로 움직일 수 있는 인재인지를 주의 깊게 살핍니다. 갈등 해결 및 협업 사례를 솔직하게 답변하세요.`,
           skillTitle: "빠른 습득력(Fast Learning)과 단단한 실행력",

@@ -289,7 +289,7 @@
               <div class="w-10 h-10 rounded-xl bg-orange-100/70 text-brand-600 flex items-center justify-center shrink-0">
                 <i class="fa-solid fa-users text-base"></i>
               </div>
-              <span class="text-xs sm:text-sm font-semibold text-slate-500">임직원 수 (국민연금)</span>
+              <span class="text-xs sm:text-sm font-semibold text-slate-500">임직원 수</span>
             </div>
             <div class="text-right">
               <span id="company-employees" class="text-sm sm:text-base font-bold text-slate-800">124,000여 명</span>
@@ -678,7 +678,7 @@
         tagline: "초일류 글로벌 종합 전자·반도체 테크 리더",
         founded: "1969년",
         revenue: "258조 9,300억원",
-        revenueSource: "사업보고서·국세청",
+        revenueSource: "사업보고서",
         employees: "124,000여 명",
         location: "경기도 수원시 영통구 삼성로 129",
         avgSalary: "1억 1,500만원",
@@ -713,187 +713,95 @@
         }
       },
       {
-        id: "naver",
-        name: "네이버 (NAVER)",
-        domain: "navercorp.com",
-        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.navercorp.com&size=128",
-        aliases: ["네이버", "naver", "라인", "엔버"],
-        category: "인터넷 플랫폼 / AI / 검색",
-        companyType: "코스피 상장 IT플랫폼",
-        stockBadge: "코스피 상장 (035420)",
-        tagline: "대한민국 대표 검색 포털이자 글로벌 IT 테크 기업",
-        founded: "1999년",
-        revenue: "9조 6,700억원",
-        revenueSource: "국민연금·결산보고",
-        employees: "4,400여 명",
-        location: "경기도 성남시 분당구 정자일로 95 (1784)",
-        avgSalary: "1억 800만원",
+        id: "sk-hynix",
+        name: "SK하이닉스",
+        domain: "skhynix.com",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.skhynix.com&size=128",
+        aliases: ["하이닉스", "sk하이닉스", "hynix", "하닉", "에스케이하이닉스"],
+        category: "반도체 / AI 메모리 (HBM)",
+        companyType: "코스피 상장 대기업",
+        stockBadge: "코스피 상장 (000660)",
+        tagline: "HBM 글로벌 1위, 첨단 AI 메모리 반도체 선도기업",
+        founded: "1983년",
+        revenue: "32조 7,657억원",
+        revenueSource: "사업보고서",
+        employees: "32,000여 명",
+        location: "경기도 이천시 부발읍 경충대로 2091",
+        avgSalary: "1억 2,100만원",
+        salaries: {
+          bracket_1_3: 6100,
+          bracket_4_7: 8400,
+          bracket_8_10: 11200,
+          bracket_10_plus: 14600
+        },
+        bonusNote: "HBM 호황에 따른 초과이익분배금(PS) 및 생산성 격려금(PI) 대규모 지급.",
+        rating: 4.2,
+        recommendRate: 81,
+        scores: { welfare: 4.6, balance: 3.7, culture: 3.9, growth: 4.5 },
+        pros: [
+          "글로벌 AI 반도체(HBM) 1위로서의 압도적인 자부심과 높은 성과급",
+          "최고 수준의 연봉 테이블 및 사택, 의료비, 통근버스 등 막강한 복지",
+          "엔지니어 중심의 기술 고도화 문화와 대규모 설비 투자"
+        ],
+        cons: [
+          "이천/청주 등 지방 사업장 근무에 따른 라이프스타일 호불호",
+          "글로벌 반도체 사이클 및 다운턴 시기의 심리적 변동성",
+          "24시간 팹(FAB) 교대 및 양산 일정에 따른 업무 긴장감"
+        ],
+        keywords: ["#HBM1위", "#엔비디아파트너", "#성과급대박", "#이천본사", "#복지최상", "#반도체"],
+        tips: {
+          resumeTitle: "미세공정 수율 개선 및 반도체 신뢰성 검증",
+          resume: "HBM 패키징 및 고단화 적층 기술에 대한 학문적/실무적 이해를 바탕으로, 수율 손실을 줄인 실험 및 데이터 분석 경험을 기재하세요.",
+          interviewTitle: "직무 기술 면접(반도체 기초) 및 교대/현장 적응력",
+          interview: "소자, 공정, 회로 설계 등 전공 기초 지식을 깊게 파고들며, 사업장 근무에 대한 진정성과 팀원과의 결속력을 중점 평가합니다.",
+          skillTitle: "반도체 수율 통계 분석 & 공정 최적화 역량",
+          skill: "Python/R/JMP를 활용한 계측 데이터 통계 처리, 글로벌 소부장 벤더와의 협업력"
+        }
+      },
+      {
+        id: "lg-ensol",
+        name: "LG에너지솔루션",
+        domain: "lgensol.com",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.lgensol.com&size=128",
+        aliases: ["엔솔", "엘지에너지솔루션", "lg엔솔", "엘지엔솔", "배터리"],
+        category: "2차전지 / 전기차 배터리",
+        companyType: "코스피 시총 상위 대기업",
+        stockBadge: "코스피 상장 (373220)",
+        tagline: "전기차 시대를 선도하는 글로벌 No.1 배터리 제조 혁신 기업",
+        founded: "2020년",
+        revenue: "33조 7,455억원",
+        revenueSource: "사업보고서",
+        employees: "12,800여 명",
+        location: "서울특별시 영등포구 여의대로 108 (파크원타워1)",
+        avgSalary: "9,900만원",
         salaries: {
           bracket_1_3: 5600,
-          bracket_4_7: 7600,
-          bracket_8_10: 9800,
-          bracket_10_plus: 13000
+          bracket_4_7: 7800,
+          bracket_8_10: 10100,
+          bracket_10_plus: 13200
         },
-        bonusNote: "인센티브 및 스톡그랜트(주식 보상) 프로그램이 정기적으로 지원됩니다.",
-        rating: 4.3,
-        recommendRate: 85,
-        scores: { welfare: 4.6, balance: 4.2, culture: 4.3, growth: 4.1 },
-        pros: [
-          "원격/오피스 선택 근무제(타입R, 타입O) 등 자율적인 유연 근무와 최고의 워라밸",
-          "국내 최상급 오피스 사옥(1784) 시설, 최고급 식음료 및 건강검진 복지",
-          "우수한 동료들과 기술적으로 성숙한 개발 문화 및 코드 리뷰"
-        ],
-        cons: [
-          "국내 포털 점유율 및 광고 시장 성숙에 따른 과거 대비 성장 동력 고민",
-          "부서/조직(CIC)에 따라 프로젝트 분위기와 인센티브 차이가 존재함",
-          "대기업화되면서 예전 스타트업 시절의 파격적인 실행력은 다소 둔화"
-        ],
-        keywords: ["#원격근무", "#1784사옥", "#스톡그랜트", "#기술문화", "#워라밸", "#네이버페이"],
-        tips: {
-          resumeTitle: "대용량 트래픽 장애 대응과 아키텍처 깊이",
-          resume: "기능을 '만들어봤다' 수준이 아니라, '초당 수만 건의 트래픽에서 어떻게 캐시를 다루고 병목을 튜닝했는지' 코드 레벨의 치열한 고민을 기술 블로그 스타일로 녹여내야 합니다.",
-          interviewTitle: "깊이 있는 CS 지식과 자율적 원격근무 자기관리력",
-          interview: "원격근무 제도가 정착된 만큼 자율 속에서 스스로 일정과 결과물을 산출하는 셀프 오너십을 중요하게 봅니다. 기술 질문은 밑바닥 원리(OS, 네트워크, 메모리)까지 물어봅니다.",
-          skillTitle: "분산 시스템 설계 & 적극적인 코드 리뷰 문화",
-          skill: "이견이 발생했을 때 건설적으로 토론하는 피어 리뷰 역량과 AI/클라우드 기술 흡수력"
-        }
-      },
-      {
-        id: "toss",
-        name: "비바리퍼블리카 (토스)",
-        domain: "toss.im",
-        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://toss.im&size=128",
-        aliases: ["토스", "비바리퍼", "toss", "비바리퍼블리카", "토스증권", "토스뱅크", "토스페이먼츠"],
-        category: "핀테크 / 유니콘 금융",
-        companyType: "유니콘 핀테크 (비상장/IPO추진)",
-        stockBadge: "비상장 유니콘 (IPO 추진)",
-        tagline: "금융의 모든 것을 바꾸는 원앱 플랫폼 토스",
-        founded: "2013년",
-        revenue: "1조 9,556억원 (연간 첫 흑자 달성)",
-        revenueSource: "감사보고서·국민연금",
-        employees: "2,200여 명 (계열사 합산)",
-        location: "서울특별시 강남구 테헤란로 142 (아크플레이스)",
-        avgSalary: "1억 2,000만원",
-        salaries: {
-          bracket_1_3: 6500,
-          bracket_4_7: 8800,
-          bracket_8_10: 11800,
-          bracket_10_plus: 15500
-        },
-        bonusNote: "사이닝 보너스 및 파격적인 스톡옵션, 전 직무 업계 최상위권 보상 테이블 적용.",
+        bonusNote: "영업이익 연동 성과급 체계 적용 및 자기계발 복지포인트 지급.",
         rating: 3.9,
-        recommendRate: 72,
-        scores: { welfare: 4.8, balance: 2.8, culture: 4.1, growth: 4.7 },
+        recommendRate: 75,
+        scores: { welfare: 4.4, balance: 3.5, culture: 3.8, growth: 4.2 },
         pros: [
-          "업계 최고 수준의 파격적인 연봉과 성과 보상, 무제한 복지비 지원",
-          "사일로(Silo) 중심의 완전한 자율과 권한 위임, 빠른 실행 속도",
-          "탁월한 동료들과 함께 일하며 느끼는 폭발적인 커리어 성장감"
+          "여의도 파크원 최신식 오피스 인프라와 높은 직업적 자부심",
+          "글로벌 완성차 합작 프로젝트(JV)를 통한 북미/유럽 해외 출장 기회 풍부",
+          "LG 계열사 최고의 처우 및 다양한 임직원 복지제도"
         ],
         cons: [
-          "상대적으로 높은 업무 강도와 야근, 워라밸을 최우선하는 구직자에게는 부담",
-          "치열한 360도 다면 피드백 문화와 높은 성과 기대치로 인한 심리적 압박",
-          "수시로 변하는 빠른 우선순위로 인한 잦은 피봇 대응 필요"
+          "글로벌 전기차 캐즘(일시적 수요 둔화)에 따른 사업 목표치 달성 압박",
+          "오창 공장 및 대전 R&D 연구소와 서울 본사 간의 협업 조율 리소스",
+          "급속한 조직 팽창으로 인한 부서별 업무 강도 편차"
         ],
-        keywords: ["#최고연봉", "#사일로", "#폭풍성장", "#아크플레이스", "#자율과책임", "#야근각오"],
+        keywords: ["#배터리1위", "#여의도파크원", "#북미JV", "#대기업복지", "#글로벌출장"],
         tips: {
-          resumeTitle: "기존 관행을 깬 제품 혁신과 압도적 유저 임팩트",
-          resume: "형식적인 자격증이나 어학 점수는 무의미합니다. 기존의 번거로운 프로세스를 사용자 관점에서 180도 뒤집어 성공시킨 '제품 오너십(DRI) 사례'를 직관적으로 증명하세요.",
-          interviewTitle: "극한의 Culture Fit 검증 & 회복탄력성 테스트",
-          interview: "사일로(소단위 독립 팀) 단위로 엄청난 업무 몰입을 요구하므로, 갈등 상황에서 '더 나은 제품'을 위해 직설적으로 피드백을 주고받을 수 있는 단단한 멘탈인지 날카롭게 검증합니다.",
-          skillTitle: "빠른 가설 검증(A/B 테스트) & 고강도 회복탄력성",
-          skill: "스스로 일감을 발굴하는 주도성, 실패를 두려워하지 않는 실험 정신, 데이터 중심의 사고"
-        }
-      },
-      {
-        id: "kakao",
-        name: "카카오 (Kakao)",
-        domain: "kakaocorp.com",
-        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.kakaocorp.com&size=128",
-        aliases: ["카카오", "카톡", "kakao", "카카오엔터테인먼트", "카카오페이", "카뱅"],
-        category: "모바일 플랫폼 / 메신저 / 콘텐츠",
-        companyType: "코스피 상장 IT플랫폼",
-        stockBadge: "코스피 상장 (035720)",
-        tagline: "사람과 세상을 연결하는 대한민국 1위 메신저 생태계",
-        founded: "2010년",
-        revenue: "7조 5,500억원",
-        revenueSource: "사업보고서·국민연금",
-        employees: "3,900여 명",
-        location: "제주특별자치도 제주시 첨단로 242 (판교오피스 근무 중심)",
-        avgSalary: "1억 200만원",
-        salaries: {
-          bracket_1_3: 5400,
-          bracket_4_7: 7400,
-          bracket_8_10: 9500,
-          bracket_10_plus: 12500
-        },
-        bonusNote: "근속 및 조직 성과에 따른 스톡옵션 및 인센티브 차등.",
-        rating: 3.8,
-        recommendRate: 70,
-        scores: { welfare: 4.4, balance: 3.9, culture: 4.0, growth: 3.7 },
-        pros: [
-          "영어 이름 호칭과 수평적인 토론 문화, 자유로운 복장과 소통",
-          "카카오톡이라는 전국민 플랫폼 트래픽을 직접 다루는 특별한 경험",
-          "유연한 근무 형태와 대기업 수준의 휴가 및 가족 복지 프로그램"
-        ],
-        cons: [
-          "최근 경영진 및 지배구조 이슈에 따른 조직 개편 및 잦은 정책 변경",
-          "계열사 분사에 따른 각 법인별 처우 및 복지 격차 심화",
-          "조직 간 협업 시 합의 과정이 길어져 예전보다 느려진 추진력"
-        ],
-        keywords: ["#카톡", "#영어이름", "#수평문화", "#판교아지트", "#제주본사", "#자유로움"],
-        tips: {
-          resumeTitle: "전국민 서비스의 장애 없는 안정성과 직관적 UX",
-          resume: "수천만 사용자가 쓰는 메신저 기반 서비스인 만큼, 단 1분의 장애도 용납되지 않는 무중단 배포 및 트래픽 폭증 대응 사례를 매력적으로 풀어내야 합니다.",
-          interviewTitle: "수평적 의사결정에서의 합의 도출과 충돌 해결",
-          interview: "영어 닉네임을 쓰고 직급이 없는 수평 문화이므로, 직속 상사가 지시하지 않아도 동료들을 설득하여 프로덕트를 전진시켰던 '정치 없는 협업 경험'을 중점 질의합니다.",
-          skillTitle: "대규모 분산 환경 최적화 & 유관 부서 조율 능력",
-          skill: "카카오 공동체(계열사) 간 연계 서비스에 대한 비즈니스 이해도 및 유연한 소통 감각"
-        }
-      },
-      {
-        id: "daangn",
-        name: "당근 (당근마켓)",
-        domain: "daangn.com",
-        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.daangn.com&size=128",
-        aliases: ["당근", "당근마켓", "daangn", "당근페이"],
-        category: "지역 기반 C2C 하이퍼로컬 플랫폼",
-        companyType: "국내 흑자전환 테크 유니콘",
-        stockBadge: "비상장 테크기업",
-        tagline: "이웃과 함께하는 가장 따뜻하고 활발한 동네 커뮤니티",
-        founded: "2015년",
-        revenue: "2,707억원 (연결 기준 가파른 성장)",
-        revenueSource: "국민연금·감사보고서",
-        employees: "450여 명",
-        location: "서울특별시 서초구 강남대로 465 (교보강남타워)",
-        avgSalary: "8,900만원",
-        salaries: {
-          bracket_1_3: 5500,
-          bracket_4_7: 7500,
-          bracket_8_10: 9600,
-          bracket_10_plus: 12500
-        },
-        bonusNote: "스톡옵션 부여 기회 및 식대/자기계발비 전액 법인카드 지원.",
-        rating: 4.4,
-        recommendRate: 88,
-        scores: { welfare: 4.5, balance: 4.1, culture: 4.7, growth: 4.3 },
-        pros: [
-          "상호 존중과 신뢰 기반의 투명한 정보 공유 및 건강한 개발 문화",
-          "식대 및 장비 지원 무제한, 업무에만 몰입할 수 있는 최상의 환경",
-          "하이퍼로컬 및 글로벌 확장(캐나다, 영국 등)으로 인한 사업 다각화"
-        ],
-        cons: [
-          "글로벌 진출 및 신규 비즈니스 모델 발굴에 대한 전사적 스트레스",
-          "높은 채용 기준과 컬처핏 필터링으로 인재 확충 속도가 신중함",
-          "비상장 상태로 주식 현금화 시점이 다소 유동적임"
-        ],
-        keywords: ["#매너온도", "#따뜻한문화", "#자율출퇴근", "#법카무제한", "#하이퍼로컬", "#글로벌"],
-        tips: {
-          resumeTitle: "따뜻한 사용자 공감과 커뮤니티 신뢰 구축 사례",
-          resume: "단순한 거래 기능 구현보다는 사기 방지, 동네 인증, 이웃 간 신뢰 매너온도 같은 '사람 중심의 문제 해결'에 집착해 본 경험을 정성적/정량적으로 서술해야 공감을 얻습니다.",
-          interviewTitle: "가장 엄격한 '동료 평가 컬처핏' 심층 인터뷰",
-          interview: "실무진 면접 통과 후에도 동료 인터뷰를 매우 길게 봅니다. 오만하지 않고 겸손하며, 피드백을 스펀지처럼 흡수할 수 있는 '함께 일하고 싶은 선한 동료'인지를 검증합니다.",
-          skillTitle: "데이터 기반 하이퍼로컬 분석 & 클린 코드 작성",
-          skill: "오픈소스 친화적 개발 태도, 글로벌 서비스 다국어 확장 아키텍처 이해도"
+          resumeTitle: "배터리 수명/안전성 테스트 및 제조 공정 혁신",
+          resume: "양극재/음극재 화학 특성 또는 BMS(배터리관리시스템) 펌웨어, 대규모 설비 수율 안정화 경험을 수치 기반으로 기술하세요.",
+          interviewTitle: "공학적 원리 규명 및 글로벌 협업 유연성",
+          interview: "배터리 화재 예방 및 불량률 최소화에 관한 기술 지식과 함께 미국/유럽 완성차 고객사와의 밤낮없는 소통을 조율할 수 있는 유연성을 봅니다.",
+          skillTitle: "공정 데이터 분석 & 해외 현지 커뮤니케이션",
+          skill: "품질 관리(QC/QA), 화학/재료 통계 툴(Minitab), 영어 프레젠테이션 역량"
         }
       },
       {
@@ -908,7 +816,7 @@
         tagline: "전기차와 SDV로 인류의 이동 자유를 실현하는 모빌리티 선도기업",
         founded: "1967년",
         revenue: "162조 6,600억원",
-        revenueSource: "사업보고서·국세청",
+        revenueSource: "사업보고서",
         employees: "73,000여 명",
         location: "서울특별시 서초구 헌릉로 12 (양재사옥)",
         avgSalary: "1억 1,700만원",
@@ -943,6 +851,282 @@
         }
       },
       {
+        id: "kia",
+        name: "기아 (Kia)",
+        domain: "kia.com",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.kia.com&size=128",
+        aliases: ["기아", "기아자동차", "kia", "기아차"],
+        category: "완성차 / PBV 모빌리티",
+        companyType: "코스피 상장 대기업",
+        stockBadge: "코스피 상장 (000270)",
+        tagline: "지속가능한 모빌리티 솔루션을 제시하는 글로벌 완성차",
+        founded: "1944년",
+        revenue: "99조 8,084억원",
+        revenueSource: "사업보고서",
+        employees: "35,800여 명",
+        location: "서울특별시 서초구 헌릉로 12",
+        avgSalary: "1억 1,500만원",
+        salaries: {
+          bracket_1_3: 5800,
+          bracket_4_7: 8000,
+          bracket_8_10: 10600,
+          bracket_10_plus: 13800
+        },
+        bonusNote: "사상 최대 영업이익률 달성에 따른 성과급 및 차량 할인.",
+        rating: 4.1,
+        recommendRate: 79,
+        scores: { welfare: 4.7, balance: 3.9, culture: 3.7, growth: 4.1 },
+        pros: [
+          "완성차 최고 수준의 영업이익률 및 현대차그룹 동등 수준의 복지/차량 할인",
+          "젊고 트렌디해진 디자인 아이덴티티와 EV6/EV9 글로벌 흥행",
+          "높은 고용 안정성과 우수한 정년 보장 환경"
+        ],
+        cons: [
+          "그룹사 본사(양재) 공통의 보고 체계 및 보수적 의사결정",
+          "공장 및 연구소(남양/소하리/화성) 근무 시 통근 소요",
+          "부서 간 실적 경쟁과 타이트한 생산/출하 일정"
+        ],
+        keywords: ["#기아차", "#영업이익률최고", "#차량할인", "#EV9", "#양재사옥"],
+        tips: {
+          resumeTitle: "글로벌 완성차 브랜딩 및 전동화 부품 안정성",
+          resume: "기아의 고유한 디자인 철학(오퍼짓 유나이티드)과 PBV(목적기반모빌리티) 관련 기술/기획 경험을 어필하세요.",
+          interviewTitle: "실용적이고 빠른 실행력과 그룹사 협업 조화",
+          interview: "현대차와 유사하면서도 보다 트렌디하고 민첩하게 시장 트렌드를 읽어내는 감각을 중요하게 평가합니다.",
+          skillTitle: "모빌리티 커넥티비티 & 글로벌 딜러십 네트워크",
+          skill: "차량 데이터 분석, 전장 아키텍처, 공급망 리스크 관리"
+        }
+      },
+      {
+        id: "naver",
+        name: "네이버 (NAVER)",
+        domain: "navercorp.com",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.navercorp.com&size=128",
+        aliases: ["네이버", "naver", "라인", "엔버"],
+        category: "인터넷 플랫폼 / AI / 검색",
+        companyType: "코스피 상장 IT플랫폼",
+        stockBadge: "코스피 상장 (035420)",
+        tagline: "대한민국 대표 검색 포털이자 글로벌 IT 테크 기업",
+        founded: "1999년",
+        revenue: "9조 6,700억원",
+        revenueSource: "사업보고서",
+        employees: "4,400여 명",
+        location: "경기도 성남시 분당구 정자일로 95 (1784)",
+        avgSalary: "1억 800만원",
+        salaries: {
+          bracket_1_3: 5600,
+          bracket_4_7: 7600,
+          bracket_8_10: 9800,
+          bracket_10_plus: 13000
+        },
+        bonusNote: "인센티브 및 스톡그랜트(주식 보상) 프로그램이 정기적으로 지원됩니다.",
+        rating: 4.3,
+        recommendRate: 85,
+        scores: { welfare: 4.6, balance: 4.2, culture: 4.3, growth: 4.1 },
+        pros: [
+          "원격/오피스 선택 근무제(타입R, 타입O) 등 자율적인 유연 근무와 최고의 워라밸",
+          "국내 최상급 오피스 사옥(1784) 시설, 최고급 식음료 및 건강검진 복지",
+          "우수한 동료들과 기술적으로 성숙한 개발 문화 및 코드 리뷰"
+        ],
+        cons: [
+          "국내 포털 점유율 및 광고 시장 성숙에 따른 과거 대비 성장 동력 고민",
+          "부서/조직(CIC)에 따라 프로젝트 분위기와 인센티브 차이가 존재함",
+          "대기업화되면서 예전 스타트업 시절의 파격적인 실행력은 다소 둔화"
+        ],
+        keywords: ["#원격근무", "#1784사옥", "#스톡그랜트", "#기술문화", "#워라밸", "#네이버페이"],
+        tips: {
+          resumeTitle: "대용량 트래픽 장애 대응과 아키텍처 깊이",
+          resume: "기능을 '만들어봤다' 수준이 아니라, '초당 수만 건의 트래픽에서 어떻게 캐시를 다루고 병목을 튜닝했는지' 코드 레벨의 치열한 고민을 기술 블로그 스타일로 녹여내야 합니다.",
+          interviewTitle: "깊이 있는 CS 지식과 자율적 원격근무 자기관리력",
+          interview: "원격근무 제도가 정착된 만큼 자율 속에서 스스로 일정과 결과물을 산출하는 셀프 오너십을 중요하게 봅니다. 기술 질문은 밑바닥 원리(OS, 네트워크, 메모리)까지 물어봅니다.",
+          skillTitle: "분산 시스템 설계 & 적극적인 코드 리뷰 문화",
+          skill: "이견이 발생했을 때 건설적으로 토론하는 피어 리뷰 역량과 AI/클라우드 기술 흡수력"
+        }
+      },
+      {
+        id: "kakao",
+        name: "카카오 (Kakao)",
+        domain: "kakaocorp.com",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.kakaocorp.com&size=128",
+        aliases: ["카카오", "카톡", "kakao", "카카오엔터테인먼트", "카카오페이", "카뱅"],
+        category: "모바일 플랫폼 / 메신저 / 콘텐츠",
+        companyType: "코스피 상장 IT플랫폼",
+        stockBadge: "코스피 상장 (035720)",
+        tagline: "사람과 세상을 연결하는 대한민국 1위 메신저 생태계",
+        founded: "2010년",
+        revenue: "7조 5,500억원",
+        revenueSource: "사업보고서",
+        employees: "3,900여 명",
+        location: "제주특별자치도 제주시 첨단로 242 (판교오피스 근무 중심)",
+        avgSalary: "1억 200만원",
+        salaries: {
+          bracket_1_3: 5400,
+          bracket_4_7: 7400,
+          bracket_8_10: 9500,
+          bracket_10_plus: 12500
+        },
+        bonusNote: "근속 및 조직 성과에 따른 스톡옵션 및 인센티브 차등.",
+        rating: 3.8,
+        recommendRate: 70,
+        scores: { welfare: 4.4, balance: 3.9, culture: 4.0, growth: 3.7 },
+        pros: [
+          "영어 이름 호칭과 수평적인 토론 문화, 자유로운 복장과 소통",
+          "카카오톡이라는 전국민 플랫폼 트래픽을 직접 다루는 특별한 경험",
+          "유연한 근무 형태와 대기업 수준의 휴가 및 가족 복지 프로그램"
+        ],
+        cons: [
+          "최근 경영진 및 지배구조 이슈에 따른 조직 개편 및 잦은 정책 변경",
+          "계열사 분사에 따른 각 법인별 처우 및 복지 격차 심화",
+          "조직 간 협업 시 합의 과정이 길어져 예전보다 느려진 추진력"
+        ],
+        keywords: ["#카톡", "#영어이름", "#수평문화", "#판교아지트", "#제주본사", "#자유로움"],
+        tips: {
+          resumeTitle: "전국민 서비스의 장애 없는 안정성과 직관적 UX",
+          resume: "수천만 사용자가 쓰는 메신저 기반 서비스인 만큼, 단 1분의 장애도 용납되지 않는 무중단 배포 및 트래픽 폭증 대응 사례를 매력적으로 풀어내야 합니다.",
+          interviewTitle: "수평적 의사결정에서의 합의 도출과 충돌 해결",
+          interview: "영어 닉네임을 쓰고 직급이 없는 수평 문화이므로, 직속 상사가 지시하지 않아도 동료들을 설득하여 프로덕트를 전진시켰던 '정치 없는 협업 경험'을 중점 질의합니다.",
+          skillTitle: "대규모 분산 환경 최적화 & 유관 부서 조율 능력",
+          skill: "카카오 공동체(계열사) 간 연계 서비스에 대한 비즈니스 이해도 및 유연한 소통 감각"
+        }
+      },
+      {
+        id: "toss",
+        name: "비바리퍼블리카 (토스)",
+        domain: "toss.im",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://toss.im&size=128",
+        aliases: ["토스", "비바리퍼", "toss", "비바리퍼블리카", "토스증권", "토스뱅크", "토스페이먼츠"],
+        category: "핀테크 / 유니콘 금융",
+        companyType: "유니콘 핀테크 (비상장/IPO추진)",
+        stockBadge: "비상장 유니콘 (IPO 추진)",
+        tagline: "금융의 모든 것을 바꾸는 원앱 플랫폼 토스",
+        founded: "2013년",
+        revenue: "1조 9,556억원",
+        revenueSource: "감사보고서",
+        employees: "2,200여 명",
+        location: "서울특별시 강남구 테헤란로 142 (아크플레이스)",
+        avgSalary: "1억 2,000만원",
+        salaries: {
+          bracket_1_3: 6500,
+          bracket_4_7: 8800,
+          bracket_8_10: 11800,
+          bracket_10_plus: 15500
+        },
+        bonusNote: "사이닝 보너스 및 파격적인 스톡옵션, 전 직무 업계 최상위권 보상 테이블 적용.",
+        rating: 3.9,
+        recommendRate: 72,
+        scores: { welfare: 4.8, balance: 2.8, culture: 4.1, growth: 4.7 },
+        pros: [
+          "업계 최고 수준의 파격적인 연봉과 성과 보상, 무제한 복지비 지원",
+          "사일로(Silo) 중심의 완전한 자율과 권한 위임, 빠른 실행 속도",
+          "탁월한 동료들과 함께 일하며 느끼는 폭발적인 커리어 성장감"
+        ],
+        cons: [
+          "상대적으로 높은 업무 강도와 야근, 워라밸을 최우선하는 구직자에게는 부담",
+          "치열한 360도 다면 피드백 문화와 높은 성과 기대치로 인한 심리적 압박",
+          "수시로 변하는 빠른 우선순위로 인한 잦은 피봇 대응 필요"
+        ],
+        keywords: ["#최고연봉", "#사일로", "#폭풍성장", "#아크플레이스", "#자율과책임", "#야근각오"],
+        tips: {
+          resumeTitle: "기존 관행을 깬 제품 혁신과 압도적 유저 임팩트",
+          resume: "형식적인 자격증이나 어학 점수는 무의미합니다. 기존의 번거로운 프로세스를 사용자 관점에서 180도 뒤집어 성공시킨 '제품 오너십(DRI) 사례'를 직관적으로 증명하세요.",
+          interviewTitle: "극한의 Culture Fit 검증 & 회복탄력성 테스트",
+          interview: "사일로(소단위 독립 팀) 단위로 엄청난 업무 몰입을 요구하므로, 갈등 상황에서 '더 나은 제품'을 위해 직설적으로 피드백을 주고받을 수 있는 단단한 멘탈인지 날카롭게 검증합니다.",
+          skillTitle: "빠른 가설 검증(A/B 테스트) & 고강도 회복탄력성",
+          skill: "스스로 일감을 발굴하는 주도성, 실패를 두려워하지 않는 실험 정신, 데이터 중심의 사고"
+        }
+      },
+      {
+        id: "dunamoo",
+        name: "두나무 (업비트)",
+        domain: "dunamu.com",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://dunamu.com&size=128",
+        aliases: ["두나무", "업비트", "증권플러스", "dunamu", "upbit"],
+        category: "블록체인 / 핀테크 / 가상자산",
+        companyType: "국내 1위 가상자산 테크 대기업",
+        stockBadge: "비상장 대기업",
+        tagline: "대한민국 최대 가상자산 거래소 업비트와 증권플러스를 만드는 금융 테크",
+        founded: "2012년",
+        revenue: "1조 1,531억원",
+        revenueSource: "사업보고서",
+        employees: "600여 명",
+        location: "서울특별시 강남구 테헤란로 4길 14 (미림타워)",
+        avgSalary: "1억 3,500만원",
+        salaries: {
+          bracket_1_3: 7000,
+          bracket_4_7: 9800,
+          bracket_8_10: 13000,
+          bracket_10_plus: 17000
+        },
+        bonusNote: "가상자산 시장 호황기 연봉 수백 %에 달하는 압도적 성과급 지급 이력.",
+        rating: 4.1,
+        recommendRate: 80,
+        scores: { welfare: 4.9, balance: 3.6, culture: 4.1, growth: 4.3 },
+        pros: [
+          "금융 및 IT 통틀어 업계 최상위권의 파격적인 급여 및 성과급 보상",
+          "초대형 동시접속 트래픽과 가상자산 대규모 실시간 거래 엔진 체계",
+          "강남역 인근 최고급 시설 사옥 및 업계 최고 수준의 복지 지원"
+        ],
+        cons: [
+          "가상자산 시장 사이클(불장/빙하기)에 따른 대외 환경 변동성",
+          "금융 규제 및 당국 가이드라인 대응에 따른 엄격한 컴플라이언스",
+          "24시간 365일 돌아가는 거래소 시스템 특유의 장애 긴장도"
+        ],
+        keywords: ["#업비트", "#초고연봉", "#강남역", "#블록체인1위", "#성과급대박", "#미림타워"],
+        tips: {
+          resumeTitle: "밀리초 단위 대용량 금융 트랜잭션 무결성 보장",
+          resume: "동시호가 및 실시간 체결 엔진 최적화, 정산 오류 방지 등 금융 결제/가상자산 보안 경험을 정밀하게 적시하세요.",
+          interviewTitle: "거래소 인프라 안정성에 대한 집착과 도덕성 검증",
+          interview: "사소한 버그가 수십억 원의 금융 손실로 이어지는 환경이므로, 꼼꼼한 코드 검증 습관과 철저한 직업 윤리의식을 검증합니다.",
+          skillTitle: "고성능 분산 메모리 DB & 블록체인 노드 인프라",
+          skill: "Go / C++ / Java 기반 대용량 처리, 트래픽 폭증 방어 아키텍처"
+        }
+      },
+      {
+        id: "daangn",
+        name: "당근 (당근마켓)",
+        domain: "daangn.com",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.daangn.com&size=128",
+        aliases: ["당근", "당근마켓", "daangn", "당근페이"],
+        category: "지역 기반 C2C 하이퍼로컬 플랫폼",
+        companyType: "국내 흑자전환 테크 유니콘",
+        stockBadge: "비상장 테크기업",
+        tagline: "이웃과 함께하는 가장 따뜻하고 활발한 동네 커뮤니티",
+        founded: "2015년",
+        revenue: "2,707억원",
+        revenueSource: "감사보고서",
+        employees: "450여 명",
+        location: "서울특별시 서초구 강남대로 465 (교보강남타워)",
+        avgSalary: "8,900만원",
+        salaries: {
+          bracket_1_3: 5500,
+          bracket_4_7: 7500,
+          bracket_8_10: 9600,
+          bracket_10_plus: 12500
+        },
+        bonusNote: "스톡옵션 부여 기회 및 식대/자기계발비 전액 법인카드 지원.",
+        rating: 4.4,
+        recommendRate: 88,
+        scores: { welfare: 4.5, balance: 4.1, culture: 4.7, growth: 4.3 },
+        pros: [
+          "상호 존중과 신뢰 기반의 투명한 정보 공유 및 건강한 개발 문화",
+          "식대 및 장비 지원 무제한, 업무에만 몰입할 수 있는 최상의 환경",
+          "하이퍼로컬 및 글로벌 확장(캐나다, 영국 등)으로 인한 사업 다각화"
+        ],
+        cons: [
+          "글로벌 진출 및 신규 비즈니스 모델 발굴에 대한 전사적 스트레스",
+          "높은 채용 기준과 컬처핏 필터링으로 인재 확충 속도가 신중함",
+          "비상장 상태로 주식 현금화 시점이 다소 유동적임"
+        ],
+        keywords: ["#매너온도", "#따뜻한문화", "#자율출퇴근", "#법카무제한", "#하이퍼로컬", "#글로벌"],
+        tips: {
+          resumeTitle: "따뜻한 사용자 공감과 커뮤니티 신뢰 구축 사례",
+          resume: "단순한 거래 기능 구현보다는 사기 방지, 동네 인증, 이웃 간 신뢰 매너온도 같은 '사람 중심의 문제 해결'에 집착해 본 경험을 정성적/정량적으로 서술해야 공감을 얻습니다.",
+          interviewTitle: "가장 엄격한 '동료 평가 컬처핏' 심층 인터뷰",
+          interview: "실무진 면접 통과 후에도 동료 인터뷰를 매우 길게 봅니다. 오만하지 않고 겸손하며, 피드백을 스펀지처럼 흡수할 수 있는 '함께 일하고 싶은 선한 동료'인지를 검증합니다.",
+          skillTitle: "데이터 기반 하이퍼로컬 분석 & 클린 코드 작성",
+          skill: "오픈소스 친화적 개발 태도, 글로벌 서비스 다국어 확장 아키텍처 이해도"
+        }
+      },
+      {
         id: "coupang",
         name: "쿠팡 (Coupang)",
         domain: "coupang.com",
@@ -953,11 +1137,11 @@
         stockBadge: "뉴욕증시 상장 (CPNG)",
         tagline: "고객이 '쿠팡 없이 어떻게 살았을까?' 생각하게 만드는 혁신",
         founded: "2010년",
-        revenue: "31조 8,000억원 (SEC 공시)",
-        revenueSource: "SEC보고서·국민연금",
+        revenue: "31조 8,000억원",
+        revenueSource: "SEC보고서",
         employees: "68,000여 명",
         location: "서울특별시 송파구 송파대로 570 (타워730)",
-        avgSalary: "9,800만원 (개발/기획 직군은 1억 3천+)",
+        avgSalary: "9,800만원",
         salaries: {
           bracket_1_3: 6000,
           bracket_4_7: 8200,
@@ -999,8 +1183,8 @@
         stockBadge: "외국계 모기업 (비상장)",
         tagline: "좋은 음식을 먹고 싶은 곳에서, 배달의민족",
         founded: "2010년",
-        revenue: "3조 4,155억원 (실제 감사보고서)",
-        revenueSource: "감사보고서·국민연금",
+        revenue: "3조 4,155억원",
+        revenueSource: "감사보고서",
         employees: "2,100여 명",
         location: "서울특별시 송파구 위례성대로 2 (더큰집 사옥)",
         avgSalary: "9,500만원",
@@ -1035,51 +1219,6 @@
         }
       },
       {
-        id: "sk-hynix",
-        name: "SK하이닉스",
-        domain: "skhynix.com",
-        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.skhynix.com&size=128",
-        aliases: ["하이닉스", "sk하이닉스", "hynix", "하닉"],
-        category: "반도체 / AI 메모리 (HBM)",
-        companyType: "코스피 상장 대기업",
-        stockBadge: "코스피 상장 (000660)",
-        tagline: "HBM 글로벌 1위, 첨단 AI 메모리 반도체 선도기업",
-        founded: "1983년",
-        revenue: "32조 7,657억원 (연결 기준)",
-        employees: "32,000여 명",
-        location: "경기도 이천시 부발읍 경충대로 2091",
-        avgSalary: "1억 2,100만원",
-        salaries: {
-          bracket_1_3: 6100,
-          bracket_4_7: 8400,
-          bracket_8_10: 11200,
-          bracket_10_plus: 14600
-        },
-        bonusNote: "HBM 호황에 따른 초과이익분배금(PS) 및 생산성 격려금(PI) 대규모 지급.",
-        rating: 4.2,
-        recommendRate: 81,
-        scores: { welfare: 4.6, balance: 3.7, culture: 3.9, growth: 4.5 },
-        pros: [
-          "글로벌 AI 반도체(HBM) 1위로서의 압도적인 자부심과 높은 성과급",
-          "최고 수준의 연봉 테이블 및 사택, 의료비, 통근버스 등 막강한 복지",
-          "엔지니어 중심의 기술 고도화 문화와 대규모 설비 투자"
-        ],
-        cons: [
-          "이천/청주 등 지방 사업장 근무에 따른 라이프스타일 호불호",
-          "글로벌 반도체 사이클 및 다운턴 시기의 심리적 변동성",
-          "24시간 팹(FAB) 교대 및 양산 일정에 따른 업무 긴장감"
-        ],
-        keywords: ["#HBM1위", "#엔비디아파트너", "#성과급대박", "#이천본사", "#복지최상", "#반도체"],
-        tips: {
-          resumeTitle: "미세공정 수율 개선 및 반도체 신뢰성 검증",
-          resume: "HBM 패키징 및 고단화 적층 기술에 대한 학문적/실무적 이해를 바탕으로, 수율 손실을 줄인 실험 및 데이터 분석 경험을 기재하세요.",
-          interviewTitle: "직무 기술 면접(반도체 기초) 및 교대/현장 적응력",
-          interview: "소자, 공정, 회로 설계 등 전공 기초 지식을 깊게 파고들며, 사업장 근무에 대한 진정성과 팀원과의 결속력을 중점 평가합니다.",
-          skillTitle: "반도체 수율 통계 분석 & 공정 최적화 역량",
-          skill: "Python/R/JMP를 활용한 계측 데이터 통계 처리, 글로벌 소부장 벤더와의 협업력"
-        }
-      },
-      {
         id: "krafton",
         name: "크래프톤 (KRAFTON)",
         domain: "krafton.com",
@@ -1090,7 +1229,8 @@
         stockBadge: "코스피 상장 (259960)",
         tagline: "전 세계 게이머를 연결하는 배틀그라운드 신화의 주역",
         founded: "2007년",
-        revenue: "1조 9,106억원 (역대 최대 실적 달성)",
+        revenue: "1조 9,106억원",
+        revenueSource: "사업보고서",
         employees: "1,750여 명",
         location: "서울특별시 강남구 테헤란로 231 (센터필드)",
         avgSalary: "1억 1,000만원",
@@ -1125,6 +1265,52 @@
         }
       },
       {
+        id: "nexon",
+        name: "넥슨코리아 (NEXON)",
+        domain: "nexon.com",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.nexon.com&size=128",
+        aliases: ["넥슨", "nexon", "넥슨코리아", "메이플", "던파", "FC온라인"],
+        category: "게임 개발 / 메가 프랜차이즈 / 라이브 서비스",
+        companyType: "국내 1위 글로벌 게임 대기업",
+        stockBadge: "일본 상장 모기업 자회사",
+        tagline: "메이플스토리, 던전앤파이터 등 글로벌 메가 IP를 보유한 게임 명가",
+        founded: "1994년",
+        revenue: "3조 9,323억원",
+        revenueSource: "결산공시",
+        employees: "3,800여 명",
+        location: "경기도 성남시 분당구 판교로 256번길 7 (넥슨사옥)",
+        avgSalary: "9,600만원",
+        salaries: {
+          bracket_1_3: 5400,
+          bracket_4_7: 7500,
+          bracket_8_10: 9900,
+          bracket_10_plus: 13200
+        },
+        bonusNote: "프로젝트 론칭 마일스톤 및 라이브 게임 성과에 따른 격려금 지급.",
+        rating: 4.1,
+        recommendRate: 81,
+        scores: { welfare: 4.6, balance: 3.9, culture: 4.2, growth: 4.0 },
+        pros: [
+          "판교 대표 사옥과 최고 수준의 사내 식당, 피트니스 및 어린이집 복지",
+          "탄탄한 캐시카우 IP(던파, 메이플, FC온라인) 기반의 압도적인 안정성",
+          "자체 게임 개발 공모전 및 창작을 장려하는 우수한 개발 문화"
+        ],
+        cons: [
+          "대기업화에 따른 신규 프로젝트 의사결정 프로세스 지연",
+          "프로젝트/라이브 본부별 성과급 및 야근 빈도 격차",
+          "기존 레거시 코드베이스 유지보수와 신규 기술 도입 간의 조율"
+        ],
+        keywords: ["#판교1등복지", "#메이플", "#던파", "#게임안정성", "#사내식당맛집"],
+        tips: {
+          resumeTitle: "장기 라이브 서비스 안정화 및 게임 데이터 밸런싱",
+          resume: "수십 년간 축적된 방대한 유저 데이터와 경제 시스템을 붕괴시키지 않고 업데이트를 이끌어낸 경험을 논리적으로 서술하세요.",
+          interviewTitle: "게임 재미에 대한 구조적 분석과 라이브 대응 역량",
+          interview: "유저 관점에서 시스템의 어떤 점이 매력적인지 분석하고, 긴급 점검이나 버그 발생 시 침착하게 디버깅한 실무 에피소드를 평가합니다.",
+          skillTitle: "C++ / 분산 서버 / 실시간 대용량 패킷 최적화",
+          skill: "유저 경험(UX) 데이터 분석, 게임 밸런스 수학적 모델링"
+        }
+      },
+      {
         id: "musinsa",
         name: "무신사 (MUSINSA)",
         domain: "musinsa.com",
@@ -1135,8 +1321,9 @@
         stockBadge: "비상장 유니콘",
         tagline: "대한민국 No.1 패션 플랫폼이자 K-패션 글로벌 수출 리더",
         founded: "2012년",
-        revenue: "9,931억원 (1조원 육박)",
-        employees: "1,500여 명 (계열 합산)",
+        revenue: "9,931억원",
+        revenueSource: "감사보고서",
+        employees: "1,500여 명",
         location: "서울특별시 성동구 아차산로13길 11 (무신사 캠퍼스 성수)",
         avgSalary: "7,800만원",
         salaries: {
@@ -1180,7 +1367,8 @@
         stockBadge: "비상장 (미국 상장 추진)",
         tagline: "전 세계 여행과 공간을 연결하는 글로벌 호스피탈리티 솔루션",
         founded: "2005년",
-        revenue: "7,667억원 (글로벌 솔루션 급성장)",
+        revenue: "7,667억원",
+        revenueSource: "사업보고서",
         employees: "1,200여 명",
         location: "서울특별시 강남구 테헤란로 108길 42",
         avgSalary: "8,100만원",
@@ -1225,8 +1413,9 @@
         stockBadge: "비상장 유니콘",
         tagline: "샛별배송으로 밤을 아침으로 바꾸는 프리미엄 리테일 테크",
         founded: "2014년",
-        revenue: "2조 774억원 (사상 첫 분기 흑자 달성)",
-        employees: "2,300여 명 (물류 포함)",
+        revenue: "2조 774억원",
+        revenueSource: "감사보고서",
+        employees: "2,300여 명",
         location: "서울특별시 강남구 테헤란로 134 (포스코타워 역삼)",
         avgSalary: "7,500만원",
         salaries: {
@@ -1260,6 +1449,144 @@
         }
       },
       {
+        id: "celltrion",
+        name: "셀트리온",
+        domain: "celltrion.com",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.celltrion.com&size=128",
+        aliases: ["셀트리온", "셀트", "celltrion", "셀트리온제약"],
+        category: "바이오시밀러 / 신약 개발 / 제약",
+        companyType: "코스피 시총 상위 바이오 대기업",
+        stockBadge: "코스피 상장 (068270)",
+        tagline: "항체 바이오시밀러 글로벌 1위, 세계를 치료하는 바이오 리더",
+        founded: "2002년",
+        revenue: "2조 1,764억원",
+        revenueSource: "사업보고서",
+        employees: "2,350여 명",
+        location: "인천광역시 연수구 아카데미로 23 (송도)",
+        avgSalary: "8,900만원",
+        salaries: {
+          bracket_1_3: 5100,
+          bracket_4_7: 7200,
+          bracket_8_10: 9500,
+          bracket_10_plus: 12500
+        },
+        bonusNote: "유럽/미국 FDA 신약 승인 마일스톤 연동 인센티브.",
+        rating: 3.8,
+        recommendRate: 71,
+        scores: { welfare: 4.2, balance: 3.4, culture: 3.7, growth: 4.3 },
+        pros: [
+          "인천 송도 바이오클러스터 최첨단 연구시설과 글로벌 임상 프로젝트 기회",
+          "바이오시밀러 글로벌 직판망 구축을 통한 가파른 성장세와 자부심",
+          "체계적인 GMP 교육 및 제약 바이오 최고 수준의 R&D 인프라"
+        ],
+        cons: [
+          "엄격한 규제 산업 특유의 문서 작업 및 품질 승인(QA/QC) 스트레스",
+          "송도 본사 통근 거리 및 교대 생산 일정에 따른 피로도",
+          "치열한 글로벌 경쟁과 제품 승인 일정에 따른 높은 업무 강도"
+        ],
+        keywords: ["#송도바이오", "#바이오시밀러", "#FDA승인", "#램시마", "#글로벌임상"],
+        tips: {
+          resumeTitle: "글로벌 cGMP 기준 세포배양/정제 및 임상 데이터 무결성",
+          resume: "FDA/EMA 실사 대응 경험이나 항체 바이오의약품 생산 수율(Titer) 개선 실적을 정밀하게 기술하세요.",
+          interviewTitle: "생명과학 원리 이해도와 철저한 규정 준수 마인드",
+          interview: "인체에 투약되는 바이오의약품인 만큼 표준작업지침(SOP)을 한 치의 오차 없이 준수하는 정직성을 검증합니다.",
+          skillTitle: "바이오리액터 공정 설계 & 단백질 의약품 분석",
+          skill: "HPLC/ELISA 분석 기술, 규제당국 인허가(RA) 지식"
+        }
+      },
+      {
+        id: "samsung-biologics",
+        name: "삼성바이오로직스",
+        domain: "samsungbiologics.com",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.samsungbiologics.com&size=128",
+        aliases: ["삼바", "삼성바이오", "samsungbio", "삼성바이오로직스"],
+        category: "바이오의약품 위탁생산 (CDMO)",
+        companyType: "코스피 시총 상위 대기업",
+        stockBadge: "코스피 상장 (207940)",
+        tagline: "세계 최대 바이오의약품 생산 캐파를 보유한 글로벌 CDMO 챔피언",
+        founded: "2011년",
+        revenue: "3조 6,946억원",
+        revenueSource: "사업보고서",
+        employees: "4,500여 명",
+        location: "인천광역시 연수구 송도바이오대로 300",
+        avgSalary: "9,800만원",
+        salaries: {
+          bracket_1_3: 5500,
+          bracket_4_7: 7700,
+          bracket_8_10: 10200,
+          bracket_10_plus: 13500
+        },
+        bonusNote: "삼성그룹 OPI/TAI 성과급 체계 적용 및 송도 기숙사/통근버스 지원.",
+        rating: 3.9,
+        recommendRate: 74,
+        scores: { welfare: 4.5, balance: 3.3, culture: 3.7, growth: 4.4 },
+        pros: [
+          "글로벌 1위 바이오 CDMO의 압도적인 생산 설비와 삼성 계열사 복지",
+          "송도 캠퍼스의 세련된 건물과 3식 무료 식당, 병원 등 편의시설",
+          "글로벌 빅파마 수주 물량 증가에 따른 폭발적인 기업 성장세"
+        ],
+        cons: [
+          "24시간 가동되는 클린룸 생산 교대 근무로 인한 체력 소모",
+          "삼성 특유의 보고 절차와 철저한 결재 규정 준수 압박",
+          "송도 출퇴근 부담 및 지속적인 설비 증설에 따른 높은 업무 강도"
+        ],
+        keywords: ["#글로벌CDMO", "#송도캠퍼스", "#삼성복지", "#세계최대생산", "#초고속성장"],
+        tips: {
+          resumeTitle: "초대형 바이오리액터 가동 및 수율 극대화 포트폴리오",
+          resume: "1만 리터 이상 초대형 상업 배양기 운용 경험이나 tech transfer(기술 이전) 성공 사례를 구체적 수치로 증명하세요.",
+          interviewTitle: "글로벌 제약사 클라이언트 대응과 무결점 품질 정신",
+          interview: "세계 최고 수준의 해외 고객사 Audit을 통과해야 하므로 비즈니스 영어 역량과 철저한 품질 의식을 봅니다.",
+          skillTitle: "CDMO 기술이전 & 무균 공정 검증(Validation)",
+          skill: "공정 자동화(MES/LIMS) 운용, 바이오 설비 자격 검증"
+        }
+      },
+      {
+        id: "hybe",
+        name: "하이브 (HYBE)",
+        domain: "hybecorp.com",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.hybecorp.com&size=128",
+        aliases: ["하이브", "hybe", "빅히트", "BTS", "위버스"],
+        category: "엔터테인먼트 / 글로벌 K-POP / 플랫폼",
+        companyType: "코스피 상장 글로벌 엔터 대기업",
+        stockBadge: "코스피 상장 (352820)",
+        tagline: "음악에 기반한 세계 최고의 엔터테인먼트 라이프스타일 플랫폼",
+        founded: "2005년",
+        revenue: "2조 1,780억원",
+        revenueSource: "사업보고서",
+        employees: "750여 명",
+        location: "서울특별시 용산구 한강대로 42 (용산 트레이드센터)",
+        avgSalary: "7,900만원",
+        salaries: {
+          bracket_1_3: 4700,
+          bracket_4_7: 6700,
+          bracket_8_10: 9100,
+          bracket_10_plus: 12200
+        },
+        bonusNote: "글로벌 투어/음반 흥행 및 멀티레이블 성과급 지급.",
+        rating: 3.7,
+        recommendRate: 68,
+        scores: { welfare: 4.3, balance: 3.1, culture: 3.9, growth: 4.2 },
+        pros: [
+          "용산역 랜드마크 사옥과 쾌적한 사내 라운지, 감각적인 오피스 환경",
+          "전 세계 K-POP 산업의 정점에서 글로벌 아티스트 IP를 기획하는 성취감",
+          "자율출퇴근제 및 위버스(Weverse) 플랫폼 등 테크와 결합된 엔터 경험"
+        ],
+        cons: [
+          "아티스트 컴백, 콘서트, 글로벌 투어 기간의 극한의 야근과 주말 근무",
+          "멀티레이블 체제 개편 및 경영권 관련 대외 여론 스트레스",
+          "화려한 겉모습 대비 타 업종 대비 높은 감정 노동과 업무 밀도"
+        ],
+        keywords: ["#용산사옥", "#BTS", "#KPOP1등", "#위버스", "#멀티레이블", "#글로벌엔터"],
+        tips: {
+          resumeTitle: "글로벌 팬덤 데이터 분석 및 아티스트 IP 수익화",
+          resume: "음악/콘텐츠 기획뿐 아니라 위버스 플랫폼 유저 리텐션, 굿즈 머천다이징(MD) 완판 등 실질적인 팬덤 비즈니스 성과를 어필하세요.",
+          interviewTitle: "단순 '팬심'이 아닌 비즈니스 마인드셋 검증",
+          interview: "특정 아티스트의 팬이어서 지원한 것이 아님을 명확히 하고, 혹독한 엔터 업계 일정을 버텨낼 수 있는 체력과 침착성을 봅니다.",
+          skillTitle: "글로벌 라이선싱 & 팬덤 커뮤니티 데이터 분석",
+          skill: "해외 콘서트 투어 오퍼레이션, 다국어 커뮤니케이션"
+        }
+      },
+      {
         id: "bucketplace",
         name: "버킷플레이스 (오늘의집)",
         domain: "ohou.se",
@@ -1270,7 +1597,8 @@
         stockBadge: "비상장 유니콘",
         tagline: "공간을 바꾸고 일상을 빛나게 만드는 올인원 홈 라이프스타일",
         founded: "2014년",
-        revenue: "2,400억원 (연간 흑자 달성)",
+        revenue: "2,400억원",
+        revenueSource: "감사보고서",
         employees: "500여 명",
         location: "서울특별시 서초구 서초대로 398 (BNK디지털타워)",
         avgSalary: "8,300만원",
@@ -1554,7 +1882,7 @@
       
       const revenueBadge = document.getElementById('company-revenue-badge');
       if (revenueBadge) {
-        revenueBadge.innerText = company.revenueSource || "국민연금·결산보고";
+        revenueBadge.innerText = company.revenueSource || "결산보고";
       }
 
       document.getElementById('company-employees').innerText = company.employees || '-';
@@ -1984,7 +2312,7 @@
       const n = cleanName.toLowerCase();
       let category = "IT / 소프트웨어 솔루션";
       let companyType = "성장형 비상장 벤처기업";
-      let stockBadge = "비상장 (시리즈B/C)";
+      let stockBadge = "비상장";
       let domain = cleanName.replace(/[^a-zA-Z0-9]/g, '').toLowerCase() || "company";
       if (!domain) domain = "enterprise";
       domain += ".co.kr";
@@ -1992,10 +2320,10 @@
       let locations = [
         "서울특별시 강남구 테헤란로 427",
         "경기도 성남시 분당구 판교역로 166",
-        "서울특별시 성동구 뚝섬로1길 25 (성수)",
+        "서울특별시 성동구 뚝섬로1길 25",
         "서울특별시 영등포구 여의대로 108",
-        "서울특별시 마포구 월드컵북로 396 (상암)",
-        "서울특별시 구로구 디지털로 300 (G밸리)"
+        "서울특별시 마포구 월드컵북로 396",
+        "서울특별시 구로구 디지털로 300"
       ];
       let location = locations[positiveHash % locations.length];
 
@@ -2054,8 +2382,8 @@
         stockBadge: stockBadge,
         tagline: `${cleanName}의 독창적인 기술과 고객 가치 창출`,
         founded: `${foundedYear}년`,
-        revenue: `${revenueStr} (국민연금 납부 기반 추산)`,
-        employees: `${employeeCount}여 명 (국민연금 가입)`,
+        revenue: `${revenueStr}`,
+        employees: `${employeeCount}여 명`,
         location: location,
         avgSalary: `${baseSalary.toLocaleString()}만원`,
         salaries: {

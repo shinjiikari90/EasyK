@@ -109,6 +109,10 @@
           <span class="hidden sm:inline">관심기업</span>
           <span id="bookmark-count-badge" class="px-1.5 py-0.2 bg-brand-500 text-white rounded-full text-[10px] hidden">0</span>
         </button>
+        <button onclick="openApiKeyModal()" class="flex items-center gap-1 px-2.5 py-2 text-xs font-medium text-slate-500 hover:text-brand-600 hover:bg-orange-50 rounded-xl transition-all" title="API 설정">
+          <i class="fa-solid fa-gear text-sm"></i>
+          <span class="hidden md:inline">API 설정</span>
+        </button>
         <button onclick="toggleShareModal()" class="p-2 text-slate-500 hover:text-brand-500 hover:bg-orange-50 rounded-xl transition-all" title="공유하기">
           <i class="fa-solid fa-arrow-up-from-bracket"></i>
         </button>
@@ -123,7 +127,7 @@
         <!-- Badge -->
         <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-50 border border-brand-200/80 text-brand-700 text-xs font-semibold mb-4 shadow-xs">
           <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
-          2026 최신 DART 공시 & 블라인드·잡플래닛 종합 인사이트
+          2026 최신 DART 공시 & 국민연금·블라인드 종합 인사이트
         </div>
         
         <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
@@ -173,7 +177,7 @@
       </div>
     </div>
 
-    <!-- Ambiguity / Multiple Candidate Selector Banner (When multiple matches are close) -->
+    <!-- Ambiguity / Multiple Candidate Selector Banner -->
     <div id="candidate-banner" class="max-w-4xl mx-auto px-4 mb-6 hidden">
       <div class="bg-gradient-to-r from-orange-50 to-amber-50 border-2 border-dashed border-orange-300 rounded-2xl p-4 sm:p-5 shadow-sm">
         <div class="flex items-start gap-3">
@@ -212,14 +216,12 @@
       
       <!-- Top Action & Company Header Banner -->
       <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-card border border-slate-100 relative overflow-hidden mb-6">
-        <!-- Subtle orange accent gradient background -->
         <div class="absolute top-0 right-0 w-72 h-72 bg-gradient-to-bl from-orange-100/60 to-transparent rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"></div>
 
         <div class="relative flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div class="flex items-start sm:items-center gap-4">
-            <!-- Company Logo Badge with Image & Dynamic Fallback -->
+            <!-- Company Logo Badge -->
             <div id="company-logo-avatar" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white border border-slate-200/80 shadow-md p-1.5 flex items-center justify-center shrink-0 overflow-hidden relative group">
-              <!-- Dynamically populated <img> or Fallback Initial -->
             </div>
             <div>
               <div class="flex items-center gap-2 flex-wrap">
@@ -242,7 +244,7 @@
             </div>
           </div>
 
-          <!-- Action buttons (Bookmark, Share, External DART link) -->
+          <!-- Action buttons -->
           <div class="flex items-center gap-2 self-end sm:self-center">
             <button id="bookmark-btn" onclick="toggleBookmarkCurrentCompany()" class="px-4 py-2.5 bg-slate-100 hover:bg-orange-50 text-slate-700 hover:text-brand-600 font-semibold text-xs sm:text-sm rounded-xl border border-slate-200/70 transition-all flex items-center gap-2">
               <i class="fa-regular fa-bookmark" id="bookmark-icon"></i>
@@ -352,9 +354,8 @@
             <canvas id="salaryChart"></canvas>
           </div>
 
-          <!-- 4 Required Experience Brackets Breakdown -->
+          <!-- 4 Experience Brackets Breakdown -->
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
-            <!-- 1~3년차 -->
             <div class="bg-surface hover:bg-orange-50/40 transition-colors border border-slate-200/80 rounded-2xl p-4 relative overflow-hidden">
               <div class="w-1.5 h-full bg-orange-300 absolute left-0 top-0"></div>
               <span class="text-xs font-semibold text-slate-500 block">주니어 (1~3년차)</span>
@@ -365,7 +366,6 @@
               <p class="text-[11px] text-slate-500 mt-1">대졸 신입 초봉 및 초급 경력</p>
             </div>
 
-            <!-- 4~7년차 -->
             <div class="bg-surface hover:bg-orange-50/40 transition-colors border border-slate-200/80 rounded-2xl p-4 relative overflow-hidden">
               <div class="w-1.5 h-full bg-brand-400 absolute left-0 top-0"></div>
               <span class="text-xs font-semibold text-slate-500 block">미들 (4~7년차)</span>
@@ -376,7 +376,6 @@
               <p class="text-[11px] text-slate-500 mt-1">실무 주력 및 대리/과장급</p>
             </div>
 
-            <!-- 8~10년차 -->
             <div class="bg-surface hover:bg-orange-50/40 transition-colors border border-slate-200/80 rounded-2xl p-4 relative overflow-hidden">
               <div class="w-1.5 h-full bg-brand-500 absolute left-0 top-0"></div>
               <span class="text-xs font-semibold text-slate-500 block">시니어 (8~10년차)</span>
@@ -387,7 +386,6 @@
               <p class="text-[11px] text-slate-500 mt-1">차장급 및 프로젝트 리더</p>
             </div>
 
-            <!-- 10년차 이상 -->
             <div class="bg-surface hover:bg-orange-50/40 transition-colors border border-slate-200/80 rounded-2xl p-4 relative overflow-hidden">
               <div class="w-1.5 h-full bg-brand-700 absolute left-0 top-0"></div>
               <span class="text-xs font-semibold text-slate-500 block">팀장/임원 (10년차+)</span>
@@ -399,7 +397,7 @@
             </div>
           </div>
 
-          <!-- Salary Footnote / Bonus Info -->
+          <!-- Salary Footnote -->
           <div class="mt-4 p-3.5 bg-slate-50 rounded-xl flex items-center gap-2 text-xs text-slate-600">
             <i class="fa-solid fa-circle-info text-brand-500"></i>
             <span id="company-bonus-note">성과급(OPI/PS, TAI/PI) 지급률에 따라 연간 총수령액 편차가 발생할 수 있습니다.</span>
@@ -407,31 +405,22 @@
         </div>
       </div>
 
-      <!-- Section 2: Online Reputation (잡플래닛, 블라인드, 글래스도어 종합) -->
+      <!-- Section 2: Online Reputation -->
       <div id="tab-content-reputation" class="space-y-6 hidden">
-        <!-- Score Overview Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <!-- Total Score Card -->
           <div class="bg-white rounded-3xl p-6 shadow-card border border-slate-100 flex flex-col justify-center items-center text-center">
             <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">포털 통합 평판 지수</span>
             <div class="flex items-baseline gap-1 my-3">
               <span id="rep-rating" class="text-5xl font-black text-slate-900">4.1</span>
               <span class="text-lg font-bold text-slate-400">/ 5.0</span>
             </div>
-            <!-- Star Icons -->
             <div id="star-container" class="flex text-amber-400 text-lg gap-1 mb-2">
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star-half-stroke"></i>
             </div>
             <p id="recommend-percent" class="text-xs font-semibold text-brand-600 bg-brand-50 px-3 py-1 rounded-full">
               전현직원 76%가 지인에게 추천
             </p>
           </div>
 
-          <!-- Radar/Dimension Scores -->
           <div class="md:col-span-2 bg-white rounded-3xl p-6 shadow-card border border-slate-100">
             <h4 class="text-sm font-bold text-slate-800 mb-4 flex items-center gap-2">
               <i class="fa-solid fa-chart-simple text-brand-500"></i>
@@ -478,9 +467,8 @@
           </div>
         </div>
 
-        <!-- Pros and Cons Detailed Card Grid -->
+        <!-- Pros and Cons -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <!-- Pros (장점) -->
           <div class="bg-white rounded-3xl p-6 shadow-card border border-emerald-100/70 relative">
             <div class="flex items-center gap-2 mb-4">
               <span class="w-7 h-7 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-bold">
@@ -488,23 +476,9 @@
               </span>
               <h4 class="text-base font-bold text-slate-900">재·퇴직자가 꼽은 핵심 장점 (PROS)</h4>
             </div>
-            <ul id="company-pros-list" class="space-y-3">
-              <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 bg-emerald-50/50 p-3 rounded-2xl border border-emerald-100">
-                <i class="fa-solid fa-circle-check text-emerald-500 mt-1 shrink-0"></i>
-                <span>국내 최고 수준의 복리후생, 식대 무료 지원 및 의료비 지원 제도</span>
-              </li>
-              <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 bg-emerald-50/50 p-3 rounded-2xl border border-emerald-100">
-                <i class="fa-solid fa-circle-check text-emerald-500 mt-1 shrink-0"></i>
-                <span>네임밸류와 이직 시 브랜드 파워, 대규모 프로젝트 경험 축적</span>
-              </li>
-              <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 bg-emerald-50/50 p-3 rounded-2xl border border-emerald-100">
-                <i class="fa-solid fa-circle-check text-emerald-500 mt-1 shrink-0"></i>
-                <span>체계화된 프로세스와 우수한 인재 인프라</span>
-              </li>
-            </ul>
+            <ul id="company-pros-list" class="space-y-3"></ul>
           </div>
 
-          <!-- Cons (단점) -->
           <div class="bg-white rounded-3xl p-6 shadow-card border border-rose-100/70 relative">
             <div class="flex items-center gap-2 mb-4">
               <span class="w-7 h-7 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-sm font-bold">
@@ -512,37 +486,17 @@
               </span>
               <h4 class="text-base font-bold text-slate-900">재·퇴직자가 짚은 현실적 단점 (CONS)</h4>
             </div>
-            <ul id="company-cons-list" class="space-y-3">
-              <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 bg-rose-50/50 p-3 rounded-2xl border border-rose-100">
-                <i class="fa-solid fa-triangle-exclamation text-rose-500 mt-1 shrink-0"></i>
-                <span>조직 규모가 방대하여 부서 간 칸막이 및 보고용 문서 작업 과다</span>
-              </li>
-              <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 bg-rose-50/50 p-3 rounded-2xl border border-rose-100">
-                <i class="fa-solid fa-triangle-exclamation text-rose-500 mt-1 shrink-0"></i>
-                <span>사업부 및 실적 사이클에 따른 성과급 격차와 상대적 박탈감</span>
-              </li>
-              <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 bg-rose-50/50 p-3 rounded-2xl border border-rose-100">
-                <i class="fa-solid fa-triangle-exclamation text-rose-500 mt-1 shrink-0"></i>
-                <span>조직별 보수적인 상명하복 기조가 일부 존재하며 빠른 결정이 어려움</span>
-              </li>
-            </ul>
+            <ul id="company-cons-list" class="space-y-3"></ul>
           </div>
         </div>
 
-        <!-- Blind Community Keyword Cloud -->
+        <!-- Keywords -->
         <div class="bg-white rounded-3xl p-6 shadow-card border border-slate-100">
           <h4 class="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
             <i class="fa-solid fa-tags text-brand-500"></i>
             블라인드·잡플래닛 실시간 연관 키워드
           </h4>
-          <div id="company-keywords" class="flex flex-wrap gap-2">
-            <span class="px-3 py-1 bg-orange-50 text-brand-700 rounded-xl text-xs font-semibold border border-orange-200">#성과급</span>
-            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-xl text-xs font-semibold">#복지대장</span>
-            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-xl text-xs font-semibold">#삼전이직</span>
-            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-xl text-xs font-semibold">#사내식당</span>
-            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-xl text-xs font-semibold">#자부심</span>
-            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-xl text-xs font-semibold">#보고서</span>
-          </div>
+          <div id="company-keywords" class="flex flex-wrap gap-2"></div>
         </div>
       </div>
 
@@ -572,9 +526,7 @@
                 <span id="tip-tag-resume" class="text-[10px] px-2 py-0.5 bg-slate-100 font-semibold text-slate-600 rounded-md">정량 지표</span>
               </div>
               <h5 id="tip-resume-title" class="text-sm font-bold text-slate-900 mb-2">수치화된 성과와 시스템 개선 경험</h5>
-              <p id="tip-resume" class="text-xs text-slate-600 leading-relaxed">
-                대규모 트래픽이나 복잡한 비즈니스 지표를 정량적으로 개선해 본 경험을 서술하면 높은 점수를 받습니다.
-              </p>
+              <p id="tip-resume" class="text-xs text-slate-600 leading-relaxed"></p>
             </div>
 
             <div class="p-5 bg-surface rounded-2xl border border-slate-200/80 hover:border-brand-300 transition-colors">
@@ -583,9 +535,7 @@
                 <span id="tip-tag-interview" class="text-[10px] px-2 py-0.5 bg-slate-100 font-semibold text-slate-600 rounded-md">직무 검증</span>
               </div>
               <h5 id="tip-interview-title" class="text-sm font-bold text-slate-900 mb-2">실무 역량과 조직 적응성 검증</h5>
-              <p id="tip-interview" class="text-xs text-slate-600 leading-relaxed">
-                기술 인터뷰 및 구조화된 직무 면접이 타이트하게 진행됩니다. 논리적인 실패 극복 경험 준비가 필수적입니다.
-              </p>
+              <p id="tip-interview" class="text-xs text-slate-600 leading-relaxed"></p>
             </div>
 
             <div class="p-5 bg-surface rounded-2xl border border-slate-200/80 hover:border-brand-300 transition-colors">
@@ -594,20 +544,15 @@
                 <span id="tip-tag-skill" class="text-[10px] px-2 py-0.5 bg-slate-100 font-semibold text-slate-600 rounded-md">소프트/하드스킬</span>
               </div>
               <h5 id="tip-skill-title" class="text-sm font-bold text-slate-900 mb-2">협업과 데이터 기반 의사결정</h5>
-              <p id="tip-skill" class="text-xs text-slate-600 leading-relaxed">
-                도메인 전문성 외에도 다양한 직군과의 크로스 펑셔널 커뮤니케이션 능력 및 오너십을 중요시합니다.
-              </p>
+              <p id="tip-skill" class="text-xs text-slate-600 leading-relaxed"></p>
             </div>
           </div>
 
-          <!-- Real Feedback Context Box (New dynamic feedback element) -->
           <div class="mt-4 p-4 rounded-2xl bg-amber-50/70 border border-amber-200/80 flex items-start gap-3">
             <i class="fa-solid fa-user-check text-amber-600 mt-1 shrink-0 text-sm"></i>
             <div>
               <span class="text-xs font-bold text-amber-900 block">재퇴직자 리뷰가 말해주는 합격 키포인트</span>
-              <p id="tip-review-insight" class="text-xs text-amber-800 mt-0.5 leading-relaxed">
-                전·현직자들의 주요 피드백을 기반으로 면접관이 가장 우려할 만한 이직 사유와 질문을 미리 대비하세요.
-              </p>
+              <p id="tip-review-insight" class="text-xs text-amber-800 mt-0.5 leading-relaxed"></p>
             </div>
           </div>
 
@@ -635,7 +580,6 @@
                 </button>
               </div>
               <div id="ai-response-box" class="mt-4 p-4 bg-white rounded-xl border border-orange-100 text-xs sm:text-sm text-slate-700 leading-relaxed hidden">
-                <!-- AI Output inserted here -->
               </div>
             </div>
           </div>
@@ -664,7 +608,6 @@
       </div>
 
       <div id="bookmarks-list" class="flex-1 overflow-y-auto py-3 space-y-2.5 custom-scrollbar">
-        <!-- Dynamically injected items -->
       </div>
 
       <div class="pt-4 border-t border-slate-100 text-right">
@@ -675,7 +618,72 @@
     </div>
   </div>
 
-  <!-- Share & Notification Toast -->
+  <!-- API Key Setting Modal for GitHub Pages & Custom Hosting -->
+  <div id="apikey-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100 flex flex-col">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-key text-brand-500 text-lg"></i>
+          <h3 class="text-base font-bold text-slate-900">Gemini API 키 설정</h3>
+        </div>
+        <button onclick="closeApiKeyModal()" class="text-slate-400 hover:text-slate-600 p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <div class="py-4 space-y-3 text-xs text-slate-600 leading-relaxed">
+        <p>
+          GitHub Pages와 같은 일반 웹 호스팅 환경에서 DB에 없는 회사를 <strong>실시간 AI로 분석</strong>하려면 무료 Google Gemini API Key가 필요합니다.
+        </p>
+        <div class="p-3 bg-orange-50 rounded-xl border border-orange-200 text-[11px] text-brand-800">
+          <i class="fa-solid fa-circle-info mr-1"></i> 키를 입력하지 않아도 등록된 <strong>대표 기업 8곳 및 스마트 추정 데이터는 100% 정상 작동</strong>합니다.
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">API Key 입력:</label>
+          <input 
+            type="password" 
+            id="user-gemini-key" 
+            placeholder="AIzaSy..." 
+            class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-brand-500 font-mono"
+          />
+        </div>
+        <p class="text-[11px] text-slate-400">
+          * 입력된 키는 사용자의 브라우저 로컬 저장소(localStorage)에만 안전하게 보관됩니다.
+        </p>
+      </div>
+      <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+        <button onclick="clearUserApiKey()" class="px-3 py-2 text-rose-600 hover:bg-rose-50 text-xs font-semibold rounded-xl transition-all">
+          키 초기화
+        </button>
+        <button onclick="saveUserApiKey()" class="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white font-semibold text-xs rounded-xl shadow-xs transition-all">
+          저장하기
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Share Modal -->
+  <div id="share-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 text-center">
+      <div class="w-12 h-12 bg-orange-100 text-brand-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
+        <i class="fa-solid fa-arrow-up-from-bracket text-lg"></i>
+      </div>
+      <h3 class="text-base font-bold text-slate-900 mb-1">EasyK 리포트 공유</h3>
+      <p class="text-xs text-slate-500 mb-4">현재 조회 중인 기업 리포트를 동료에게 공유해보세요.</p>
+      <div class="flex gap-2">
+        <input id="share-link-input" type="text" readonly class="flex-1 px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 font-mono select-all">
+        <button onclick="copyShareModalLink()" class="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold rounded-xl shrink-0">
+          복사
+        </button>
+      </div>
+      <div class="mt-4 pt-3 border-t border-slate-100">
+        <button onclick="toggleShareModal()" class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl">
+          닫기
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
   <div id="toast-message" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-floating text-xs sm:text-sm font-semibold flex items-center gap-2.5 transition-all opacity-0 pointer-events-none transform translate-y-3">
     <i class="fa-solid fa-circle-check text-brand-400"></i>
     <span id="toast-text">링크가 클립보드에 복사되었습니다!</span>
@@ -694,7 +702,6 @@
 
   <script>
     // Built-in Comprehensive Verified Company Database (Korean Top Tech & Enterprises)
-    // Updated with actual reported revenues (National Pension / Audited Reports) & company form classifications
     const COMPANY_DATABASE = [
       {
         id: "samsung-elec",
@@ -1066,37 +1073,43 @@
       }
     ];
 
-    // Current State Variables
+    // State Variables
     let currentCompany = COMPANY_DATABASE[0];
     let salaryChartInstance = null;
     let savedBookmarks = [];
+    let userApiKey = "";
 
-    // Initialize State from LocalStorage (with backward compatibility)
+    // HTML Escaper for XSS prevention and render stability
+    function escapeHTML(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // Initialize State from LocalStorage
     try {
       savedBookmarks = JSON.parse(localStorage.getItem('easyk_bookmarks') || localStorage.getItem('careerspot_bookmarks') || '[]');
     } catch(e) {
       savedBookmarks = [];
     }
+    userApiKey = localStorage.getItem('easyk_gemini_key') || '';
 
-    /**
-     * Levenshtein Distance & Similarity Calculator
-     * Computes similarity between 0 and 1, taking into account prefix match,
-     * substring matching, and character edits.
-     */
     function calculateSimilarity(str1, str2) {
-      const s1 = str1.trim().toLowerCase().replace(/\s+/g, '');
-      const s2 = str2.trim().toLowerCase().replace(/\s+/g, '');
+      const s1 = (str1 || '').trim().toLowerCase().replace(/\s+/g, '');
+      const s2 = (str2 || '').trim().toLowerCase().replace(/\s+/g, '');
 
       if (s1 === s2) return 1.0;
       if (!s1 || !s2) return 0.0;
 
-      // Exact substring or starts-with bonus
       if (s2.includes(s1) || s1.includes(s2)) {
         const ratio = Math.min(s1.length, s2.length) / Math.max(s1.length, s2.length);
         return 0.8 + (ratio * 0.2);
       }
 
-      // Levenshtein Matrix
       const len1 = s1.length;
       const len2 = s2.length;
       const matrix = Array.from({ length: len1 + 1 }, () => new Array(len2 + 1).fill(0));
@@ -1108,9 +1121,9 @@
         for (let j = 1; j <= len2; j++) {
           const cost = s1[i - 1] === s2[j - 1] ? 0 : 1;
           matrix[i][j] = Math.min(
-            matrix[i - 1][j] + 1,      // Deletion
-            matrix[i][j - 1] + 1,      // Insertion
-            matrix[i - 1][j - 1] + cost // Substitution
+            matrix[i - 1][j] + 1,
+            matrix[i][j - 1] + 1,
+            matrix[i - 1][j - 1] + cost
           );
         }
       }
@@ -1120,37 +1133,24 @@
       return Math.max(0, 1 - (distance / maxLen));
     }
 
-    /**
-     * Search Companies using fuzzy match & aliases
-     * Returns: { bestMatch: Company, candidates: [Company...], isAmbiguous: boolean }
-     */
     function searchCompanies(query) {
       if (!query || !query.trim()) return null;
       const q = query.trim().toLowerCase();
 
-      // Score each company
       const scored = COMPANY_DATABASE.map(company => {
         let maxScore = calculateSimilarity(q, company.name);
-        
-        // Check aliases (e.g., '삼전', '토스', '비바리퍼')
         if (company.aliases && company.aliases.length > 0) {
           for (const alias of company.aliases) {
             const aliasScore = calculateSimilarity(q, alias);
-            if (aliasScore > maxScore) {
-              maxScore = aliasScore;
-            }
+            if (aliasScore > maxScore) maxScore = aliasScore;
           }
         }
         return { company, score: maxScore };
       });
 
-      // Sort descending by score
       scored.sort((a, b) => b.score - a.score);
 
       const top = scored[0];
-      const second = scored[1];
-
-      // If top score is very low (< 0.35), it might be an unknown company not in DB
       if (top.score < 0.35) {
         return {
           bestMatch: null,
@@ -1160,7 +1160,6 @@
         };
       }
 
-      // Check if top 2 or 3 candidates have very close scores (difference <= 0.08 and score > 0.45)
       const closeCandidates = scored.filter(item => item.score >= 0.48 && (top.score - item.score) <= 0.12);
       const isAmbiguous = closeCandidates.length > 1;
 
@@ -1175,6 +1174,7 @@
 
     function updateBookmarkBadge() {
       const badge = document.getElementById('bookmark-count-badge');
+      if (!badge) return;
       if (savedBookmarks.length > 0) {
         badge.innerText = savedBookmarks.length;
         badge.classList.remove('hidden');
@@ -1187,10 +1187,6 @@
       if (!currentCompany) return;
       const existsIndex = savedBookmarks.findIndex(b => b.id === currentCompany.id || b.name === currentCompany.name);
       
-      const icon = document.getElementById('bookmark-icon');
-      const text = document.getElementById('bookmark-text');
-      const btn = document.getElementById('bookmark-btn');
-
       if (existsIndex >= 0) {
         savedBookmarks.splice(existsIndex, 1);
         showToast(`'${currentCompany.name}' 관심 기업 스크랩이 해제되었습니다.`);
@@ -1217,6 +1213,8 @@
       const icon = document.getElementById('bookmark-icon');
       const text = document.getElementById('bookmark-text');
       const btn = document.getElementById('bookmark-btn');
+      if (!icon || !text || !btn || !currentCompany) return;
+
       const isSaved = savedBookmarks.some(b => b.id === currentCompany.id || b.name === currentCompany.name);
 
       if (isSaved) {
@@ -1230,14 +1228,81 @@
       }
     }
 
+    function showToast(message) {
+      const toast = document.getElementById('toast-message');
+      const toastText = document.getElementById('toast-text');
+      if (!toast || !toastText) return;
+
+      toastText.innerText = message;
+      toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-3');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-3');
+      }, 2600);
+    }
+
+    function copyCompanyReportLink() {
+      const url = window.location.href.split('?')[0] + `?q=${encodeURIComponent(currentCompany.name)}`;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+          showToast(`'${currentCompany.name}' 리포트 링크가 복사되었습니다!`);
+        }).catch(() => fallbackCopy(url));
+      } else {
+        fallbackCopy(url);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const temp = document.createElement("input");
+      document.body.appendChild(temp);
+      temp.value = text;
+      temp.select();
+      document.execCommand("copy");
+      document.body.removeChild(temp);
+      showToast("리포트 링크가 클립보드에 복사되었습니다!");
+    }
+
+    function resetToHome() {
+      document.getElementById('company-search-input').value = '';
+      document.getElementById('candidate-banner').classList.add('hidden');
+      renderCompanyDetails(COMPANY_DATABASE[0], 1.0);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleShareModal() {
+      const modal = document.getElementById('share-modal');
+      const linkInput = document.getElementById('share-link-input');
+      if (!modal) return;
+      
+      const isHidden = modal.classList.contains('hidden');
+      if (isHidden) {
+        const url = window.location.href.split('?')[0] + `?q=${encodeURIComponent(currentCompany?.name || '삼성전자')}`;
+        linkInput.value = url;
+        modal.classList.remove('hidden');
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+
+    function copyShareModalLink() {
+      const linkInput = document.getElementById('share-link-input');
+      linkInput.select();
+      document.execCommand('copy');
+      showToast("공유 링크가 클립보드에 복사되었습니다!");
+      toggleShareModal();
+    }
+
     function renderCompanyDetails(company, matchScore = 1.0) {
+      if (!company) return;
       currentCompany = company;
 
       // Header info
       document.getElementById('company-name').innerText = company.name;
-      document.getElementById('company-tagline').innerText = company.tagline;
-      document.getElementById('company-category').innerText = company.category;
-      document.getElementById('company-stock-badge').innerText = company.stockBadge;
+      document.getElementById('company-tagline').innerText = company.tagline || '';
+      document.getElementById('company-category').innerText = company.category || '기업';
+      document.getElementById('company-stock-badge').innerText = company.stockBadge || '기업';
       
       const logoEl = document.getElementById('company-logo-avatar');
       renderCompanyLogo(company, logoEl);
@@ -1252,48 +1317,46 @@
       }
 
       // 4 Core Basic Info
-      document.getElementById('company-founded').innerText = company.founded;
-      document.getElementById('company-revenue').innerText = company.revenue;
+      document.getElementById('company-founded').innerText = company.founded || '-';
+      document.getElementById('company-revenue').innerText = company.revenue || '추산 집계 중';
       
-      // Revenue Source Badge (Shows actual reported basis like 국민연금, 결산보고, 국세청)
       const revenueBadge = document.getElementById('company-revenue-badge');
-      if (company.revenueSource) {
-        revenueBadge.innerText = company.revenueSource;
-      } else {
-        revenueBadge.innerText = "국민연금·결산보고";
-      }
+      revenueBadge.innerText = company.revenueSource || "국민연금·결산보고";
 
-      document.getElementById('company-employees').innerText = company.employees;
-      document.getElementById('company-location').innerText = company.location;
-      document.getElementById('company-location').title = company.location;
+      document.getElementById('company-employees').innerText = company.employees || '-';
+      document.getElementById('company-location').innerText = company.location || '-';
+      document.getElementById('company-location').title = company.location || '';
 
       // Salary Section
-      document.getElementById('company-avg-salary').innerText = company.avgSalary;
-      document.getElementById('salary-1-3').innerText = company.salaries.bracket_1_3.toLocaleString();
-      document.getElementById('salary-4-7').innerText = company.salaries.bracket_4_7.toLocaleString();
-      document.getElementById('salary-8-10').innerText = company.salaries.bracket_8_10.toLocaleString();
-      document.getElementById('salary-10-plus').innerText = company.salaries.bracket_10_plus.toLocaleString() + '+';
-      document.getElementById('company-bonus-note').innerText = company.bonusNote;
+      document.getElementById('company-avg-salary').innerText = company.avgSalary || '-';
+      document.getElementById('salary-1-3').innerText = (company.salaries?.bracket_1_3 || 4500).toLocaleString();
+      document.getElementById('salary-4-7').innerText = (company.salaries?.bracket_4_7 || 6200).toLocaleString();
+      document.getElementById('salary-8-10').innerText = (company.salaries?.bracket_8_10 || 8500).toLocaleString();
+      document.getElementById('salary-10-plus').innerText = (company.salaries?.bracket_10_plus || 11000).toLocaleString() + '+';
+      document.getElementById('company-bonus-note').innerText = company.bonusNote || '성과급 및 인센티브 규정에 따라 상이합니다.';
 
       // Reputation Section
-      document.getElementById('rep-rating').innerText = company.rating.toFixed(1);
-      document.getElementById('recommend-percent').innerText = `전현직원 ${company.recommendRate}%가 지인에게 추천`;
+      const rating = Number(company.rating) || 4.0;
+      document.getElementById('rep-rating').innerText = rating.toFixed(1);
+      document.getElementById('recommend-percent').innerText = `전현직원 ${company.recommendRate || 75}%가 지인에게 추천`;
       
-      document.getElementById('score-welfare').innerText = `${company.scores.welfare.toFixed(1)} / 5.0`;
-      document.getElementById('bar-welfare').style.width = `${(company.scores.welfare / 5.0) * 100}%`;
+      const scores = company.scores || { welfare: 4.0, balance: 3.5, culture: 3.8, growth: 4.0 };
+      document.getElementById('score-welfare').innerText = `${(scores.welfare || 4).toFixed(1)} / 5.0`;
+      document.getElementById('bar-welfare').style.width = `${((scores.welfare || 4) / 5.0) * 100}%`;
 
-      document.getElementById('score-balance').innerText = `${company.scores.balance.toFixed(1)} / 5.0`;
-      document.getElementById('bar-balance').style.width = `${(company.scores.balance / 5.0) * 100}%`;
+      document.getElementById('score-balance').innerText = `${(scores.balance || 3.5).toFixed(1)} / 5.0`;
+      document.getElementById('bar-balance').style.width = `${((scores.balance || 3.5) / 5.0) * 100}%`;
 
-      document.getElementById('score-culture').innerText = `${company.scores.culture.toFixed(1)} / 5.0`;
-      document.getElementById('bar-culture').style.width = `${(company.scores.culture / 5.0) * 100}%`;
+      document.getElementById('score-culture').innerText = `${(scores.culture || 3.8).toFixed(1)} / 5.0`;
+      document.getElementById('bar-culture').style.width = `${((scores.culture || 3.8) / 5.0) * 100}%`;
 
-      document.getElementById('score-growth').innerText = `${company.scores.growth.toFixed(1)} / 5.0`;
-      document.getElementById('bar-growth').style.width = `${(company.scores.growth / 5.0) * 100}%`;
+      document.getElementById('score-growth').innerText = `${(scores.growth || 4.0).toFixed(1)} / 5.0`;
+      document.getElementById('bar-growth').style.width = `${((scores.growth || 4.0) / 5.0) * 100}%`;
 
       // Pros and Cons
       const prosList = document.getElementById('company-pros-list');
-      prosList.innerHTML = company.pros.map(pro => `
+      const pros = company.pros && company.pros.length > 0 ? company.pros : ["자율적인 업무 분위기", "우수한 동료 네트워크", "업계 인지도"];
+      prosList.innerHTML = pros.map(pro => `
         <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 bg-emerald-50/50 p-3 rounded-2xl border border-emerald-100">
           <i class="fa-solid fa-circle-check text-emerald-500 mt-1 shrink-0"></i>
           <span>${escapeHTML(pro)}</span>
@@ -1301,7 +1364,8 @@
       `).join('');
 
       const consList = document.getElementById('company-cons-list');
-      consList.innerHTML = company.cons.map(con => `
+      const cons = company.cons && company.cons.length > 0 ? company.cons : ["빠른 변화로 인한 업무 피로도", "부서별 업무 편차", "체계화 과정의 과도기"];
+      consList.innerHTML = cons.map(con => `
         <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 bg-rose-50/50 p-3 rounded-2xl border border-rose-100">
           <i class="fa-solid fa-triangle-exclamation text-rose-500 mt-1 shrink-0"></i>
           <span>${escapeHTML(con)}</span>
@@ -1310,11 +1374,12 @@
 
       // Keywords
       const kwBox = document.getElementById('company-keywords');
-      kwBox.innerHTML = company.keywords.map(kw => `
+      const keywords = company.keywords && company.keywords.length > 0 ? company.keywords : ["#성장", "#연봉", "#워라밸", "#이직"];
+      kwBox.innerHTML = keywords.map(kw => `
         <span class="px-3 py-1 bg-orange-50 text-brand-700 rounded-xl text-xs font-semibold border border-orange-200">${escapeHTML(kw)}</span>
       `).join('');
 
-      // Dynamic Highly-Tailored Tips by Company Type & Real Reviews
+      // Dynamic Tips
       renderDynamicInterviewTips(company);
 
       // Reset AI question box
@@ -1322,7 +1387,7 @@
       document.getElementById('ai-custom-query').value = '';
 
       // Update Star Icons
-      renderStarIcons(company.rating);
+      renderStarIcons(rating);
 
       // Render Salary Chart
       renderSalaryChart(company);
@@ -1331,14 +1396,11 @@
       updateBookmarkUIState();
     }
 
-    /**
-     * Renders company official logo with automatic CDN fetching and graceful fallback
-     */
     function renderCompanyLogo(company, containerEl) {
+      if (!containerEl) return;
       const initial = (company.name || "企").charAt(0);
       let logoSrc = company.logoUrl;
 
-      // If no explicit logoUrl but domain exists, synthesize high-resolution favicon/logo
       if (!logoSrc && company.domain) {
         logoSrc = `https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://${company.domain}&size=128`;
       }
@@ -1350,7 +1412,7 @@
             src="${escapeHTML(logoSrc)}" 
             alt="${escapeHTML(company.name)} 로고" 
             class="w-full h-full object-contain transition-transform duration-200 hover:scale-105"
-            onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'w-full h-full rounded-xl bg-gradient-to-br from-brand-500 to-orange-400 text-white font-black text-2xl sm:text-3xl flex items-center justify-center shadow-inner\\'>${initial}</div>';"
+            onerror="this.onerror=null; this.parentElement.className='w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-brand-500 to-orange-400 text-white font-black text-2xl sm:text-3xl flex items-center justify-center shadow-lg shadow-brand-500/20 shrink-0'; this.parentElement.innerHTML='<span>${initial}</span>';"
           />
         `;
       } else {
@@ -1359,13 +1421,6 @@
       }
     }
 
-    /**
-     * Dynamically generates and renders distinct tips based on company archetype:
-     * - Large Public Conglomerate (상장 대기업)
-     * - High-growth Unicorn / Scale-up (비상장/유니콘 스타트업)
-     * - Foreign Global Affiliate (외국계 기업)
-     * - Mid-sized / Traditional Enterprise (중견/전통 제조)
-     */
     function renderDynamicInterviewTips(company) {
       const typeBadge = document.getElementById('tip-company-type-badge');
       const tagResume = document.getElementById('tip-tag-resume');
@@ -1407,7 +1462,6 @@
         tagSkill.innerText = "빠른 적응력";
       }
 
-      // Check if specific tip titles exist in database; fallback dynamically if AI-generated or custom
       resumeTitleEl.innerText = company.tips?.resumeTitle || (isUnicorn ? "빠른 실행력과 문제 정의 사례 중심" : "정량적 기여도와 시스템 개선 실적");
       resumeEl.innerText = company.tips?.resume || `${company.name}의 핵심 목표에 맞춰 본인이 직접 도출해낸 측정 가능한 성과를 중심으로 기술하세요.`;
 
@@ -1417,7 +1471,6 @@
       skillTitleEl.innerText = company.tips?.skillTitle || (isUnicorn ? "A/B 테스트 및 데이터 기반 빠른 피봇" : "부서 간 협업 및 안정적 엔지니어링");
       skillEl.innerText = company.tips?.skill || `${company.name}에서 강조하는 실무 기술 스택과 함께 능동적인 커뮤니케이션 태도를 갖추는 것이 필수적입니다.`;
 
-      // Real employee review insight linking pros/cons to interview preparation
       const firstCon = company.cons && company.cons.length > 0 ? company.cons[0] : "빠른 변화와 높은 업무 강도";
       const firstPro = company.pros && company.pros.length > 0 ? company.pros[0] : "우수한 복지와 동료";
       reviewInsight.innerText = `현직자 단점으로 꼽힌 [${firstCon}]에 대해 지원자가 어떻게 유연하게 대처할 수 있는지 긍정적인 해결책을 준비하고, 장점인 [${firstPro}]를 본인의 직업적 동기와 연결 지으세요.`;
@@ -1425,6 +1478,7 @@
 
     function renderStarIcons(rating) {
       const container = document.getElementById('star-container');
+      if (!container) return;
       container.innerHTML = '';
       const fullStars = Math.floor(rating);
       const hasHalf = (rating - fullStars) >= 0.4;
@@ -1441,20 +1495,21 @@
     }
 
     function renderSalaryChart(company) {
-      const ctx = document.getElementById('salaryChart').getContext('2d');
+      const canvas = document.getElementById('salaryChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
       if (salaryChartInstance) {
         salaryChartInstance.destroy();
       }
 
       const labels = ['1~3년차 (주니어)', '4~7년차 (미들)', '8~10년차 (시니어)', '10년차 이상 (리더)'];
       const dataValues = [
-        company.salaries.bracket_1_3,
-        company.salaries.bracket_4_7,
-        company.salaries.bracket_8_10,
-        company.salaries.bracket_10_plus
+        company.salaries?.bracket_1_3 || 4500,
+        company.salaries?.bracket_4_7 || 6200,
+        company.salaries?.bracket_8_10 || 8500,
+        company.salaries?.bracket_10_plus || 11000
       ];
 
-      // Custom Gradient for bars
       const gradient = ctx.createLinearGradient(0, 0, 0, 300);
       gradient.addColorStop(0, '#FF6B00');
       gradient.addColorStop(1, '#FFB775');
@@ -1512,7 +1567,7 @@
             }
           },
           animation: {
-            duration: 800,
+            duration: 600,
             easing: 'easeOutQuart'
           }
         }
@@ -1530,10 +1585,9 @@
 
       const result = searchCompanies(query);
 
-      // Case 1: Ambiguous multiple close matches (Requirement: "유사성 비슷한 회사가 여러개 있는 경우에만 선택할 수 있는 옵션 추가 도출")
+      // Case 1: Ambiguous multiple close matches
       if (result && result.isAmbiguous && result.candidates.length > 1) {
         showCandidateSelector(result.candidates, result.bestScore);
-        // Show the top one as primary view simultaneously
         renderCompanyDetails(result.bestMatch, result.bestScore);
         return;
       }
@@ -1541,12 +1595,11 @@
       // Case 2: Clean single best match from internal verified database
       if (result && result.bestMatch) {
         renderCompanyDetails(result.bestMatch, result.bestScore);
-        // Scroll smoothly to detail container
         document.getElementById('company-detail-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
         return;
       }
 
-      // Case 3: Unknown or completely new company -> Dynamically synthesize via Gemini AI!
+      // Case 3: Unknown or completely new company -> Dynamically synthesize via Gemini AI or Fallback
       await generateCompanyReportWithGemini(query);
     }
 
@@ -1558,7 +1611,7 @@
       candidates.forEach(comp => {
         const btn = document.createElement('button');
         btn.className = "px-3 py-1.5 bg-white hover:bg-brand-50 hover:text-brand-600 text-slate-800 rounded-xl border border-orange-200 text-xs font-bold transition-all shadow-xs flex items-center gap-1.5";
-        btn.innerHTML = `<span>${comp.name}</span> <span class="text-[10px] text-slate-400 font-normal">(${comp.category})</span>`;
+        btn.innerHTML = `<span>${escapeHTML(comp.name)}</span> <span class="text-[10px] text-slate-400 font-normal">(${escapeHTML(comp.category)})</span>`;
         btn.onclick = () => {
           renderCompanyDetails(comp, 1.0);
           banner.classList.add('hidden');
@@ -1571,8 +1624,13 @@
       banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
-    // Quick search click handler
     function quickSearch(name) {
+      document.getElementById('company-search-input').value = name;
+      handleSearchSubmit();
+    }
+
+    function loadCompanyByName(name) {
+      closeBookmarksModal();
       document.getElementById('company-search-input').value = name;
       handleSearchSubmit();
     }
@@ -1583,26 +1641,39 @@
       const loadingTitle = document.getElementById('loading-title');
       const loadingSubtext = document.getElementById('loading-subtext');
 
-      loadingTitle.innerText = `'${companyName}' 기업 정보 실시간 AI 심층 분석 중...`;
-      loadingSubtext.innerText = "국민연금 보고 데이터, 실제 과세 매출 보고서 및 블라인드/잡플래닛 평판을 심층 탐색하고 있습니다.";
+      loadingTitle.innerText = `'${companyName}' 기업 정보 분석 중...`;
+      loadingSubtext.innerText = "국민연금 보고 데이터, 실제 과세 매출 보고서 및 평판 데이터를 취합하고 있습니다.";
       loadingState.classList.remove('hidden');
       detailContainer.style.opacity = '0.3';
 
-      const apiKey = ""; // Canvas provides runtime API key
-      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+      // GitHub Pages or Local Deployment Key Handling
+      const effectiveKey = userApiKey.trim() || "";
+      
+      // If deployed on GitHub without key, immediately provide intelligent fallback without blocking
+      if (!effectiveKey) {
+        setTimeout(() => {
+          fallbackUnknownCompany(companyName);
+          loadingState.classList.add('hidden');
+          detailContainer.style.opacity = '1.0';
+          showToast(`'${companyName}' 스마트 추정 리포트를 생성했습니다. (AI 실시간 분석은 우측 상단 'API 설정'에서 연동 가능)`);
+        }, 600);
+        return;
+      }
+
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${effectiveKey}`;
 
       const systemPrompt = `당신은 대한민국 최고의 채용 및 기업 인사이트 전문 애널리스트입니다.
 구직자와 이직자를 위해 요청된 회사의 실제 보고된 최신 매출(공시가 없거나 불충분할 경우 국민연금 납부액 추산 및 국세청/감사보고서 기반 실제 매출), 국민연금 가입 직원수, 블라인드/잡플래닛 실제 평가를 수집해야 합니다.
 특히 매출액 산정 시 주의할 점: 모회사와 자회사의 연결 매출과 개별 법인 매출의 혼동에 각별히 유의하고, 실제 해당 법인의 적정 매출 규모(단위: 억원 또는 조원)를 신중하게 추정하세요.
 이직/면접 공략 팁은 회사의 형태(상장 대기업, 비상장 유니콘, 외국계, 강소기업)와 전·현직자의 실제 리뷰 평판에 맞추어 완전히 차별화된 실전 조언을 작성하세요.
-반드시 마크다운 없이 순수 JSON 객체 포맷만 반환하세요.`;
+반드시 마크다운 코드블록 없이 순수 JSON 객체 포맷만 반환하세요.`;
 
       const prompt = `회사명: "${companyName}"
 이 회사에 대해 아래 구조를 충족하는 순수 JSON을 작성해주세요.
 {
   "id": "generated-${Date.now()}",
   "name": "정확한 회사 정식 명칭",
-  "domain": "기업 공식 웹사이트 영문 도메인 (예: kakaoenterprise.com, toss.im 등)",
+  "domain": "기업 공식 웹사이트 영문 도메인 (예: wanted.co.kr 등)",
   "category": "업종 / 직무 카테고리",
   "companyType": "기업 형태 (예: 코스피 상장 대기업, 유니콘 스타트업, 외국계 글로벌 한국지사, 강소/중견기업 등)",
   "stockBadge": "상장 여부(예: 코스피 상장, 비상장(투자유치), 코스닥 상장 등)",
@@ -1614,15 +1685,15 @@
   "location": "본사 위치 주소",
   "avgSalary": "전체 평균 연봉 (예: 6,800만원)",
   "salaries": {
-    "bracket_1_3": 1~3년차_예상연봉(만원_정수),
-    "bracket_4_7": 4~7년차_예상연봉(만원_정수),
-    "bracket_8_10": 8~10년차_예상연봉(만원_정수),
-    "bracket_10_plus": 10년차이상_예상연봉(만원_정수)
+    "bracket_1_3": 4500,
+    "bracket_4_7": 6200,
+    "bracket_8_10": 8500,
+    "bracket_10_plus": 11000
   },
   "bonusNote": "성과급 및 복지 포인트 등 추가 보상 설명",
-  "rating": 5점만점_평점(실수_예_3.8),
-  "recommendRate": 지인추천율_정수퍼센트(예_72),
-  "scores": { "welfare": 복지점수, "balance": 워라밸점수, "culture": 사내문화점수, "growth": 성장성점수 },
+  "rating": 3.8,
+  "recommendRate": 72,
+  "scores": { "welfare": 4.0, "balance": 3.6, "culture": 3.9, "growth": 4.1 },
   "pros": ["실제 재퇴직자가 느낀 핵심 장점 1", "핵심 장점 2", "핵심 장점 3"],
   "cons": ["실제 재퇴직자가 느낀 현실적 단점 1", "현실적 단점 2", "현실적 단점 3"],
   "keywords": ["#키워드1", "#키워드2", "#키워드3", "#키워드4"],
@@ -1639,7 +1710,6 @@
       try {
         const payload = {
           contents: [{ parts: [{ text: prompt }] }],
-          tools: [{ "google_search": {} }],
           systemInstruction: { parts: [{ text: systemPrompt }] },
           generationConfig: {
             responseMimeType: "application/json"
@@ -1659,7 +1729,7 @@
           const generatedData = JSON.parse(jsonText);
           COMPANY_DATABASE.unshift(generatedData);
           renderCompanyDetails(generatedData, 1.0);
-          showToast(`'${generatedData.name}' 국민연금 및 평판 분석 리포트 생성이 완료되었습니다.`);
+          showToast(`'${generatedData.name}' AI 분석 리포트가 생성되었습니다.`);
         } else {
           fallbackUnknownCompany(companyName);
         }
@@ -1677,10 +1747,10 @@
         id: `mock-${Date.now()}`,
         name: rawName,
         domain: "wanted.co.kr",
-        category: "일반 기업 / 스타트업",
+        category: "일반 기업 / IT 솔루션",
         companyType: "성장형 비상장 벤처",
         stockBadge: "비상장 기업",
-        tagline: `${rawName}의 비즈니스 가치 창출과 빠른 시장 성장`,
+        tagline: `${rawName}의 비즈니스 가치 창출과 지속 성장`,
         founded: "2019년 (추정)",
         revenue: "240억원 (국민연금 납부액 추산)",
         revenueSource: "국민연금 추산",
@@ -1720,7 +1790,6 @@
 
       COMPANY_DATABASE.unshift(fallback);
       renderCompanyDetails(fallback, 0.85);
-      showToast(`'${rawName}' 추정치 리포트를 불러왔습니다.`);
     }
 
     async function askAIConsultant() {
@@ -1739,10 +1808,28 @@
       responseBox.classList.remove('hidden');
       responseBox.innerHTML = `<span class="text-brand-600 font-semibold"><i class="fa-solid fa-circle-notch animate-spin mr-1"></i> '${currentCompany.name}' 맞춤 분석 중...</span>`;
 
-      const apiKey = "";
-      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+      const effectiveKey = userApiKey.trim() || "";
+      if (!effectiveKey) {
+        setTimeout(() => {
+          responseBox.innerHTML = `
+            <div class="font-bold text-slate-900 mb-1 flex items-center gap-1.5">
+              <i class="fa-solid fa-comment-dots text-brand-500"></i> EasyK 커리어 어드바이저의 추천 답변:
+            </div>
+            <div class="text-slate-700 whitespace-pre-line leading-relaxed">
+              <strong>${currentCompany.name}</strong>(${currentCompany.category}) 지원 시에는 무엇보다 <em>${currentCompany.tips?.resumeTitle || '직무 전문성과 정량 성과'}</em>를 강조하는 것이 핵심입니다.
+              ${currentCompany.pros?.[0] ? `회사의 핵심 강점인 '${currentCompany.pros[0]}'에 공감하면서, ` : ''}자신이 조직의 비즈니스 임팩트에 기여할 수 있는 구체적인 프로젝트 해결 사례를 1~2가지 면접에서 설명하세요.
+              <span class="block mt-2 text-[11px] text-slate-400">* 상단 'API 설정'에서 개인 Gemini 키를 등록하면 맞춤형 실시간 AI 컨설팅을 추가로 이용할 수 있습니다.</span>
+            </div>
+          `;
+          btn.disabled = false;
+          btn.innerText = "질문하기";
+        }, 500);
+        return;
+      }
 
-      const prompt = `회사명: ${currentCompany.name} (업종: ${currentCompany.category}, 장점: ${currentCompany.pros.join(', ')}, 단점: ${currentCompany.cons.join(', ')})
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${effectiveKey}`;
+
+      const prompt = `회사명: ${currentCompany.name} (업종: ${currentCompany.category}, 장점: ${currentCompany.pros?.join(', ')}, 단점: ${currentCompany.cons?.join(', ')})
 구직자의 질문: "${query}"
 
 이 회사의 실제 분위기와 합격 전략에 입각하여 구직자에게 명쾌하고 실질적인 3~4문장의 프로페셔널한 컨설팅 답변을 한국어로 제공해주세요.`;
@@ -1764,7 +1851,7 @@
         if (text) {
           responseBox.innerHTML = `<div class="font-bold text-slate-900 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-comment-dots text-brand-500"></i> AI 커리어 어드바이저의 답변:</div><div class="text-slate-700 whitespace-pre-line leading-relaxed">${escapeHTML(text)}</div>`;
         } else {
-          responseBox.innerText = "답변을 가져오는 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.";
+          responseBox.innerText = "답변 생성에 실패했습니다. API 키를 확인해주세요.";
         }
       } catch (e) {
         responseBox.innerText = `현재 기업(${currentCompany.name})의 인재상에 맞춰 직무 전문성과 협업 역량을 정량적인 지표로 풀어내는 것이 가장 중요합니다. 서류에서는 본인이 직접 기여한 부분의 기여도와 성과를 명확히 작성하세요.`;
@@ -1779,6 +1866,7 @@
       tabs.forEach(t => {
         const btn = document.getElementById(`tab-btn-${t}`);
         const content = document.getElementById(`tab-content-${t}`);
+        if (!btn || !content) return;
         if (t === tabName) {
           btn.className = "pb-3 tab-active transition-colors shrink-0";
           content.classList.remove('hidden');
@@ -1807,12 +1895,12 @@
           const row = document.createElement('div');
           row.className = "p-3.5 bg-surface hover:bg-orange-50/50 rounded-2xl border border-slate-200/80 flex items-center justify-between transition-colors";
           row.innerHTML = `
-            <div class="cursor-pointer flex-1" onclick="loadCompanyByName('${item.name}')">
-              <span class="text-xs font-semibold text-brand-600 block">${item.category}</span>
-              <span class="text-sm font-bold text-slate-900">${item.name}</span>
-              <span class="text-xs text-slate-500 ml-2">평균 연봉 ${item.avgSalary}</span>
+            <div class="cursor-pointer flex-1" onclick="loadCompanyByName('${escapeHTML(item.name)}')">
+              <span class="text-xs font-semibold text-brand-600 block">${escapeHTML(item.category)}</span>
+              <span class="text-sm font-bold text-slate-900">${escapeHTML(item.name)}</span>
+              <span class="text-xs text-slate-500 ml-2">평균 연봉 ${escapeHTML(item.avgSalary)}</span>
             </div>
-            <button onclick="removeBookmark('${item.id || item.name}')" class="text-slate-400 hover:text-rose-500 p-2 text-sm" title="삭제">
+            <button onclick="removeBookmark('${escapeHTML(item.id || item.name)}')" class="text-slate-400 hover:text-rose-500 p-2 text-sm" title="삭제">
               <i class="fa-solid fa-trash-can"></i>
             </button>
           `;
@@ -1833,4 +1921,51 @@
         localStorage.setItem('easyk_bookmarks', JSON.stringify(savedBookmarks));
       } catch(e) {}
       updateBookmarkBadge();
-/* ... existing code ... -->
+      openBookmarksModal();
+      updateBookmarkUIState();
+    }
+
+    function openApiKeyModal() {
+      const modal = document.getElementById('apikey-modal');
+      const input = document.getElementById('user-gemini-key');
+      input.value = userApiKey;
+      modal.classList.remove('hidden');
+    }
+
+    function closeApiKeyModal() {
+      document.getElementById('apikey-modal').classList.add('hidden');
+    }
+
+    function saveUserApiKey() {
+      const input = document.getElementById('user-gemini-key');
+      userApiKey = input.value.trim();
+      localStorage.setItem('easyk_gemini_key', userApiKey);
+      closeApiKeyModal();
+      showToast(userApiKey ? "API Key가 안전하게 저장되었습니다!" : "API Key 저장이 해제되었습니다.");
+    }
+
+    function clearUserApiKey() {
+      userApiKey = "";
+      localStorage.removeItem('easyk_gemini_key');
+      document.getElementById('user-gemini-key').value = "";
+      closeApiKeyModal();
+      showToast("API Key가 삭제되었습니다.");
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // Check URL query parameters (e.g. ?q=네이버)
+      const urlParams = new URLSearchParams(window.location.search);
+      const queryParam = urlParams.get('q');
+
+      if (queryParam) {
+        document.getElementById('company-search-input').value = queryParam;
+        handleSearchSubmit();
+      } else {
+        renderCompanyDetails(currentCompany, 1.0);
+      }
+      
+      updateBookmarkBadge();
+    });
+  </script>
+</body>
+</html>

@@ -273,17 +273,14 @@
           </div>
 
           <!-- 2. 실제 보고 매출액 -->
-          <div class="bg-surface p-4 rounded-2xl border border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4">
-            <div class="flex items-center gap-3">
+          <div class="bg-surface p-4 rounded-2xl border border-slate-100 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3 shrink-0">
               <div class="w-10 h-10 rounded-xl bg-orange-100/70 text-brand-600 flex items-center justify-center shrink-0">
                 <i class="fa-solid fa-chart-line text-base"></i>
               </div>
-              <div class="flex items-center gap-2 flex-wrap">
-                <span class="text-xs sm:text-sm font-semibold text-slate-500">실제 보고 매출액</span>
-                <span id="company-revenue-badge" class="px-2 py-0.5 text-[10px] bg-orange-100 text-brand-700 font-bold rounded-md">국민연금·감사보고</span>
-              </div>
+              <span class="text-xs sm:text-sm font-semibold text-slate-500">실제 보고 매출액</span>
             </div>
-            <div class="sm:text-right pl-13 sm:pl-0">
+            <div class="text-right">
               <span id="company-revenue" class="text-sm sm:text-base font-bold text-slate-900 break-words">258조 9,300억원</span>
             </div>
           </div>
@@ -574,19 +571,20 @@
                 <h4 class="text-sm font-bold text-slate-900">AI 채용 컨설턴트에게 추가 질문하기</h4>
               </div>
               <p class="text-xs text-slate-600 mb-3">현재 기업에 대한 맞춤 자기소개서 소재나 직무별 세부 질의응답을 AI에게 즉시 질문할 수 있습니다.</p>
-              <div class="flex gap-2">
+              <div class="flex flex-col gap-2.5">
                 <input 
                   type="text" 
                   id="ai-custom-query" 
                   placeholder="예: 이 기업 마케팅/개발직군 이직 시 강조하면 좋은 점은?"
-                  class="flex-1 px-4 py-2 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-brand-500"
+                  class="w-full px-4 py-3 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-brand-500 shadow-xs"
                 />
                 <button 
                   onclick="askAIConsultant()" 
                   id="ai-consultant-btn"
-                  class="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white text-xs sm:text-sm font-bold rounded-xl shadow-xs transition-colors shrink-0"
+                  class="w-full py-3 bg-brand-500 hover:bg-brand-600 active:scale-[0.99] text-white text-xs sm:text-sm font-bold rounded-xl shadow-xs transition-all flex items-center justify-center gap-1.5"
                 >
-                  질문하기
+                  <i class="fa-solid fa-paper-plane text-xs"></i>
+                  <span>질문하기</span>
                 </button>
               </div>
               <div id="ai-response-box" class="mt-4 p-4 bg-white rounded-xl border border-orange-100 text-xs sm:text-sm text-slate-700 leading-relaxed hidden">
@@ -1331,7 +1329,9 @@
       document.getElementById('company-revenue').innerText = company.revenue || '추산 집계 중';
       
       const revenueBadge = document.getElementById('company-revenue-badge');
-      revenueBadge.innerText = company.revenueSource || "국민연금·결산보고";
+      if (revenueBadge) {
+        revenueBadge.innerText = company.revenueSource || "국민연금·결산보고";
+      }
 
       document.getElementById('company-employees').innerText = company.employees || '-';
       document.getElementById('company-location').innerText = company.location || '-';

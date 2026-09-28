@@ -54,6 +54,7 @@
       color: #1E293B;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      word-break: keep-all; /* Prevent unnatural Korean word splits globally */
     }
     .custom-scrollbar::-webkit-scrollbar {
       width: 6px;
@@ -130,14 +131,14 @@
           2026 최신 DART 공시 & 국민연금·블라인드 종합 인사이트
         </div>
         
-        <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
+        <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug break-keep">
           가고 싶은 회사, <br class="sm:hidden" />
-          <span class="text-brand-500 relative inline-block">
+          <span class="text-brand-500 relative inline-block whitespace-nowrap">
             진짜 연봉과 속사정
             <svg class="absolute -bottom-1 left-0 w-full h-2 text-brand-300" viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0,15 Q50,0 100,15" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>
           </span>은 어떨까?
         </h1>
-        <p class="mt-2 text-sm sm:text-base text-slate-600 max-w-xl mx-auto">
+        <p class="mt-2 text-sm sm:text-base text-slate-600 max-w-xl mx-auto break-keep">
           회사명 오타도 걱정 마세요. AI와 퍼지 유사도 알고리즘이 원하는 기업의 공시 정보, 연차별 예상 연봉, 재퇴직자 평판을 한눈에 찾아드립니다.
         </p>
 
@@ -256,53 +257,61 @@
           </div>
         </div>
 
-        <!-- 4 Essential Basic Info Grid -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-6 pt-6 border-t border-slate-100">
+        <!-- 4 Essential Basic Info Stack (Full Width, 1 per row to prevent text truncation) -->
+        <div class="flex flex-col gap-3 mt-6 pt-6 border-t border-slate-100">
           <!-- 1. 설립연도 -->
-          <div class="bg-surface p-3.5 rounded-2xl border border-slate-100 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-orange-100/70 text-brand-600 flex items-center justify-center shrink-0">
-              <i class="fa-regular fa-calendar-check text-base"></i>
+          <div class="bg-surface p-4 rounded-2xl border border-slate-100 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3 shrink-0">
+              <div class="w-10 h-10 rounded-xl bg-orange-100/70 text-brand-600 flex items-center justify-center shrink-0">
+                <i class="fa-regular fa-calendar-check text-base"></i>
+              </div>
+              <span class="text-xs sm:text-sm font-semibold text-slate-500">설립연도</span>
             </div>
-            <div>
-              <span class="text-[11px] font-medium text-slate-400 block">설립연도</span>
+            <div class="text-right">
               <span id="company-founded" class="text-sm sm:text-base font-bold text-slate-800">1969년</span>
             </div>
           </div>
 
-          <!-- 2. 작년 매출액 -->
-          <div class="bg-surface p-3.5 rounded-2xl border border-slate-100 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-orange-100/70 text-brand-600 flex items-center justify-center shrink-0">
-              <i class="fa-solid fa-chart-line text-base"></i>
-            </div>
-            <div class="truncate">
-              <div class="flex items-center gap-1">
-                <span class="text-[11px] font-medium text-slate-400 block">실제 보고 매출액</span>
-                <span id="company-revenue-badge" class="px-1.5 py-0.2 text-[9px] bg-orange-100 text-brand-700 font-bold rounded">국민연금·감사보고</span>
+          <!-- 2. 실제 보고 매출액 -->
+          <div class="bg-surface p-4 rounded-2xl border border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-orange-100/70 text-brand-600 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-chart-line text-base"></i>
               </div>
-              <span id="company-revenue" class="text-sm sm:text-base font-bold text-slate-800 truncate block">258조 9,300억원</span>
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-xs sm:text-sm font-semibold text-slate-500">실제 보고 매출액</span>
+                <span id="company-revenue-badge" class="px-2 py-0.5 text-[10px] bg-orange-100 text-brand-700 font-bold rounded-md">국민연금·감사보고</span>
+              </div>
+            </div>
+            <div class="sm:text-right pl-13 sm:pl-0">
+              <span id="company-revenue" class="text-sm sm:text-base font-bold text-slate-900 break-words">258조 9,300억원</span>
             </div>
           </div>
 
           <!-- 3. 직원수 -->
-          <div class="bg-surface p-3.5 rounded-2xl border border-slate-100 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-orange-100/70 text-brand-600 flex items-center justify-center shrink-0">
-              <i class="fa-solid fa-users text-base"></i>
+          <div class="bg-surface p-4 rounded-2xl border border-slate-100 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3 shrink-0">
+              <div class="w-10 h-10 rounded-xl bg-orange-100/70 text-brand-600 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-users text-base"></i>
+              </div>
+              <span class="text-xs sm:text-sm font-semibold text-slate-500">임직원 수 (국민연금)</span>
             </div>
-            <div>
-              <span class="text-[11px] font-medium text-slate-400 block">임직원 수 (국민연금)</span>
+            <div class="text-right">
               <span id="company-employees" class="text-sm sm:text-base font-bold text-slate-800">124,000여 명</span>
             </div>
           </div>
 
-          <!-- 4. 회사 위치 -->
-          <div class="bg-surface p-3.5 rounded-2xl border border-slate-100 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-orange-100/70 text-brand-600 flex items-center justify-center shrink-0">
-              <i class="fa-solid fa-location-dot text-base"></i>
+          <!-- 4. 본사 위치 -->
+          <div class="bg-surface p-4 rounded-2xl border border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4">
+            <div class="flex items-center gap-3 shrink-0">
+              <div class="w-10 h-10 rounded-xl bg-orange-100/70 text-brand-600 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-location-dot text-base"></i>
+              </div>
+              <span class="text-xs sm:text-sm font-semibold text-slate-500">본사 위치</span>
             </div>
-            <div class="truncate">
-              <span class="text-[11px] font-medium text-slate-400 block">본사 위치</span>
-              <span id="company-location" class="text-sm sm:text-base font-bold text-slate-800 truncate block" title="경기도 수원시 영통구 삼성로 129">
-                경기 수원시 영통구
+            <div class="sm:text-right pl-13 sm:pl-0">
+              <span id="company-location" class="text-xs sm:text-sm font-bold text-slate-800 leading-relaxed break-words">
+                경기도 수원시 영통구 삼성로 129
               </span>
             </div>
           </div>
@@ -319,14 +328,14 @@
       </div>
 
       <!-- Sub Tab Buttons -->
-      <div class="flex items-center gap-6 border-b border-slate-200 mb-6 px-2 overflow-x-auto text-sm sm:text-base font-semibold">
-        <button id="tab-btn-salary" onclick="switchTab('salary')" class="pb-3 tab-active transition-colors shrink-0">
+      <div class="flex items-center gap-6 border-b border-slate-200 mb-6 px-2 overflow-x-auto text-sm sm:text-base font-semibold whitespace-nowrap">
+        <button id="tab-btn-salary" onclick="switchTab('salary')" class="pb-3 tab-active transition-colors shrink-0 whitespace-nowrap">
           <i class="fa-solid fa-won-sign mr-1.5"></i>예상 연봉 스펙트럼
         </button>
-        <button id="tab-btn-reputation" onclick="switchTab('reputation')" class="pb-3 text-slate-500 hover:text-slate-800 transition-colors shrink-0">
+        <button id="tab-btn-reputation" onclick="switchTab('reputation')" class="pb-3 text-slate-500 hover:text-slate-800 transition-colors shrink-0 whitespace-nowrap">
           <i class="fa-regular fa-comment-dots mr-1.5"></i>재·퇴직자 장/단점 평가
         </button>
-        <button id="tab-btn-culture" onclick="switchTab('culture')" class="pb-3 text-slate-500 hover:text-slate-800 transition-colors shrink-0">
+        <button id="tab-btn-culture" onclick="switchTab('culture')" class="pb-3 text-slate-500 hover:text-slate-800 transition-colors shrink-0 whitespace-nowrap">
           <i class="fa-solid fa-bullseye mr-1.5"></i>이직/면접 공략 팁
         </button>
       </div>
@@ -334,18 +343,19 @@
       <!-- Section 1: Salary Breakdown & Charts -->
       <div id="tab-content-salary" class="space-y-6">
         <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-card border border-slate-100">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
-            <div>
-              <div class="flex items-center gap-2">
-                <h3 class="text-lg sm:text-xl font-bold text-slate-900">연차별 예상 연봉 (국민연금 & 포털 표본)</h3>
-                <span class="px-2 py-0.5 text-[11px] bg-orange-100 text-brand-700 font-bold rounded-full">세전 기준</span>
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+            <div class="min-w-0">
+              <div class="flex items-center gap-2 flex-nowrap">
+                <h3 class="text-base sm:text-xl font-bold text-slate-900 whitespace-nowrap">연차별 예상 연봉</h3>
+                <span class="text-[11px] text-slate-400 font-normal hidden sm:inline">(국민연금 & 포털 표본)</span>
+                <span class="px-2 py-0.5 text-[10px] sm:text-[11px] bg-orange-100 text-brand-700 font-bold rounded-full whitespace-nowrap shrink-0">세전 기준</span>
               </div>
-              <p class="text-xs text-slate-500 mt-1">기본급 및 정기 성과급 평균치를 반영한 추정치이며, 직무/개인 고과에 따라 상이할 수 있습니다.</p>
+              <p class="text-xs text-slate-500 mt-1 break-keep">기본급 및 정기 성과급 평균치를 반영한 추정치이며, 직무/개인 고과에 따라 상이할 수 있습니다.</p>
             </div>
             <!-- Average Salary Callout -->
-            <div class="bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-200/80 px-4 py-2.5 rounded-2xl flex items-center gap-3">
-              <span class="text-xs text-slate-600 font-medium">전체 평균 연봉</span>
-              <span id="company-avg-salary" class="text-lg sm:text-xl font-black text-brand-600">1억 1,500만원</span>
+            <div class="bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-200/80 px-4 py-2.5 rounded-2xl flex items-center justify-between sm:justify-start gap-3 shrink-0">
+              <span class="text-xs text-slate-600 font-medium whitespace-nowrap">전체 평균 연봉</span>
+              <span id="company-avg-salary" class="text-lg sm:text-xl font-black text-brand-600 whitespace-nowrap">1억 1,500만원</span>
             </div>
           </div>
 
@@ -505,15 +515,15 @@
         <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-card border border-slate-100">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-100">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-2xl bg-brand-500 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-brand-500/20">
+              <div class="w-10 h-10 rounded-2xl bg-brand-500 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-brand-500/20 shrink-0">
                 <i class="fa-solid fa-lightbulb"></i>
               </div>
               <div>
-                <h3 class="text-lg font-bold text-slate-900">구직자·이직자를 위한 서류 & 면접 합격 팁</h3>
-                <p class="text-xs text-slate-500">기업형태(상장/비상장/외국계) 및 전·현직자 피드백 기반 맞춤 분석입니다.</p>
+                <h3 class="text-base sm:text-lg font-bold text-slate-900 break-keep">구직자·이직자를 위한 서류 & 면접 합격 팁</h3>
+                <p class="text-xs text-slate-500 break-keep">기업형태(상장/비상장/외국계) 및 전·현직자 피드백 기반 맞춤 분석입니다.</p>
               </div>
             </div>
-            <div id="tip-company-type-badge" class="self-start sm:self-auto px-3 py-1.5 bg-orange-50 border border-orange-200 rounded-xl text-xs font-bold text-brand-700 flex items-center gap-1.5">
+            <div id="tip-company-type-badge" class="self-start sm:self-auto px-3 py-1.5 bg-orange-50 border border-orange-200 rounded-xl text-xs font-bold text-brand-700 flex items-center gap-1.5 whitespace-nowrap shrink-0">
               <i class="fa-solid fa-building-flag"></i>
               <span>상장 대기업 분석 모드</span>
             </div>
@@ -522,37 +532,37 @@
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="p-5 bg-surface rounded-2xl border border-slate-200/80 hover:border-brand-300 transition-colors">
               <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-bold text-brand-600 block">POINT 01. 이력서 서류 전략</span>
-                <span id="tip-tag-resume" class="text-[10px] px-2 py-0.5 bg-slate-100 font-semibold text-slate-600 rounded-md">정량 지표</span>
+                <span class="text-xs font-bold text-brand-600 block whitespace-nowrap">POINT 01. 이력서 서류 전략</span>
+                <span id="tip-tag-resume" class="text-[10px] px-2 py-0.5 bg-slate-100 font-semibold text-slate-600 rounded-md whitespace-nowrap">정량 지표</span>
               </div>
-              <h5 id="tip-resume-title" class="text-sm font-bold text-slate-900 mb-2">수치화된 성과와 시스템 개선 경험</h5>
-              <p id="tip-resume" class="text-xs text-slate-600 leading-relaxed"></p>
+              <h5 id="tip-resume-title" class="text-sm font-bold text-slate-900 mb-2 break-keep">수치화된 성과와 시스템 개선 경험</h5>
+              <p id="tip-resume" class="text-xs text-slate-600 leading-relaxed break-keep"></p>
             </div>
 
             <div class="p-5 bg-surface rounded-2xl border border-slate-200/80 hover:border-brand-300 transition-colors">
               <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-bold text-brand-600 block">POINT 02. 실전 면접 & 컬처핏</span>
-                <span id="tip-tag-interview" class="text-[10px] px-2 py-0.5 bg-slate-100 font-semibold text-slate-600 rounded-md">직무 검증</span>
+                <span class="text-xs font-bold text-brand-600 block whitespace-nowrap">POINT 02. 실전 면접 & 컬처핏</span>
+                <span id="tip-tag-interview" class="text-[10px] px-2 py-0.5 bg-slate-100 font-semibold text-slate-600 rounded-md whitespace-nowrap">직무 검증</span>
               </div>
-              <h5 id="tip-interview-title" class="text-sm font-bold text-slate-900 mb-2">실무 역량과 조직 적응성 검증</h5>
-              <p id="tip-interview" class="text-xs text-slate-600 leading-relaxed"></p>
+              <h5 id="tip-interview-title" class="text-sm font-bold text-slate-900 mb-2 break-keep">실무 역량과 조직 적응성 검증</h5>
+              <p id="tip-interview" class="text-xs text-slate-600 leading-relaxed break-keep"></p>
             </div>
 
             <div class="p-5 bg-surface rounded-2xl border border-slate-200/80 hover:border-brand-300 transition-colors">
               <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-bold text-brand-600 block">POINT 03. 합격 핵심 스킬셋</span>
-                <span id="tip-tag-skill" class="text-[10px] px-2 py-0.5 bg-slate-100 font-semibold text-slate-600 rounded-md">소프트/하드스킬</span>
+                <span class="text-xs font-bold text-brand-600 block whitespace-nowrap">POINT 03. 합격 핵심 스킬셋</span>
+                <span id="tip-tag-skill" class="text-[10px] px-2 py-0.5 bg-slate-100 font-semibold text-slate-600 rounded-md whitespace-nowrap">소프트/하드스킬</span>
               </div>
-              <h5 id="tip-skill-title" class="text-sm font-bold text-slate-900 mb-2">협업과 데이터 기반 의사결정</h5>
-              <p id="tip-skill" class="text-xs text-slate-600 leading-relaxed"></p>
+              <h5 id="tip-skill-title" class="text-sm font-bold text-slate-900 mb-2 break-keep">협업과 데이터 기반 의사결정</h5>
+              <p id="tip-skill" class="text-xs text-slate-600 leading-relaxed break-keep"></p>
             </div>
           </div>
 
           <div class="mt-4 p-4 rounded-2xl bg-amber-50/70 border border-amber-200/80 flex items-start gap-3">
             <i class="fa-solid fa-user-check text-amber-600 mt-1 shrink-0 text-sm"></i>
             <div>
-              <span class="text-xs font-bold text-amber-900 block">재퇴직자 리뷰가 말해주는 합격 키포인트</span>
-              <p id="tip-review-insight" class="text-xs text-amber-800 mt-0.5 leading-relaxed"></p>
+              <span class="text-xs font-bold text-amber-900 block whitespace-nowrap">재퇴직자 리뷰가 말해주는 합격 키포인트</span>
+              <p id="tip-review-insight" class="text-xs text-amber-800 mt-0.5 leading-relaxed break-keep"></p>
             </div>
           </div>
 
@@ -1359,7 +1369,7 @@
       prosList.innerHTML = pros.map(pro => `
         <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 bg-emerald-50/50 p-3 rounded-2xl border border-emerald-100">
           <i class="fa-solid fa-circle-check text-emerald-500 mt-1 shrink-0"></i>
-          <span>${escapeHTML(pro)}</span>
+          <span class="break-keep">${escapeHTML(pro)}</span>
         </li>
       `).join('');
 
@@ -1368,7 +1378,7 @@
       consList.innerHTML = cons.map(con => `
         <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 bg-rose-50/50 p-3 rounded-2xl border border-rose-100">
           <i class="fa-solid fa-triangle-exclamation text-rose-500 mt-1 shrink-0"></i>
-          <span>${escapeHTML(con)}</span>
+          <span class="break-keep">${escapeHTML(con)}</span>
         </li>
       `).join('');
 

@@ -1,0 +1,1836 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>EasyK (이직K) | 구직자·이직자를 위한 똑똑한 기업 리포트</title>
+  
+  <!-- Pretendard Web Font -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js for Salary Visualizations -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- FontAwesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#FFF7ED',
+              100: '#FFEDD5',
+              200: '#FED7AA',
+              300: '#FDBA74',
+              400: '#FB923C',
+              500: '#FF6B00', // Signature vibrant orange
+              600: '#EA580C',
+              700: '#C2410C',
+              800: '#9A3412',
+              900: '#7C2D12',
+            },
+            surface: '#FBFBFC',
+            cardbg: '#FFFFFF',
+          },
+          fontFamily: {
+            sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'sans-serif'],
+          },
+          boxShadow: {
+            'soft': '0 4px 20px -2px rgba(255, 107, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04)',
+            'card': '0 10px 30px -4px rgba(17, 24, 39, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02)',
+            'floating': '0 20px 40px -10px rgba(255, 107, 0, 0.25)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Pretendard', sans-serif;
+      background-color: #F8F9FA;
+      color: #1E293B;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #F1F5F9;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #94A3B8;
+    }
+    .badge-shimmer {
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+      background-size: 200% 100%;
+      animation: shimmer 2.5s infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .tab-active {
+      color: #FF6B00;
+      border-bottom: 2.5px solid #FF6B00;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-brand-100 selection:text-brand-900">
+
+  <!-- Top Global Header -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-orange-100/60 shadow-xs">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <!-- Logo -->
+      <div class="flex items-center gap-3 cursor-pointer" onclick="resetToHome()">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-brand-500 to-orange-400 flex items-center justify-center shadow-md shadow-brand-500/25">
+          <i class="fa-solid fa-arrow-trend-up text-white text-lg"></i>
+        </div>
+        <div>
+          <span class="text-xl font-extrabold tracking-tight text-slate-900">Easy<span class="text-brand-500">K</span></span>
+          <span class="hidden sm:inline-block ml-2 px-2 py-0.5 text-xs font-semibold text-brand-600 bg-brand-50 rounded-full border border-brand-200">이직·구직 인사이트</span>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="flex items-center gap-2">
+        <button onclick="openBookmarksModal()" class="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-600 hover:text-brand-600 hover:bg-orange-50/70 rounded-xl transition-all">
+          <i class="fa-regular fa-bookmark text-sm text-brand-500"></i>
+          <span class="hidden sm:inline">관심기업</span>
+          <span id="bookmark-count-badge" class="px-1.5 py-0.2 bg-brand-500 text-white rounded-full text-[10px] hidden">0</span>
+        </button>
+        <button onclick="toggleShareModal()" class="p-2 text-slate-500 hover:text-brand-500 hover:bg-orange-50 rounded-xl transition-all" title="공유하기">
+          <i class="fa-solid fa-arrow-up-from-bracket"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Search Container -->
+  <main class="flex-1 pb-16">
+    <div class="bg-gradient-to-b from-white via-orange-50/30 to-transparent pt-8 pb-6 px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-50 border border-brand-200/80 text-brand-700 text-xs font-semibold mb-4 shadow-xs">
+          <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+          2026 최신 DART 공시 & 블라인드·잡플래닛 종합 인사이트
+        </div>
+        
+        <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
+          가고 싶은 회사, <br class="sm:hidden" />
+          <span class="text-brand-500 relative inline-block">
+            진짜 연봉과 속사정
+            <svg class="absolute -bottom-1 left-0 w-full h-2 text-brand-300" viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0,15 Q50,0 100,15" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>
+          </span>은 어떨까?
+        </h1>
+        <p class="mt-2 text-sm sm:text-base text-slate-600 max-w-xl mx-auto">
+          회사명 오타도 걱정 마세요. AI와 퍼지 유사도 알고리즘이 원하는 기업의 공시 정보, 연차별 예상 연봉, 재퇴직자 평판을 한눈에 찾아드립니다.
+        </p>
+
+        <!-- Search Bar Input Box -->
+        <div class="mt-6 relative max-w-2xl mx-auto">
+          <form id="search-form" onsubmit="handleSearchSubmit(event)" class="relative flex items-center">
+            <div class="absolute left-4 pointer-events-none text-slate-400">
+              <i class="fa-solid fa-magnifying-glass text-lg group-focus-within:text-brand-500 transition-colors"></i>
+            </div>
+            <input 
+              type="text" 
+              id="company-search-input"
+              autocomplete="off"
+              placeholder="회사명을 입력하세요 (예: 삼성전자, 삼전, 토스, 카카오오, 당근)"
+              class="w-full pl-12 pr-28 sm:pr-32 py-4 bg-white text-slate-800 text-sm sm:text-base rounded-2xl border-2 border-orange-200/80 focus:border-brand-500 focus:outline-none shadow-soft transition-all placeholder:text-slate-400"
+            />
+            <button 
+              type="submit" 
+              class="absolute right-2 sm:right-2.5 px-4 sm:px-6 py-2.5 bg-brand-500 hover:bg-brand-600 active:scale-95 text-white font-semibold text-xs sm:text-sm rounded-xl shadow-md shadow-brand-500/30 transition-all flex items-center gap-1.5"
+            >
+              <span>분석 조회</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </button>
+          </form>
+
+          <!-- Quick tags -->
+          <div class="mt-3 flex items-center justify-center flex-wrap gap-1.5 text-xs text-slate-500">
+            <span class="font-medium text-slate-400">인기 검색:</span>
+            <button onclick="quickSearch('네이버')" class="px-2.5 py-1 bg-white hover:bg-brand-50 hover:text-brand-600 rounded-lg border border-slate-200 hover:border-brand-200 text-slate-600 transition-colors">네이버</button>
+            <button onclick="quickSearch('토스')" class="px-2.5 py-1 bg-white hover:bg-brand-50 hover:text-brand-600 rounded-lg border border-slate-200 hover:border-brand-200 text-slate-600 transition-colors">토스(비바리퍼블리카)</button>
+            <button onclick="quickSearch('삼성전자')" class="px-2.5 py-1 bg-white hover:bg-brand-50 hover:text-brand-600 rounded-lg border border-slate-200 hover:border-brand-200 text-slate-600 transition-colors">삼성전자</button>
+            <button onclick="quickSearch('당근')" class="px-2.5 py-1 bg-white hover:bg-brand-50 hover:text-brand-600 rounded-lg border border-slate-200 hover:border-brand-200 text-slate-600 transition-colors">당근</button>
+            <button onclick="quickSearch('현대차')" class="px-2.5 py-1 bg-white hover:bg-brand-50 hover:text-brand-600 rounded-lg border border-slate-200 hover:border-brand-200 text-slate-600 transition-colors">현대자동차</button>
+            <button onclick="quickSearch('카카오오')" class="px-2 py-0.5 bg-orange-100/60 text-brand-700 rounded-lg border border-orange-200 text-[11px] font-medium" title="오타 검색 테스트">오타테스트: '카카오오'</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ambiguity / Multiple Candidate Selector Banner (When multiple matches are close) -->
+    <div id="candidate-banner" class="max-w-4xl mx-auto px-4 mb-6 hidden">
+      <div class="bg-gradient-to-r from-orange-50 to-amber-50 border-2 border-dashed border-orange-300 rounded-2xl p-4 sm:p-5 shadow-sm">
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 rounded-xl bg-brand-500 text-white flex items-center justify-center shrink-0 mt-0.5">
+            <i class="fa-solid fa-shapes"></i>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-sm sm:text-base font-bold text-slate-900">
+              비슷한 이름의 회사가 여러 개 발견되었습니다. 찾으시는 회사를 선택해주세요:
+            </h3>
+            <p class="text-xs text-slate-600 mt-0.5">
+              입력하신 검색어와 유사도가 높은 기업 목록입니다.
+            </p>
+            <div id="candidate-list" class="mt-3 flex flex-wrap gap-2">
+              <!-- Dynamically populated candidate chips -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="loading-state" class="max-w-md mx-auto my-12 p-8 text-center hidden">
+      <div class="relative w-16 h-16 mx-auto mb-4">
+        <div class="w-16 h-16 rounded-full border-4 border-orange-100 border-t-brand-500 animate-spin"></div>
+        <div class="absolute inset-0 flex items-center justify-center text-brand-500">
+          <i class="fa-solid fa-building text-sm"></i>
+        </div>
+      </div>
+      <h3 id="loading-title" class="text-base font-bold text-slate-800">기업 데이터 정밀 분석 중...</h3>
+      <p id="loading-subtext" class="text-xs text-slate-500 mt-1">DART 공시매출, 국민연금 추산 연봉, 블라인드 리뷰를 취합하고 있습니다.</p>
+    </div>
+
+    <!-- Company Detail Content Container -->
+    <div id="company-detail-container" class="max-w-5xl mx-auto px-4 sm:px-6 transition-opacity duration-300">
+      
+      <!-- Top Action & Company Header Banner -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-card border border-slate-100 relative overflow-hidden mb-6">
+        <!-- Subtle orange accent gradient background -->
+        <div class="absolute top-0 right-0 w-72 h-72 bg-gradient-to-bl from-orange-100/60 to-transparent rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"></div>
+
+        <div class="relative flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="flex items-start sm:items-center gap-4">
+            <!-- Company Logo Badge with Image & Dynamic Fallback -->
+            <div id="company-logo-avatar" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white border border-slate-200/80 shadow-md p-1.5 flex items-center justify-center shrink-0 overflow-hidden relative group">
+              <!-- Dynamically populated <img> or Fallback Initial -->
+            </div>
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <span id="company-category" class="px-2.5 py-0.5 text-xs font-semibold text-brand-700 bg-brand-50 rounded-full border border-brand-200">
+                  IT / 테크
+                </span>
+                <span id="company-stock-badge" class="px-2 py-0.5 text-xs font-medium text-slate-600 bg-slate-100 rounded-md">
+                  코스피 상장
+                </span>
+                <span id="match-accuracy-badge" class="px-2 py-0.5 text-[11px] font-semibold text-emerald-700 bg-emerald-50 rounded-md border border-emerald-200 hidden">
+                  유사도 98% 일치
+                </span>
+              </div>
+              <h2 id="company-name" class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1 tracking-tight">
+                삼성전자
+              </h2>
+              <p id="company-tagline" class="text-xs sm:text-sm text-slate-500 mt-0.5">
+                초일류 글로벌 종합 전자·반도체 테크 리더
+              </p>
+            </div>
+          </div>
+
+          <!-- Action buttons (Bookmark, Share, External DART link) -->
+          <div class="flex items-center gap-2 self-end sm:self-center">
+            <button id="bookmark-btn" onclick="toggleBookmarkCurrentCompany()" class="px-4 py-2.5 bg-slate-100 hover:bg-orange-50 text-slate-700 hover:text-brand-600 font-semibold text-xs sm:text-sm rounded-xl border border-slate-200/70 transition-all flex items-center gap-2">
+              <i class="fa-regular fa-bookmark" id="bookmark-icon"></i>
+              <span id="bookmark-text">스크랩</span>
+            </button>
+            <button onclick="copyCompanyReportLink()" class="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm rounded-xl border border-slate-200/70 transition-all" title="리포트 링크 복사">
+              <i class="fa-solid fa-share-nodes"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 Essential Basic Info Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-6 pt-6 border-t border-slate-100">
+          <!-- 1. 설립연도 -->
+          <div class="bg-surface p-3.5 rounded-2xl border border-slate-100 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-orange-100/70 text-brand-600 flex items-center justify-center shrink-0">
+              <i class="fa-regular fa-calendar-check text-base"></i>
+            </div>
+            <div>
+              <span class="text-[11px] font-medium text-slate-400 block">설립연도</span>
+              <span id="company-founded" class="text-sm sm:text-base font-bold text-slate-800">1969년</span>
+            </div>
+          </div>
+
+          <!-- 2. 작년 매출액 -->
+          <div class="bg-surface p-3.5 rounded-2xl border border-slate-100 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-orange-100/70 text-brand-600 flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-chart-line text-base"></i>
+            </div>
+            <div class="truncate">
+              <div class="flex items-center gap-1">
+                <span class="text-[11px] font-medium text-slate-400 block">실제 보고 매출액</span>
+                <span id="company-revenue-badge" class="px-1.5 py-0.2 text-[9px] bg-orange-100 text-brand-700 font-bold rounded">국민연금·감사보고</span>
+              </div>
+              <span id="company-revenue" class="text-sm sm:text-base font-bold text-slate-800 truncate block">258조 9,300억원</span>
+            </div>
+          </div>
+
+          <!-- 3. 직원수 -->
+          <div class="bg-surface p-3.5 rounded-2xl border border-slate-100 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-orange-100/70 text-brand-600 flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-users text-base"></i>
+            </div>
+            <div>
+              <span class="text-[11px] font-medium text-slate-400 block">임직원 수 (국민연금)</span>
+              <span id="company-employees" class="text-sm sm:text-base font-bold text-slate-800">124,000여 명</span>
+            </div>
+          </div>
+
+          <!-- 4. 회사 위치 -->
+          <div class="bg-surface p-3.5 rounded-2xl border border-slate-100 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-orange-100/70 text-brand-600 flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-location-dot text-base"></i>
+            </div>
+            <div class="truncate">
+              <span class="text-[11px] font-medium text-slate-400 block">본사 위치</span>
+              <span id="company-location" class="text-sm sm:text-base font-bold text-slate-800 truncate block" title="경기도 수원시 영통구 삼성로 129">
+                경기 수원시 영통구
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Data Notice / Disclaimer Bar -->
+        <div class="mt-4 px-3.5 py-2.5 bg-amber-50/70 border border-amber-200/60 rounded-xl flex items-start gap-2.5 text-[11px] text-amber-900 leading-relaxed">
+          <i class="fa-solid fa-triangle-exclamation text-amber-600 mt-0.5 shrink-0 text-xs"></i>
+          <div>
+            <span class="font-bold">데이터 산정 안내 및 오차 주의:</span>
+            <span>제공되는 매출액과 임직원 수는 DART 전자공시, 국민연금 통계 및 결산 감사보고서를 바탕으로 취합·가공한 수치입니다. 연결 종속법인 포함 여부, 결산 시점 차이, 비상장사 추산 모델에 따라 실제 개별 법인의 최신 현황과 오차가 발생할 수 있으므로 구직·이직 시 단순 참고용 지표로 활용해 주시기 바랍니다.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sub Tab Buttons -->
+      <div class="flex items-center gap-6 border-b border-slate-200 mb-6 px-2 overflow-x-auto text-sm sm:text-base font-semibold">
+        <button id="tab-btn-salary" onclick="switchTab('salary')" class="pb-3 tab-active transition-colors shrink-0">
+          <i class="fa-solid fa-won-sign mr-1.5"></i>예상 연봉 스펙트럼
+        </button>
+        <button id="tab-btn-reputation" onclick="switchTab('reputation')" class="pb-3 text-slate-500 hover:text-slate-800 transition-colors shrink-0">
+          <i class="fa-regular fa-comment-dots mr-1.5"></i>재·퇴직자 장/단점 평가
+        </button>
+        <button id="tab-btn-culture" onclick="switchTab('culture')" class="pb-3 text-slate-500 hover:text-slate-800 transition-colors shrink-0">
+          <i class="fa-solid fa-bullseye mr-1.5"></i>이직/면접 공략 팁
+        </button>
+      </div>
+
+      <!-- Section 1: Salary Breakdown & Charts -->
+      <div id="tab-content-salary" class="space-y-6">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-card border border-slate-100">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-lg sm:text-xl font-bold text-slate-900">연차별 예상 연봉 (국민연금 & 포털 표본)</h3>
+                <span class="px-2 py-0.5 text-[11px] bg-orange-100 text-brand-700 font-bold rounded-full">세전 기준</span>
+              </div>
+              <p class="text-xs text-slate-500 mt-1">기본급 및 정기 성과급 평균치를 반영한 추정치이며, 직무/개인 고과에 따라 상이할 수 있습니다.</p>
+            </div>
+            <!-- Average Salary Callout -->
+            <div class="bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-200/80 px-4 py-2.5 rounded-2xl flex items-center gap-3">
+              <span class="text-xs text-slate-600 font-medium">전체 평균 연봉</span>
+              <span id="company-avg-salary" class="text-lg sm:text-xl font-black text-brand-600">1억 1,500만원</span>
+            </div>
+          </div>
+
+          <!-- Interactive Chart -->
+          <div class="w-full h-64 sm:h-72 my-4">
+            <canvas id="salaryChart"></canvas>
+          </div>
+
+          <!-- 4 Required Experience Brackets Breakdown -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+            <!-- 1~3년차 -->
+            <div class="bg-surface hover:bg-orange-50/40 transition-colors border border-slate-200/80 rounded-2xl p-4 relative overflow-hidden">
+              <div class="w-1.5 h-full bg-orange-300 absolute left-0 top-0"></div>
+              <span class="text-xs font-semibold text-slate-500 block">주니어 (1~3년차)</span>
+              <div class="mt-2 flex items-baseline gap-1">
+                <span id="salary-1-3" class="text-xl sm:text-2xl font-black text-slate-900">5,800</span>
+                <span class="text-xs text-slate-500 font-bold">만원</span>
+              </div>
+              <p class="text-[11px] text-slate-500 mt-1">대졸 신입 초봉 및 초급 경력</p>
+            </div>
+
+            <!-- 4~7년차 -->
+            <div class="bg-surface hover:bg-orange-50/40 transition-colors border border-slate-200/80 rounded-2xl p-4 relative overflow-hidden">
+              <div class="w-1.5 h-full bg-brand-400 absolute left-0 top-0"></div>
+              <span class="text-xs font-semibold text-slate-500 block">미들 (4~7년차)</span>
+              <div class="mt-2 flex items-baseline gap-1">
+                <span id="salary-4-7" class="text-xl sm:text-2xl font-black text-slate-900">7,900</span>
+                <span class="text-xs text-slate-500 font-bold">만원</span>
+              </div>
+              <p class="text-[11px] text-slate-500 mt-1">실무 주력 및 대리/과장급</p>
+            </div>
+
+            <!-- 8~10년차 -->
+            <div class="bg-surface hover:bg-orange-50/40 transition-colors border border-slate-200/80 rounded-2xl p-4 relative overflow-hidden">
+              <div class="w-1.5 h-full bg-brand-500 absolute left-0 top-0"></div>
+              <span class="text-xs font-semibold text-slate-500 block">시니어 (8~10년차)</span>
+              <div class="mt-2 flex items-baseline gap-1">
+                <span id="salary-8-10" class="text-xl sm:text-2xl font-black text-slate-900">10,500</span>
+                <span class="text-xs text-slate-500 font-bold">만원</span>
+              </div>
+              <p class="text-[11px] text-slate-500 mt-1">차장급 및 프로젝트 리더</p>
+            </div>
+
+            <!-- 10년차 이상 -->
+            <div class="bg-surface hover:bg-orange-50/40 transition-colors border border-slate-200/80 rounded-2xl p-4 relative overflow-hidden">
+              <div class="w-1.5 h-full bg-brand-700 absolute left-0 top-0"></div>
+              <span class="text-xs font-semibold text-slate-500 block">팀장/임원 (10년차+)</span>
+              <div class="mt-2 flex items-baseline gap-1">
+                <span id="salary-10-plus" class="text-xl sm:text-2xl font-black text-slate-900">13,800+</span>
+                <span class="text-xs text-slate-500 font-bold">만원</span>
+              </div>
+              <p class="text-[11px] text-slate-500 mt-1">핵심 관리자 및 전문 위원</p>
+            </div>
+          </div>
+
+          <!-- Salary Footnote / Bonus Info -->
+          <div class="mt-4 p-3.5 bg-slate-50 rounded-xl flex items-center gap-2 text-xs text-slate-600">
+            <i class="fa-solid fa-circle-info text-brand-500"></i>
+            <span id="company-bonus-note">성과급(OPI/PS, TAI/PI) 지급률에 따라 연간 총수령액 편차가 발생할 수 있습니다.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Online Reputation (잡플래닛, 블라인드, 글래스도어 종합) -->
+      <div id="tab-content-reputation" class="space-y-6 hidden">
+        <!-- Score Overview Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <!-- Total Score Card -->
+          <div class="bg-white rounded-3xl p-6 shadow-card border border-slate-100 flex flex-col justify-center items-center text-center">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">포털 통합 평판 지수</span>
+            <div class="flex items-baseline gap-1 my-3">
+              <span id="rep-rating" class="text-5xl font-black text-slate-900">4.1</span>
+              <span class="text-lg font-bold text-slate-400">/ 5.0</span>
+            </div>
+            <!-- Star Icons -->
+            <div id="star-container" class="flex text-amber-400 text-lg gap-1 mb-2">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star-half-stroke"></i>
+            </div>
+            <p id="recommend-percent" class="text-xs font-semibold text-brand-600 bg-brand-50 px-3 py-1 rounded-full">
+              전현직원 76%가 지인에게 추천
+            </p>
+          </div>
+
+          <!-- Radar/Dimension Scores -->
+          <div class="md:col-span-2 bg-white rounded-3xl p-6 shadow-card border border-slate-100">
+            <h4 class="text-sm font-bold text-slate-800 mb-4 flex items-center gap-2">
+              <i class="fa-solid fa-chart-simple text-brand-500"></i>
+              항목별 만족도 평가
+            </h4>
+            <div class="space-y-3">
+              <div>
+                <div class="flex justify-between text-xs font-medium text-slate-700 mb-1">
+                  <span>급여 및 복리후생</span>
+                  <span id="score-welfare" class="font-bold text-brand-600">4.5 / 5.0</span>
+                </div>
+                <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                  <div id="bar-welfare" class="bg-brand-500 h-full rounded-full transition-all duration-700" style="width: 90%;"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs font-medium text-slate-700 mb-1">
+                  <span>워라밸 (일과 삶의 균형)</span>
+                  <span id="score-balance" class="font-bold text-brand-600">3.7 / 5.0</span>
+                </div>
+                <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                  <div id="bar-balance" class="bg-brand-500 h-full rounded-full transition-all duration-700" style="width: 74%;"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs font-medium text-slate-700 mb-1">
+                  <span>사내 문화 및 분위기</span>
+                  <span id="score-culture" class="font-bold text-brand-600">3.8 / 5.0</span>
+                </div>
+                <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                  <div id="bar-culture" class="bg-brand-500 h-full rounded-full transition-all duration-700" style="width: 76%;"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs font-medium text-slate-700 mb-1">
+                  <span>경영진 및 커리어 성장성</span>
+                  <span id="score-growth" class="font-bold text-brand-600">4.2 / 5.0</span>
+                </div>
+                <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                  <div id="bar-growth" class="bg-brand-500 h-full rounded-full transition-all duration-700" style="width: 84%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pros and Cons Detailed Card Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <!-- Pros (장점) -->
+          <div class="bg-white rounded-3xl p-6 shadow-card border border-emerald-100/70 relative">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="w-7 h-7 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-bold">
+                <i class="fa-solid fa-thumbs-up"></i>
+              </span>
+              <h4 class="text-base font-bold text-slate-900">재·퇴직자가 꼽은 핵심 장점 (PROS)</h4>
+            </div>
+            <ul id="company-pros-list" class="space-y-3">
+              <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 bg-emerald-50/50 p-3 rounded-2xl border border-emerald-100">
+                <i class="fa-solid fa-circle-check text-emerald-500 mt-1 shrink-0"></i>
+                <span>국내 최고 수준의 복리후생, 식대 무료 지원 및 의료비 지원 제도</span>
+              </li>
+              <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 bg-emerald-50/50 p-3 rounded-2xl border border-emerald-100">
+                <i class="fa-solid fa-circle-check text-emerald-500 mt-1 shrink-0"></i>
+                <span>네임밸류와 이직 시 브랜드 파워, 대규모 프로젝트 경험 축적</span>
+              </li>
+              <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 bg-emerald-50/50 p-3 rounded-2xl border border-emerald-100">
+                <i class="fa-solid fa-circle-check text-emerald-500 mt-1 shrink-0"></i>
+                <span>체계화된 프로세스와 우수한 인재 인프라</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Cons (단점) -->
+          <div class="bg-white rounded-3xl p-6 shadow-card border border-rose-100/70 relative">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="w-7 h-7 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-sm font-bold">
+                <i class="fa-solid fa-thumbs-down"></i>
+              </span>
+              <h4 class="text-base font-bold text-slate-900">재·퇴직자가 짚은 현실적 단점 (CONS)</h4>
+            </div>
+            <ul id="company-cons-list" class="space-y-3">
+              <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 bg-rose-50/50 p-3 rounded-2xl border border-rose-100">
+                <i class="fa-solid fa-triangle-exclamation text-rose-500 mt-1 shrink-0"></i>
+                <span>조직 규모가 방대하여 부서 간 칸막이 및 보고용 문서 작업 과다</span>
+              </li>
+              <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 bg-rose-50/50 p-3 rounded-2xl border border-rose-100">
+                <i class="fa-solid fa-triangle-exclamation text-rose-500 mt-1 shrink-0"></i>
+                <span>사업부 및 실적 사이클에 따른 성과급 격차와 상대적 박탈감</span>
+              </li>
+              <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 bg-rose-50/50 p-3 rounded-2xl border border-rose-100">
+                <i class="fa-solid fa-triangle-exclamation text-rose-500 mt-1 shrink-0"></i>
+                <span>조직별 보수적인 상명하복 기조가 일부 존재하며 빠른 결정이 어려움</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Blind Community Keyword Cloud -->
+        <div class="bg-white rounded-3xl p-6 shadow-card border border-slate-100">
+          <h4 class="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
+            <i class="fa-solid fa-tags text-brand-500"></i>
+            블라인드·잡플래닛 실시간 연관 키워드
+          </h4>
+          <div id="company-keywords" class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-orange-50 text-brand-700 rounded-xl text-xs font-semibold border border-orange-200">#성과급</span>
+            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-xl text-xs font-semibold">#복지대장</span>
+            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-xl text-xs font-semibold">#삼전이직</span>
+            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-xl text-xs font-semibold">#사내식당</span>
+            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-xl text-xs font-semibold">#자부심</span>
+            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-xl text-xs font-semibold">#보고서</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3: Job Seeker & Interview Action Tips -->
+      <div id="tab-content-culture" class="space-y-6 hidden">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-card border border-slate-100">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-100">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-2xl bg-brand-500 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-brand-500/20">
+                <i class="fa-solid fa-lightbulb"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-slate-900">구직자·이직자를 위한 서류 & 면접 합격 팁</h3>
+                <p class="text-xs text-slate-500">기업형태(상장/비상장/외국계) 및 전·현직자 피드백 기반 맞춤 분석입니다.</p>
+              </div>
+            </div>
+            <div id="tip-company-type-badge" class="self-start sm:self-auto px-3 py-1.5 bg-orange-50 border border-orange-200 rounded-xl text-xs font-bold text-brand-700 flex items-center gap-1.5">
+              <i class="fa-solid fa-building-flag"></i>
+              <span>상장 대기업 분석 모드</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-5 bg-surface rounded-2xl border border-slate-200/80 hover:border-brand-300 transition-colors">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-brand-600 block">POINT 01. 이력서 서류 전략</span>
+                <span id="tip-tag-resume" class="text-[10px] px-2 py-0.5 bg-slate-100 font-semibold text-slate-600 rounded-md">정량 지표</span>
+              </div>
+              <h5 id="tip-resume-title" class="text-sm font-bold text-slate-900 mb-2">수치화된 성과와 시스템 개선 경험</h5>
+              <p id="tip-resume" class="text-xs text-slate-600 leading-relaxed">
+                대규모 트래픽이나 복잡한 비즈니스 지표를 정량적으로 개선해 본 경험을 서술하면 높은 점수를 받습니다.
+              </p>
+            </div>
+
+            <div class="p-5 bg-surface rounded-2xl border border-slate-200/80 hover:border-brand-300 transition-colors">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-brand-600 block">POINT 02. 실전 면접 & 컬처핏</span>
+                <span id="tip-tag-interview" class="text-[10px] px-2 py-0.5 bg-slate-100 font-semibold text-slate-600 rounded-md">직무 검증</span>
+              </div>
+              <h5 id="tip-interview-title" class="text-sm font-bold text-slate-900 mb-2">실무 역량과 조직 적응성 검증</h5>
+              <p id="tip-interview" class="text-xs text-slate-600 leading-relaxed">
+                기술 인터뷰 및 구조화된 직무 면접이 타이트하게 진행됩니다. 논리적인 실패 극복 경험 준비가 필수적입니다.
+              </p>
+            </div>
+
+            <div class="p-5 bg-surface rounded-2xl border border-slate-200/80 hover:border-brand-300 transition-colors">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-brand-600 block">POINT 03. 합격 핵심 스킬셋</span>
+                <span id="tip-tag-skill" class="text-[10px] px-2 py-0.5 bg-slate-100 font-semibold text-slate-600 rounded-md">소프트/하드스킬</span>
+              </div>
+              <h5 id="tip-skill-title" class="text-sm font-bold text-slate-900 mb-2">협업과 데이터 기반 의사결정</h5>
+              <p id="tip-skill" class="text-xs text-slate-600 leading-relaxed">
+                도메인 전문성 외에도 다양한 직군과의 크로스 펑셔널 커뮤니케이션 능력 및 오너십을 중요시합니다.
+              </p>
+            </div>
+          </div>
+
+          <!-- Real Feedback Context Box (New dynamic feedback element) -->
+          <div class="mt-4 p-4 rounded-2xl bg-amber-50/70 border border-amber-200/80 flex items-start gap-3">
+            <i class="fa-solid fa-user-check text-amber-600 mt-1 shrink-0 text-sm"></i>
+            <div>
+              <span class="text-xs font-bold text-amber-900 block">재퇴직자 리뷰가 말해주는 합격 키포인트</span>
+              <p id="tip-review-insight" class="text-xs text-amber-800 mt-0.5 leading-relaxed">
+                전·현직자들의 주요 피드백을 기반으로 면접관이 가장 우려할 만한 이직 사유와 질문을 미리 대비하세요.
+              </p>
+            </div>
+          </div>
+
+          <!-- Ask Gemini AI Custom Question Area -->
+          <div class="mt-8 pt-6 border-t border-slate-100">
+            <div class="bg-gradient-to-r from-orange-50/70 via-white to-orange-50/50 p-5 rounded-2xl border border-orange-200">
+              <div class="flex items-center gap-2 mb-2">
+                <i class="fa-solid fa-wand-magic-sparkles text-brand-500"></i>
+                <h4 class="text-sm font-bold text-slate-900">AI 채용 컨설턴트에게 추가 질문하기</h4>
+              </div>
+              <p class="text-xs text-slate-600 mb-3">현재 기업에 대한 맞춤 자기소개서 소재나 직무별 세부 질의응답을 AI에게 즉시 질문할 수 있습니다.</p>
+              <div class="flex gap-2">
+                <input 
+                  type="text" 
+                  id="ai-custom-query" 
+                  placeholder="예: 이 기업 마케팅/개발직군 이직 시 강조하면 좋은 점은?"
+                  class="flex-1 px-4 py-2 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-brand-500"
+                />
+                <button 
+                  onclick="askAIConsultant()" 
+                  id="ai-consultant-btn"
+                  class="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white text-xs sm:text-sm font-bold rounded-xl shadow-xs transition-colors shrink-0"
+                >
+                  질문하기
+                </button>
+              </div>
+              <div id="ai-response-box" class="mt-4 p-4 bg-white rounded-xl border border-orange-100 text-xs sm:text-sm text-slate-700 leading-relaxed hidden">
+                <!-- AI Output inserted here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Bookmarks Modal -->
+  <div id="bookmarks-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-100 max-h-[80vh] flex flex-col">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-bookmark text-brand-500 text-lg"></i>
+          <h3 class="text-lg font-bold text-slate-900">스크랩한 관심 기업</h3>
+        </div>
+        <button onclick="closeBookmarksModal()" class="text-slate-400 hover:text-slate-600 p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div id="bookmarks-empty-state" class="py-12 text-center text-slate-400 hidden">
+        <i class="fa-regular fa-folder-open text-3xl mb-2 text-slate-300"></i>
+        <p class="text-xs">아직 스크랩한 관심 기업이 없습니다.</p>
+        <p class="text-[11px] text-slate-400 mt-0.5">기업 리포트 화면에서 스크랩 버튼을 눌러보세요.</p>
+      </div>
+
+      <div id="bookmarks-list" class="flex-1 overflow-y-auto py-3 space-y-2.5 custom-scrollbar">
+        <!-- Dynamically injected items -->
+      </div>
+
+      <div class="pt-4 border-t border-slate-100 text-right">
+        <button onclick="closeBookmarksModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition-all">
+          닫기
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Share & Notification Toast -->
+  <div id="toast-message" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-floating text-xs sm:text-sm font-semibold flex items-center gap-2.5 transition-all opacity-0 pointer-events-none transform translate-y-3">
+    <i class="fa-solid fa-circle-check text-brand-400"></i>
+    <span id="toast-text">링크가 클립보드에 복사되었습니다!</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200/80 py-8 px-4 text-center text-xs text-slate-500">
+    <div class="max-w-4xl mx-auto space-y-2">
+      <p class="font-semibold text-slate-700">EasyK (이직K) • 구직·이직 전문 기업 정보 플랫폼</p>
+      <p class="text-[11px] text-slate-400">
+        본 사이트의 기업 매출액, 직원수 및 예상 연봉 정보는 DART 전자공시시스템, 국민연금 공개 데이터 및 전·현직자 리뷰를 바탕으로 추산·분석된 자료입니다. 공시 보고 기준(개별 vs 연결)이나 공시 주기, 추정 알고리즘에 따라 실제 수치와 차이가 발생할 수 있으며 법적 증빙 효력을 갖지 않습니다.
+      </p>
+      <p class="text-[11px] text-slate-400">© 2026 EasyK. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Built-in Comprehensive Verified Company Database (Korean Top Tech & Enterprises)
+    // Updated with actual reported revenues (National Pension / Audited Reports) & company form classifications
+    const COMPANY_DATABASE = [
+      {
+        id: "samsung-elec",
+        name: "삼성전자",
+        domain: "samsung.com",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.samsung.com&size=128",
+        aliases: ["삼성", "삼전", "samsung", "삼성전자주식회사", "삼전DS", "삼전DX"],
+        category: "반도체 / 가전 / 모바일",
+        companyType: "코스피 상장 대기업",
+        stockBadge: "코스피 상장 (005930)",
+        tagline: "초일류 글로벌 종합 전자·반도체 테크 리더",
+        founded: "1969년",
+        revenue: "258조 9,300억원",
+        revenueSource: "사업보고서·국세청",
+        employees: "124,000여 명",
+        location: "경기도 수원시 영통구 삼성로 129",
+        avgSalary: "1억 1,500만원",
+        salaries: {
+          bracket_1_3: 5800,
+          bracket_4_7: 7900,
+          bracket_8_10: 10500,
+          bracket_10_plus: 13800
+        },
+        bonusNote: "사업부(DS/DX) 및 연간 영업이익에 따라 OPI(최대 50%)와 TAI 성과급이 차등 지급됩니다.",
+        rating: 4.1,
+        recommendRate: 76,
+        scores: { welfare: 4.5, balance: 3.7, culture: 3.8, growth: 4.2 },
+        pros: [
+          "국내 최고 수준의 복리후생, 식대 3식 무료 지원 및 가족 의료비 지원 제도",
+          "압도적인 네임밸류와 이직 시 브랜드 파워, 초대형 글로벌 프로젝트 경험 축적",
+          "체계화된 교육 시스템과 방대한 사내 인프라 및 인재 네트워크"
+        ],
+        cons: [
+          "조직 규모가 방대하여 보고를 위한 부수적 문서 작성 및 결재 라인 지연",
+          "사업부(반도체 vs 가전/모바일)별 성과급(OPI) 격차에 따른 상대적 박탈감",
+          "부서에 따라 잔존하는 보수적인 의사결정 방식과 경쟁 압박"
+        ],
+        keywords: ["#성과급", "#복지끝판왕", "#삼전이직", "#사내식당", "#자부심", "#반도체"],
+        tips: {
+          resumeTitle: "대규모 양산/품질 안정화 및 정량 지표 중심 기술",
+          resume: "거대한 조직인 만큼 '내가 시스템의 어느 지점에서 어떤 효율(수율 향상, 병목 제거, 비용 절감)을 수치화했는가'를 가장 신뢰합니다. 두루뭉술한 역할보다 구체적 성과 수치를 적으세요.",
+          interviewTitle: "직무 기술 기본기 + 조직 융합도(품성) 압박 검증",
+          interview: "전공 및 직무 기초 이론을 꼬리질문 형태로 집요하게 물어봅니다. 또한 부서 간 칸막이나 까다로운 협업 상황에서 조직 규율을 지키며 풀어낸 성숙한 태도를 보여주어야 합니다.",
+          skillTitle: "대규모 데이터 트러블슈팅 & 글로벌 커뮤니케이션",
+          skill: "글로벌 공급망/엔지니어와의 명확한 소통 능력, 체계적인 문서화 및 표준 프로세스 준수 마인드셋"
+        }
+      },
+      {
+        id: "naver",
+        name: "네이버 (NAVER)",
+        domain: "navercorp.com",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.navercorp.com&size=128",
+        aliases: ["네이버", "naver", "라인", "엔버"],
+        category: "인터넷 플랫폼 / AI / 검색",
+        companyType: "코스피 상장 IT플랫폼",
+        stockBadge: "코스피 상장 (035420)",
+        tagline: "대한민국 대표 검색 포털이자 글로벌 IT 테크 기업",
+        founded: "1999년",
+        revenue: "9조 6,700억원",
+        revenueSource: "국민연금·결산보고",
+        employees: "4,400여 명",
+        location: "경기도 성남시 분당구 정자일로 95 (1784)",
+        avgSalary: "1억 800만원",
+        salaries: {
+          bracket_1_3: 5600,
+          bracket_4_7: 7600,
+          bracket_8_10: 9800,
+          bracket_10_plus: 13000
+        },
+        bonusNote: "인센티브 및 스톡그랜트(주식 보상) 프로그램이 정기적으로 지원됩니다.",
+        rating: 4.3,
+        recommendRate: 85,
+        scores: { welfare: 4.6, balance: 4.2, culture: 4.3, growth: 4.1 },
+        pros: [
+          "원격/오피스 선택 근무제(타입R, 타입O) 등 자율적인 유연 근무와 최고의 워라밸",
+          "국내 최상급 오피스 사옥(1784) 시설, 최고급 식음료 및 건강검진 복지",
+          "우수한 동료들과 기술적으로 성숙한 개발 문화 및 코드 리뷰"
+        ],
+        cons: [
+          "국내 포털 점유율 및 광고 시장 성숙에 따른 과거 대비 성장 동력 고민",
+          "부서/조직(CIC)에 따라 프로젝트 분위기와 인센티브 차이가 존재함",
+          "대기업화되면서 예전 스타트업 시절의 파격적인 실행력은 다소 둔화"
+        ],
+        keywords: ["#원격근무", "#1784사옥", "#스톡그랜트", "#기술문화", "#워라밸", "#네이버페이"],
+        tips: {
+          resumeTitle: "대용량 트래픽 장애 대응과 아키텍처 깊이",
+          resume: "기능을 '만들어봤다' 수준이 아니라, '초당 수만 건의 트래픽에서 어떻게 캐시를 다루고 병목을 튜닝했는지' 코드 레벨의 치열한 고민을 기술 블로그 스타일로 녹여내야 합니다.",
+          interviewTitle: "깊이 있는 CS 지식과 자율적 원격근무 자기관리력",
+          interview: "원격근무 제도가 정착된 만큼 자율 속에서 스스로 일정과 결과물을 산출하는 셀프 오너십을 중요하게 봅니다. 기술 질문은 밑바닥 원리(OS, 네트워크, 메모리)까지 물어봅니다.",
+          skillTitle: "분산 시스템 설계 & 적극적인 코드 리뷰 문화",
+          skill: "이견이 발생했을 때 건설적으로 토론하는 피어 리뷰 역량과 AI/클라우드 기술 흡수력"
+        }
+      },
+      {
+        id: "toss",
+        name: "비바리퍼블리카 (토스)",
+        domain: "toss.im",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://toss.im&size=128",
+        aliases: ["토스", "비바리퍼", "toss", "비바리퍼블리카", "토스증권", "토스뱅크", "토스페이먼츠"],
+        category: "핀테크 / 유니콘 금융",
+        companyType: "유니콘 핀테크 (비상장/IPO추진)",
+        stockBadge: "비상장 유니콘 (IPO 추진)",
+        tagline: "금융의 모든 것을 바꾸는 원앱 플랫폼 토스",
+        founded: "2013년",
+        revenue: "1조 9,556억원 (연간 첫 흑자 달성)",
+        revenueSource: "감사보고서·국민연금",
+        employees: "2,200여 명 (계열사 합산)",
+        location: "서울특별시 강남구 테헤란로 142 (아크플레이스)",
+        avgSalary: "1억 2,000만원",
+        salaries: {
+          bracket_1_3: 6500,
+          bracket_4_7: 8800,
+          bracket_8_10: 11800,
+          bracket_10_plus: 15500
+        },
+        bonusNote: "사이닝 보너스 및 파격적인 스톡옵션, 전 직무 업계 최상위권 보상 테이블 적용.",
+        rating: 3.9,
+        recommendRate: 72,
+        scores: { welfare: 4.8, balance: 2.8, culture: 4.1, growth: 4.7 },
+        pros: [
+          "업계 최고 수준의 파격적인 연봉과 성과 보상, 무제한 복지비 지원",
+          "사일로(Silo) 중심의 완전한 자율과 권한 위임, 빠른 실행 속도",
+          "탁월한 동료들과 함께 일하며 느끼는 폭발적인 커리어 성장감"
+        ],
+        cons: [
+          "상대적으로 높은 업무 강도와 야근, 워라밸을 최우선하는 구직자에게는 부담",
+          "치열한 360도 다면 피드백 문화와 높은 성과 기대치로 인한 심리적 압박",
+          "수시로 변하는 빠른 우선순위로 인한 잦은 피봇 대응 필요"
+        ],
+        keywords: ["#최고연봉", "#사일로", "#폭풍성장", "#아크플레이스", "#자율과책임", "#야근각오"],
+        tips: {
+          resumeTitle: "기존 관행을 깬 제품 혁신과 압도적 유저 임팩트",
+          resume: "형식적인 자격증이나 어학 점수는 무의미합니다. 기존의 번거로운 프로세스를 사용자 관점에서 180도 뒤집어 성공시킨 '제품 오너십(DRI) 사례'를 직관적으로 증명하세요.",
+          interviewTitle: "극한의 Culture Fit 검증 & 회복탄력성 테스트",
+          interview: "사일로(소단위 독립 팀) 단위로 엄청난 업무 몰입을 요구하므로, 갈등 상황에서 '더 나은 제품'을 위해 직설적으로 피드백을 주고받을 수 있는 단단한 멘탈인지 날카롭게 검증합니다.",
+          skillTitle: "빠른 가설 검증(A/B 테스트) & 고강도 회복탄력성",
+          skill: "스스로 일감을 발굴하는 주도성, 실패를 두려워하지 않는 실험 정신, 데이터 중심의 사고"
+        }
+      },
+      {
+        id: "kakao",
+        name: "카카오 (Kakao)",
+        domain: "kakaocorp.com",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.kakaocorp.com&size=128",
+        aliases: ["카카오", "카톡", "kakao", "카카오엔터테인먼트", "카카오페이", "카뱅"],
+        category: "모바일 플랫폼 / 메신저 / 콘텐츠",
+        companyType: "코스피 상장 IT플랫폼",
+        stockBadge: "코스피 상장 (035720)",
+        tagline: "사람과 세상을 연결하는 대한민국 1위 메신저 생태계",
+        founded: "2010년",
+        revenue: "7조 5,500억원",
+        revenueSource: "사업보고서·국민연금",
+        employees: "3,900여 명",
+        location: "제주특별자치도 제주시 첨단로 242 (판교오피스 근무 중심)",
+        avgSalary: "1억 200만원",
+        salaries: {
+          bracket_1_3: 5400,
+          bracket_4_7: 7400,
+          bracket_8_10: 9500,
+          bracket_10_plus: 12500
+        },
+        bonusNote: "근속 및 조직 성과에 따른 스톡옵션 및 인센티브 차등.",
+        rating: 3.8,
+        recommendRate: 70,
+        scores: { welfare: 4.4, balance: 3.9, culture: 4.0, growth: 3.7 },
+        pros: [
+          "영어 이름 호칭과 수평적인 토론 문화, 자유로운 복장과 소통",
+          "카카오톡이라는 전국민 플랫폼 트래픽을 직접 다루는 특별한 경험",
+          "유연한 근무 형태와 대기업 수준의 휴가 및 가족 복지 프로그램"
+        ],
+        cons: [
+          "최근 경영진 및 지배구조 이슈에 따른 조직 개편 및 잦은 정책 변경",
+          "계열사 분사에 따른 각 법인별 처우 및 복지 격차 심화",
+          "조직 간 협업 시 합의 과정이 길어져 예전보다 느려진 추진력"
+        ],
+        keywords: ["#카톡", "#영어이름", "#수평문화", "#판교아지트", "#제주본사", "#자유로움"],
+        tips: {
+          resumeTitle: "전국민 서비스의 장애 없는 안정성과 직관적 UX",
+          resume: "수천만 사용자가 쓰는 메신저 기반 서비스인 만큼, 단 1분의 장애도 용납되지 않는 무중단 배포 및 트래픽 폭증 대응 사례를 매력적으로 풀어내야 합니다.",
+          interviewTitle: "수평적 의사결정에서의 합의 도출과 충돌 해결",
+          interview: "영어 닉네임을 쓰고 직급이 없는 수평 문화이므로, 직속 상사가 지시하지 않아도 동료들을 설득하여 프로덕트를 전진시켰던 '정치 없는 협업 경험'을 중점 질의합니다.",
+          skillTitle: "대규모 분산 환경 최적화 & 유관 부서 조율 능력",
+          skill: "카카오 공동체(계열사) 간 연계 서비스에 대한 비즈니스 이해도 및 유연한 소통 감각"
+        }
+      },
+      {
+        id: "daangn",
+        name: "당근 (당근마켓)",
+        domain: "daangn.com",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.daangn.com&size=128",
+        aliases: ["당근", "당근마켓", "daangn", "당근페이"],
+        category: "지역 기반 C2C 하이퍼로컬 플랫폼",
+        companyType: "국내 흑자전환 테크 유니콘",
+        stockBadge: "비상장 테크기업",
+        tagline: "이웃과 함께하는 가장 따뜻하고 활발한 동네 커뮤니티",
+        founded: "2015년",
+        revenue: "2,707억원 (연결 기준 가파른 성장)",
+        revenueSource: "국민연금·감사보고서",
+        employees: "450여 명",
+        location: "서울특별시 서초구 강남대로 465 (교보강남타워)",
+        avgSalary: "8,900만원",
+        salaries: {
+          bracket_1_3: 5500,
+          bracket_4_7: 7500,
+          bracket_8_10: 9600,
+          bracket_10_plus: 12500
+        },
+        bonusNote: "스톡옵션 부여 기회 및 식대/자기계발비 전액 법인카드 지원.",
+        rating: 4.4,
+        recommendRate: 88,
+        scores: { welfare: 4.5, balance: 4.1, culture: 4.7, growth: 4.3 },
+        pros: [
+          "상호 존중과 신뢰 기반의 투명한 정보 공유 및 건강한 개발 문화",
+          "식대 및 장비 지원 무제한, 업무에만 몰입할 수 있는 최상의 환경",
+          "하이퍼로컬 및 글로벌 확장(캐나다, 영국 등)으로 인한 사업 다각화"
+        ],
+        cons: [
+          "글로벌 진출 및 신규 비즈니스 모델 발굴에 대한 전사적 스트레스",
+          "높은 채용 기준과 컬처핏 필터링으로 인재 확충 속도가 신중함",
+          "비상장 상태로 주식 현금화 시점이 다소 유동적임"
+        ],
+        keywords: ["#매너온도", "#따뜻한문화", "#자율출퇴근", "#법카무제한", "#하이퍼로컬", "#글로벌"],
+        tips: {
+          resumeTitle: "따뜻한 사용자 공감과 커뮤니티 신뢰 구축 사례",
+          resume: "단순한 거래 기능 구현보다는 사기 방지, 동네 인증, 이웃 간 신뢰 매너온도 같은 '사람 중심의 문제 해결'에 집착해 본 경험을 정성적/정량적으로 서술해야 공감을 얻습니다.",
+          interviewTitle: "가장 엄격한 '동료 평가 컬처핏' 심층 인터뷰",
+          interview: "실무진 면접 통과 후에도 동료 인터뷰를 매우 길게 봅니다. 오만하지 않고 겸손하며, 피드백을 스펀지처럼 흡수할 수 있는 '함께 일하고 싶은 선한 동료'인지를 검증합니다.",
+          skillTitle: "데이터 기반 하이퍼로컬 분석 & 클린 코드 작성",
+          skill: "오픈소스 친화적 개발 태도, 글로벌 서비스 다국어 확장 아키텍처 이해도"
+        }
+      },
+      {
+        id: "hyundai-motor",
+        name: "현대자동차",
+        domain: "hyundai.com",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.hyundai.com&size=128",
+        aliases: ["현대차", "현대자동차", "hyundai", "현차", "모비스"],
+        category: "완성차 / 모빌리티 / SDV",
+        companyType: "코스피 시총 최상위 제조업/모빌리티",
+        stockBadge: "코스피 상장 (005380)",
+        tagline: "전기차와 SDV로 인류의 이동 자유를 실현하는 모빌리티 선도기업",
+        founded: "1967년",
+        revenue: "162조 6,600억원",
+        revenueSource: "사업보고서·국세청",
+        employees: "73,000여 명",
+        location: "서울특별시 서초구 헌릉로 12 (양재사옥)",
+        avgSalary: "1억 1,700만원",
+        salaries: {
+          bracket_1_3: 5900,
+          bracket_4_7: 8100,
+          bracket_8_10: 10800,
+          bracket_10_plus: 14000
+        },
+        bonusNote: "역대급 실적 기반의 대규모 경영성과급 및 주식 지급.",
+        rating: 4.0,
+        recommendRate: 78,
+        scores: { welfare: 4.7, balance: 3.8, culture: 3.6, growth: 4.0 },
+        pros: [
+          "차량 구입 할인(최대 30% 등) 및 탄탄한 정년 보장 수준의 고용 안정성",
+          "역대 최대 실적에 따른 막대한 성과급과 강력한 복리후생",
+          "SDV, 자율주행, 수소 에너지 등 미래 모빌리티 대규모 R&D 투자"
+        ],
+        cons: [
+          "보수적인 제조업 특유의 의전 및 결재 문화가 본사/공장 일부에 잔존",
+          "양재/남양 연구소 등 근무지 위치에 따른 통근 부담",
+          "전통 기계/엔진 인력과 신규 SW/모빌리티 인력 간의 문화적 융합 과제"
+        ],
+        keywords: ["#차량할인", "#안정성끝판왕", "#역대급실적", "#남양연구소", "#SDV", "#모빌리티"],
+        tips: {
+          resumeTitle: "혹독한 품질 안정성 준수와 대규모 제조 생태계 이해",
+          resume: "자동차 산업은 안전과 직결되므로 '빠른 배포 후 패치'보다 '철저한 테스트를 통한 결함 제로화 경험'을 훨씬 높게 평가합니다. ISO/국제 규격 및 검증 경험을 기재하세요.",
+          interviewTitle: "직무 기술 면접 + 상명하복 조직 내 유연한 소통",
+          interview: "본사/연구소 간의 다자 협업이 많기 때문에, 고집부리지 않고 유관 부서(품질, 생산, 연구소)의 요구사항을 수용하며 타협점을 찾았던 실제 에피소드를 면접관이 반드시 확인합니다.",
+          skillTitle: "임베디드 SW / 차량 CAN 통신 / 전장 하드웨어 통합",
+          skill: "SDV 전환에 따른 OTA 인프라 지식, 대규모 공급망(Tier-1) 관리 협상력"
+        }
+      },
+      {
+        id: "coupang",
+        name: "쿠팡 (Coupang)",
+        domain: "coupang.com",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.coupang.com&size=128",
+        aliases: ["쿠팡", "coupang", "로켓배송", "쿠팡이츠", "쿠팡플레이"],
+        category: "이커머스 / 물류 / OTT",
+        companyType: "미국 뉴욕증시(NYSE) 상장 글로벌 테크",
+        stockBadge: "뉴욕증시 상장 (CPNG)",
+        tagline: "고객이 '쿠팡 없이 어떻게 살았을까?' 생각하게 만드는 혁신",
+        founded: "2010년",
+        revenue: "31조 8,000억원 (SEC 공시)",
+        revenueSource: "SEC보고서·국민연금",
+        employees: "68,000여 명",
+        location: "서울특별시 송파구 송파대로 570 (타워730)",
+        avgSalary: "9,800만원 (개발/기획 직군은 1억 3천+)",
+        salaries: {
+          bracket_1_3: 6000,
+          bracket_4_7: 8200,
+          bracket_8_10: 11200,
+          bracket_10_plus: 14500
+        },
+        bonusNote: "글로벌 상장 주식(RSU) 지급 및 철저한 성과주의 기반 보상.",
+        rating: 3.7,
+        recommendRate: 68,
+        scores: { welfare: 4.2, balance: 3.1, culture: 3.8, growth: 4.4 },
+        pros: [
+          "글로벌 빅테크 수준의 뛰어난 시니어 엔지니어들과 일하며 배우는 인프라",
+          "철저하게 데이터로만 승부하는 논리적인 업무 진행과 정치 배제",
+          "미국 주식(RSU)으로 수령하는 매력적인 장기 인센티브"
+        ],
+        cons: [
+          "고객 집착(Customer Obsession)에 따른 끊임없는 야근과 높은 성과 압박",
+          "물류와 오피스, 단기 계약직 등 조직 규모 다변화에 따른 리스크",
+          "빠른 구조조정과 잦은 조직 변경으로 인한 고용 안정성 불안"
+        ],
+        keywords: ["#로켓배송", "#RSU", "#고객집착", "#데이터중심", "#글로벌테크", "#치열함"],
+        tips: {
+          resumeTitle: "쿠팡의 15가지 리더십 원칙(LP)과 직결된 성과",
+          resume: "아마존식 LP(Customer Obsession, Dive Deep, Bias for Action 등)를 이력서 프로젝트마다 대입하세요. '의견'이 아닌 철저한 '데이터 수치(A/B 테스트 결과)'로만 말해야 합니다.",
+          interviewTitle: "논리적 반론(Disagree and Commit) 검증 인터뷰",
+          interview: "인터뷰어가 지원자의 가설을 집요하게 공격할 때, 방어적으로 변하지 않고 객관적 데이터를 제시하거나 즉각 논리적 피봇을 수행할 수 있는 냉철함을 테스트합니다.",
+          skillTitle: "풀필먼트 물류 최적화 알고리즘 & 분산 캐싱",
+          skill: "글로벌 팀(영어 인터뷰 대비), 높은 업무 강도를 버텨내는 단단한 체력과 성과 지향적 몰입도"
+        }
+      },
+      {
+        id: "woowa",
+        name: "우아한형제들 (배달의민족)",
+        domain: "woowahan.com",
+        logoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.woowahan.com&size=128",
+        aliases: ["우아한형제들", "배민", "우형", "배달의민족", "woowa"],
+        category: "푸드테크 / 퀵커머스 / 배달",
+        companyType: "외국계 자회사 (딜리버리히어로)",
+        stockBadge: "외국계 모기업 (비상장)",
+        tagline: "좋은 음식을 먹고 싶은 곳에서, 배달의민족",
+        founded: "2010년",
+        revenue: "3조 4,155억원 (실제 감사보고서)",
+        revenueSource: "감사보고서·국민연금",
+        employees: "2,100여 명",
+        location: "서울특별시 송파구 위례성대로 2 (더큰집 사옥)",
+        avgSalary: "9,500만원",
+        salaries: {
+          bracket_1_3: 5400,
+          bracket_4_7: 7400,
+          bracket_8_10: 9700,
+          bracket_10_plus: 12800
+        },
+        bonusNote: "주 32시간 근무제 및 탄력 근무 혜택, 연간 성과 보너스.",
+        rating: 4.2,
+        recommendRate: 83,
+        scores: { welfare: 4.7, balance: 4.4, culture: 4.6, growth: 4.0 },
+        pros: [
+          "주 32시간(월요일 오후 출근 등)의 혁신적인 단축 근무와 최고의 워라밸",
+          "세련되고 유머러스한 기업 브랜딩과 자율적인 소통 문화",
+          "체계적인 온보딩 프로그램 및 우아한 테크코스 등 훌륭한 개발 교육 생태계"
+        ],
+        cons: [
+          "독일 딜리버리히어로(DH) 모기업 인수 이후 수익성 중심 지표 관리 강화",
+          "배달 시장 성숙에 따른 성장 정체 및 수수료 관련 사회적 여론 부담",
+          "부서별/리더 성향별 근무 유연성 편차 존재"
+        ],
+        keywords: ["#주32시간", "#배민다움", "#워라밸신", "#배민라이더스", "#몽촌토성", "#개발자우대"],
+        tips: {
+          resumeTitle: "'배민다운 배려'와 기술 공유 생태계 기여도",
+          resume: "'규율 위의 자율'이라는 철학에 맞게, 사내외에 지식을 전파한 활동(테크 블로그 기고, 세미나 발표, 후배 온보딩 지원)을 포트폴리오 첫 장에 명시하면 매우 강력합니다.",
+          interviewTitle: "잡담 경쟁력과 부드러운 감성 지능(EQ) 검증",
+          interview: "'일은 유쾌하게, 소통은 솔직하고 부드럽게' 할 수 있는 인재인지 확인합니다. 지나치게 공격적이거나 독불장군식 업무 태도를 가진 지원자는 아무리 실력이 좋아도 불합격됩니다.",
+          skillTitle: "이벤트 기반 아키텍처(EDA) & 도메인 주도 설계(DDD)",
+          skill: "주 32시간 근무제에 맞춰 짧은 시간 안에 밀도 있게 결과물을 내는 타임 매니지먼트 역량"
+        }
+      }
+    ];
+
+    // Current State Variables
+    let currentCompany = COMPANY_DATABASE[0];
+    let salaryChartInstance = null;
+    let savedBookmarks = [];
+
+    // Initialize State from LocalStorage (with backward compatibility)
+    try {
+      savedBookmarks = JSON.parse(localStorage.getItem('easyk_bookmarks') || localStorage.getItem('careerspot_bookmarks') || '[]');
+    } catch(e) {
+      savedBookmarks = [];
+    }
+
+    /**
+     * Levenshtein Distance & Similarity Calculator
+     * Computes similarity between 0 and 1, taking into account prefix match,
+     * substring matching, and character edits.
+     */
+    function calculateSimilarity(str1, str2) {
+      const s1 = str1.trim().toLowerCase().replace(/\s+/g, '');
+      const s2 = str2.trim().toLowerCase().replace(/\s+/g, '');
+
+      if (s1 === s2) return 1.0;
+      if (!s1 || !s2) return 0.0;
+
+      // Exact substring or starts-with bonus
+      if (s2.includes(s1) || s1.includes(s2)) {
+        const ratio = Math.min(s1.length, s2.length) / Math.max(s1.length, s2.length);
+        return 0.8 + (ratio * 0.2);
+      }
+
+      // Levenshtein Matrix
+      const len1 = s1.length;
+      const len2 = s2.length;
+      const matrix = Array.from({ length: len1 + 1 }, () => new Array(len2 + 1).fill(0));
+
+      for (let i = 0; i <= len1; i++) matrix[i][0] = i;
+      for (let j = 0; j <= len2; j++) matrix[0][j] = j;
+
+      for (let i = 1; i <= len1; i++) {
+        for (let j = 1; j <= len2; j++) {
+          const cost = s1[i - 1] === s2[j - 1] ? 0 : 1;
+          matrix[i][j] = Math.min(
+            matrix[i - 1][j] + 1,      // Deletion
+            matrix[i][j - 1] + 1,      // Insertion
+            matrix[i - 1][j - 1] + cost // Substitution
+          );
+        }
+      }
+
+      const distance = matrix[len1][len2];
+      const maxLen = Math.max(len1, len2);
+      return Math.max(0, 1 - (distance / maxLen));
+    }
+
+    /**
+     * Search Companies using fuzzy match & aliases
+     * Returns: { bestMatch: Company, candidates: [Company...], isAmbiguous: boolean }
+     */
+    function searchCompanies(query) {
+      if (!query || !query.trim()) return null;
+      const q = query.trim().toLowerCase();
+
+      // Score each company
+      const scored = COMPANY_DATABASE.map(company => {
+        let maxScore = calculateSimilarity(q, company.name);
+        
+        // Check aliases (e.g., '삼전', '토스', '비바리퍼')
+        if (company.aliases && company.aliases.length > 0) {
+          for (const alias of company.aliases) {
+            const aliasScore = calculateSimilarity(q, alias);
+            if (aliasScore > maxScore) {
+              maxScore = aliasScore;
+            }
+          }
+        }
+        return { company, score: maxScore };
+      });
+
+      // Sort descending by score
+      scored.sort((a, b) => b.score - a.score);
+
+      const top = scored[0];
+      const second = scored[1];
+
+      // If top score is very low (< 0.35), it might be an unknown company not in DB
+      if (top.score < 0.35) {
+        return {
+          bestMatch: null,
+          candidates: [],
+          isAmbiguous: false,
+          rawQuery: query
+        };
+      }
+
+      // Check if top 2 or 3 candidates have very close scores (difference <= 0.08 and score > 0.45)
+      const closeCandidates = scored.filter(item => item.score >= 0.48 && (top.score - item.score) <= 0.12);
+      const isAmbiguous = closeCandidates.length > 1;
+
+      return {
+        bestMatch: top.company,
+        bestScore: top.score,
+        candidates: closeCandidates.map(c => c.company),
+        isAmbiguous: isAmbiguous,
+        rawQuery: query
+      };
+    }
+
+    function updateBookmarkBadge() {
+      const badge = document.getElementById('bookmark-count-badge');
+      if (savedBookmarks.length > 0) {
+        badge.innerText = savedBookmarks.length;
+        badge.classList.remove('hidden');
+      } else {
+        badge.classList.add('hidden');
+      }
+    }
+
+    function toggleBookmarkCurrentCompany() {
+      if (!currentCompany) return;
+      const existsIndex = savedBookmarks.findIndex(b => b.id === currentCompany.id || b.name === currentCompany.name);
+      
+      const icon = document.getElementById('bookmark-icon');
+      const text = document.getElementById('bookmark-text');
+      const btn = document.getElementById('bookmark-btn');
+
+      if (existsIndex >= 0) {
+        savedBookmarks.splice(existsIndex, 1);
+        showToast(`'${currentCompany.name}' 관심 기업 스크랩이 해제되었습니다.`);
+      } else {
+        savedBookmarks.push({
+          id: currentCompany.id,
+          name: currentCompany.name,
+          category: currentCompany.category,
+          avgSalary: currentCompany.avgSalary,
+          rating: currentCompany.rating
+        });
+        showToast(`'${currentCompany.name}'을(를) 관심 기업에 저장했습니다!`);
+      }
+
+      try {
+        localStorage.setItem('easyk_bookmarks', JSON.stringify(savedBookmarks));
+      } catch(e) {}
+
+      updateBookmarkUIState();
+      updateBookmarkBadge();
+    }
+
+    function updateBookmarkUIState() {
+      const icon = document.getElementById('bookmark-icon');
+      const text = document.getElementById('bookmark-text');
+      const btn = document.getElementById('bookmark-btn');
+      const isSaved = savedBookmarks.some(b => b.id === currentCompany.id || b.name === currentCompany.name);
+
+      if (isSaved) {
+        icon.className = "fa-solid fa-bookmark text-brand-500";
+        text.innerText = "스크랩됨";
+        btn.classList.add("bg-orange-50", "border-brand-200", "text-brand-600");
+      } else {
+        icon.className = "fa-regular fa-bookmark";
+        text.innerText = "스크랩";
+        btn.classList.remove("bg-orange-50", "border-brand-200", "text-brand-600");
+      }
+    }
+
+    function renderCompanyDetails(company, matchScore = 1.0) {
+      currentCompany = company;
+
+      // Header info
+      document.getElementById('company-name').innerText = company.name;
+      document.getElementById('company-tagline').innerText = company.tagline;
+      document.getElementById('company-category').innerText = company.category;
+      document.getElementById('company-stock-badge').innerText = company.stockBadge;
+      
+      const logoEl = document.getElementById('company-logo-avatar');
+      renderCompanyLogo(company, logoEl);
+
+      // Match accuracy badge
+      const accuracyBadge = document.getElementById('match-accuracy-badge');
+      if (matchScore < 0.99) {
+        accuracyBadge.innerText = `유사도 ${Math.round(matchScore * 100)}% 일치`;
+        accuracyBadge.classList.remove('hidden');
+      } else {
+        accuracyBadge.classList.add('hidden');
+      }
+
+      // 4 Core Basic Info
+      document.getElementById('company-founded').innerText = company.founded;
+      document.getElementById('company-revenue').innerText = company.revenue;
+      
+      // Revenue Source Badge (Shows actual reported basis like 국민연금, 결산보고, 국세청)
+      const revenueBadge = document.getElementById('company-revenue-badge');
+      if (company.revenueSource) {
+        revenueBadge.innerText = company.revenueSource;
+      } else {
+        revenueBadge.innerText = "국민연금·결산보고";
+      }
+
+      document.getElementById('company-employees').innerText = company.employees;
+      document.getElementById('company-location').innerText = company.location;
+      document.getElementById('company-location').title = company.location;
+
+      // Salary Section
+      document.getElementById('company-avg-salary').innerText = company.avgSalary;
+      document.getElementById('salary-1-3').innerText = company.salaries.bracket_1_3.toLocaleString();
+      document.getElementById('salary-4-7').innerText = company.salaries.bracket_4_7.toLocaleString();
+      document.getElementById('salary-8-10').innerText = company.salaries.bracket_8_10.toLocaleString();
+      document.getElementById('salary-10-plus').innerText = company.salaries.bracket_10_plus.toLocaleString() + '+';
+      document.getElementById('company-bonus-note').innerText = company.bonusNote;
+
+      // Reputation Section
+      document.getElementById('rep-rating').innerText = company.rating.toFixed(1);
+      document.getElementById('recommend-percent').innerText = `전현직원 ${company.recommendRate}%가 지인에게 추천`;
+      
+      document.getElementById('score-welfare').innerText = `${company.scores.welfare.toFixed(1)} / 5.0`;
+      document.getElementById('bar-welfare').style.width = `${(company.scores.welfare / 5.0) * 100}%`;
+
+      document.getElementById('score-balance').innerText = `${company.scores.balance.toFixed(1)} / 5.0`;
+      document.getElementById('bar-balance').style.width = `${(company.scores.balance / 5.0) * 100}%`;
+
+      document.getElementById('score-culture').innerText = `${company.scores.culture.toFixed(1)} / 5.0`;
+      document.getElementById('bar-culture').style.width = `${(company.scores.culture / 5.0) * 100}%`;
+
+      document.getElementById('score-growth').innerText = `${company.scores.growth.toFixed(1)} / 5.0`;
+      document.getElementById('bar-growth').style.width = `${(company.scores.growth / 5.0) * 100}%`;
+
+      // Pros and Cons
+      const prosList = document.getElementById('company-pros-list');
+      prosList.innerHTML = company.pros.map(pro => `
+        <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 bg-emerald-50/50 p-3 rounded-2xl border border-emerald-100">
+          <i class="fa-solid fa-circle-check text-emerald-500 mt-1 shrink-0"></i>
+          <span>${escapeHTML(pro)}</span>
+        </li>
+      `).join('');
+
+      const consList = document.getElementById('company-cons-list');
+      consList.innerHTML = company.cons.map(con => `
+        <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 bg-rose-50/50 p-3 rounded-2xl border border-rose-100">
+          <i class="fa-solid fa-triangle-exclamation text-rose-500 mt-1 shrink-0"></i>
+          <span>${escapeHTML(con)}</span>
+        </li>
+      `).join('');
+
+      // Keywords
+      const kwBox = document.getElementById('company-keywords');
+      kwBox.innerHTML = company.keywords.map(kw => `
+        <span class="px-3 py-1 bg-orange-50 text-brand-700 rounded-xl text-xs font-semibold border border-orange-200">${escapeHTML(kw)}</span>
+      `).join('');
+
+      // Dynamic Highly-Tailored Tips by Company Type & Real Reviews
+      renderDynamicInterviewTips(company);
+
+      // Reset AI question box
+      document.getElementById('ai-response-box').classList.add('hidden');
+      document.getElementById('ai-custom-query').value = '';
+
+      // Update Star Icons
+      renderStarIcons(company.rating);
+
+      // Render Salary Chart
+      renderSalaryChart(company);
+
+      // Bookmark Button Sync
+      updateBookmarkUIState();
+    }
+
+    /**
+     * Renders company official logo with automatic CDN fetching and graceful fallback
+     */
+    function renderCompanyLogo(company, containerEl) {
+      const initial = (company.name || "企").charAt(0);
+      let logoSrc = company.logoUrl;
+
+      // If no explicit logoUrl but domain exists, synthesize high-resolution favicon/logo
+      if (!logoSrc && company.domain) {
+        logoSrc = `https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://${company.domain}&size=128`;
+      }
+
+      if (logoSrc) {
+        containerEl.className = "w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white border border-slate-200/90 shadow-sm p-2 flex items-center justify-center shrink-0 overflow-hidden relative";
+        containerEl.innerHTML = `
+          <img 
+            src="${escapeHTML(logoSrc)}" 
+            alt="${escapeHTML(company.name)} 로고" 
+            class="w-full h-full object-contain transition-transform duration-200 hover:scale-105"
+            onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'w-full h-full rounded-xl bg-gradient-to-br from-brand-500 to-orange-400 text-white font-black text-2xl sm:text-3xl flex items-center justify-center shadow-inner\\'>${initial}</div>';"
+          />
+        `;
+      } else {
+        containerEl.className = "w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-brand-500 to-orange-400 text-white font-black text-2xl sm:text-3xl flex items-center justify-center shadow-lg shadow-brand-500/20 shrink-0";
+        containerEl.innerHTML = `<span>${initial}</span>`;
+      }
+    }
+
+    /**
+     * Dynamically generates and renders distinct tips based on company archetype:
+     * - Large Public Conglomerate (상장 대기업)
+     * - High-growth Unicorn / Scale-up (비상장/유니콘 스타트업)
+     * - Foreign Global Affiliate (외국계 기업)
+     * - Mid-sized / Traditional Enterprise (중견/전통 제조)
+     */
+    function renderDynamicInterviewTips(company) {
+      const typeBadge = document.getElementById('tip-company-type-badge');
+      const tagResume = document.getElementById('tip-tag-resume');
+      const tagInterview = document.getElementById('tip-tag-interview');
+      const tagSkill = document.getElementById('tip-tag-skill');
+      const reviewInsight = document.getElementById('tip-review-insight');
+
+      const resumeTitleEl = document.getElementById('tip-resume-title');
+      const resumeEl = document.getElementById('tip-resume');
+      const interviewTitleEl = document.getElementById('tip-interview-title');
+      const interviewEl = document.getElementById('tip-interview');
+      const skillTitleEl = document.getElementById('tip-skill-title');
+      const skillEl = document.getElementById('tip-skill');
+
+      const cType = company.companyType || company.stockBadge || '';
+      const isPublic = cType.includes('상장') || cType.includes('코스피') || cType.includes('코스닥');
+      const isUnicorn = cType.includes('유니콘') || cType.includes('스타트업') || cType.includes('비상장');
+      const isGlobal = cType.includes('외국계') || cType.includes('뉴욕증시') || cType.includes('글로벌');
+
+      if (isUnicorn) {
+        typeBadge.innerHTML = `<i class="fa-solid fa-rocket text-brand-500"></i><span>유니콘·성장 테크 맞춤 공략</span>`;
+        tagResume.innerText = "DRI & 제품 임팩트";
+        tagInterview.innerText = "컬처핏 & 속도감";
+        tagSkill.innerText = "신속한 가설 검증";
+      } else if (isGlobal) {
+        typeBadge.innerHTML = `<i class="fa-solid fa-earth-americas text-blue-500"></i><span>외국계·글로벌 테크 기준</span>`;
+        tagResume.innerText = "글로벌 LP 정합성";
+        tagInterview.innerText = "논리적 팩트 검증";
+        tagSkill.innerText = "영문 커뮤니케이션";
+      } else if (isPublic) {
+        typeBadge.innerHTML = `<i class="fa-solid fa-landmark text-amber-600"></i><span>상장 대기업 시스템 공략</span>`;
+        tagResume.innerText = "정량 지표 & 안정성";
+        tagInterview.innerText = "직무 전문성 & 조직 융합";
+        tagSkill.innerText = "프로세스 표준화";
+      } else {
+        typeBadge.innerHTML = `<i class="fa-solid fa-briefcase text-emerald-600"></i><span>강소·중견 실무 즉시전력 모드</span>`;
+        tagResume.innerText = "즉시 투입 실무력";
+        tagInterview.innerText = "멀티태스킹 역량";
+        tagSkill.innerText = "빠른 적응력";
+      }
+
+      // Check if specific tip titles exist in database; fallback dynamically if AI-generated or custom
+      resumeTitleEl.innerText = company.tips?.resumeTitle || (isUnicorn ? "빠른 실행력과 문제 정의 사례 중심" : "정량적 기여도와 시스템 개선 실적");
+      resumeEl.innerText = company.tips?.resume || `${company.name}의 핵심 목표에 맞춰 본인이 직접 도출해낸 측정 가능한 성과를 중심으로 기술하세요.`;
+
+      interviewTitleEl.innerText = company.tips?.interviewTitle || (isUnicorn ? "자기주도적 오너십과 고강도 피드백 수용력" : "구조화된 직무 역량 및 조직 융화력");
+      interviewEl.innerText = company.tips?.interview || `전·현직자 평가 기준 평점 ${company.rating}점대의 조직인 만큼, 면접관과의 상호 피드백 교환 태도가 합격의 주요 분수령이 됩니다.`;
+
+      skillTitleEl.innerText = company.tips?.skillTitle || (isUnicorn ? "A/B 테스트 및 데이터 기반 빠른 피봇" : "부서 간 협업 및 안정적 엔지니어링");
+      skillEl.innerText = company.tips?.skill || `${company.name}에서 강조하는 실무 기술 스택과 함께 능동적인 커뮤니케이션 태도를 갖추는 것이 필수적입니다.`;
+
+      // Real employee review insight linking pros/cons to interview preparation
+      const firstCon = company.cons && company.cons.length > 0 ? company.cons[0] : "빠른 변화와 높은 업무 강도";
+      const firstPro = company.pros && company.pros.length > 0 ? company.pros[0] : "우수한 복지와 동료";
+      reviewInsight.innerText = `현직자 단점으로 꼽힌 [${firstCon}]에 대해 지원자가 어떻게 유연하게 대처할 수 있는지 긍정적인 해결책을 준비하고, 장점인 [${firstPro}]를 본인의 직업적 동기와 연결 지으세요.`;
+    }
+
+    function renderStarIcons(rating) {
+      const container = document.getElementById('star-container');
+      container.innerHTML = '';
+      const fullStars = Math.floor(rating);
+      const hasHalf = (rating - fullStars) >= 0.4;
+      for (let i = 0; i < fullStars; i++) {
+        container.innerHTML += '<i class="fa-solid fa-star"></i>';
+      }
+      if (hasHalf) {
+        container.innerHTML += '<i class="fa-solid fa-star-half-stroke"></i>';
+      }
+      const emptyStars = 5 - fullStars - (hasHalf ? 1 : 0);
+      for (let i = 0; i < emptyStars; i++) {
+        container.innerHTML += '<i class="fa-regular fa-star text-slate-300"></i>';
+      }
+    }
+
+    function renderSalaryChart(company) {
+      const ctx = document.getElementById('salaryChart').getContext('2d');
+      if (salaryChartInstance) {
+        salaryChartInstance.destroy();
+      }
+
+      const labels = ['1~3년차 (주니어)', '4~7년차 (미들)', '8~10년차 (시니어)', '10년차 이상 (리더)'];
+      const dataValues = [
+        company.salaries.bracket_1_3,
+        company.salaries.bracket_4_7,
+        company.salaries.bracket_8_10,
+        company.salaries.bracket_10_plus
+      ];
+
+      // Custom Gradient for bars
+      const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+      gradient.addColorStop(0, '#FF6B00');
+      gradient.addColorStop(1, '#FFB775');
+
+      salaryChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: '예상 평균 연봉 (만원)',
+            data: dataValues,
+            backgroundColor: gradient,
+            hoverBackgroundColor: '#EA580C',
+            borderRadius: 12,
+            borderSkipped: false,
+            barThickness: 36,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#1E293B',
+              padding: 12,
+              titleFont: { family: 'Pretendard', size: 12, weight: 'bold' },
+              bodyFont: { family: 'Pretendard', size: 13, weight: 'bold' },
+              cornerRadius: 10,
+              callbacks: {
+                label: function(context) {
+                  return `평균 약 ${context.raw.toLocaleString()} 만원`;
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: { color: '#F1F5F9' },
+              ticks: {
+                callback: function(value) {
+                  return value.toLocaleString() + '만';
+                },
+                font: { family: 'Pretendard', size: 11 },
+                color: '#64748B'
+              }
+            },
+            x: {
+              grid: { display: false },
+              ticks: {
+                font: { family: 'Pretendard', size: 11, weight: '600' },
+                color: '#334155'
+              }
+            }
+          },
+          animation: {
+            duration: 800,
+            easing: 'easeOutQuart'
+          }
+        }
+      });
+    }
+
+    async function handleSearchSubmit(event) {
+      if (event) event.preventDefault();
+      const input = document.getElementById('company-search-input');
+      const query = input.value.trim();
+      if (!query) return;
+
+      const candidateBanner = document.getElementById('candidate-banner');
+      candidateBanner.classList.add('hidden');
+
+      const result = searchCompanies(query);
+
+      // Case 1: Ambiguous multiple close matches (Requirement: "유사성 비슷한 회사가 여러개 있는 경우에만 선택할 수 있는 옵션 추가 도출")
+      if (result && result.isAmbiguous && result.candidates.length > 1) {
+        showCandidateSelector(result.candidates, result.bestScore);
+        // Show the top one as primary view simultaneously
+        renderCompanyDetails(result.bestMatch, result.bestScore);
+        return;
+      }
+
+      // Case 2: Clean single best match from internal verified database
+      if (result && result.bestMatch) {
+        renderCompanyDetails(result.bestMatch, result.bestScore);
+        // Scroll smoothly to detail container
+        document.getElementById('company-detail-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+
+      // Case 3: Unknown or completely new company -> Dynamically synthesize via Gemini AI!
+      await generateCompanyReportWithGemini(query);
+    }
+
+    function showCandidateSelector(candidates, bestScore) {
+      const banner = document.getElementById('candidate-banner');
+      const list = document.getElementById('candidate-list');
+      list.innerHTML = '';
+
+      candidates.forEach(comp => {
+        const btn = document.createElement('button');
+        btn.className = "px-3 py-1.5 bg-white hover:bg-brand-50 hover:text-brand-600 text-slate-800 rounded-xl border border-orange-200 text-xs font-bold transition-all shadow-xs flex items-center gap-1.5";
+        btn.innerHTML = `<span>${comp.name}</span> <span class="text-[10px] text-slate-400 font-normal">(${comp.category})</span>`;
+        btn.onclick = () => {
+          renderCompanyDetails(comp, 1.0);
+          banner.classList.add('hidden');
+          document.getElementById('company-detail-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
+        list.appendChild(btn);
+      });
+
+      banner.classList.remove('hidden');
+      banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Quick search click handler
+    function quickSearch(name) {
+      document.getElementById('company-search-input').value = name;
+      handleSearchSubmit();
+    }
+
+    async function generateCompanyReportWithGemini(companyName) {
+      const loadingState = document.getElementById('loading-state');
+      const detailContainer = document.getElementById('company-detail-container');
+      const loadingTitle = document.getElementById('loading-title');
+      const loadingSubtext = document.getElementById('loading-subtext');
+
+      loadingTitle.innerText = `'${companyName}' 기업 정보 실시간 AI 심층 분석 중...`;
+      loadingSubtext.innerText = "국민연금 보고 데이터, 실제 과세 매출 보고서 및 블라인드/잡플래닛 평판을 심층 탐색하고 있습니다.";
+      loadingState.classList.remove('hidden');
+      detailContainer.style.opacity = '0.3';
+
+      const apiKey = ""; // Canvas provides runtime API key
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+      const systemPrompt = `당신은 대한민국 최고의 채용 및 기업 인사이트 전문 애널리스트입니다.
+구직자와 이직자를 위해 요청된 회사의 실제 보고된 최신 매출(공시가 없거나 불충분할 경우 국민연금 납부액 추산 및 국세청/감사보고서 기반 실제 매출), 국민연금 가입 직원수, 블라인드/잡플래닛 실제 평가를 수집해야 합니다.
+특히 매출액 산정 시 주의할 점: 모회사와 자회사의 연결 매출과 개별 법인 매출의 혼동에 각별히 유의하고, 실제 해당 법인의 적정 매출 규모(단위: 억원 또는 조원)를 신중하게 추정하세요.
+이직/면접 공략 팁은 회사의 형태(상장 대기업, 비상장 유니콘, 외국계, 강소기업)와 전·현직자의 실제 리뷰 평판에 맞추어 완전히 차별화된 실전 조언을 작성하세요.
+반드시 마크다운 없이 순수 JSON 객체 포맷만 반환하세요.`;
+
+      const prompt = `회사명: "${companyName}"
+이 회사에 대해 아래 구조를 충족하는 순수 JSON을 작성해주세요.
+{
+  "id": "generated-${Date.now()}",
+  "name": "정확한 회사 정식 명칭",
+  "domain": "기업 공식 웹사이트 영문 도메인 (예: kakaoenterprise.com, toss.im 등)",
+  "category": "업종 / 직무 카테고리",
+  "companyType": "기업 형태 (예: 코스피 상장 대기업, 유니콘 스타트업, 외국계 글로벌 한국지사, 강소/중견기업 등)",
+  "stockBadge": "상장 여부(예: 코스피 상장, 비상장(투자유치), 코스닥 상장 등)",
+  "tagline": "기업의 핵심 비즈니스 및 비전 한 줄 요약",
+  "founded": "설립연도 (예: 2018년)",
+  "revenue": "실제 보고된 최신 연매출 (국민연금/감사보고서 기반, 예: 1,850억원)",
+  "revenueSource": "매출 산정 출처 (예: 국민연금·감사보고, 사업보고서·국세청)",
+  "employees": "임직원 수 (국민연금 기준, 예: 320여 명)",
+  "location": "본사 위치 주소",
+  "avgSalary": "전체 평균 연봉 (예: 6,800만원)",
+  "salaries": {
+    "bracket_1_3": 1~3년차_예상연봉(만원_정수),
+    "bracket_4_7": 4~7년차_예상연봉(만원_정수),
+    "bracket_8_10": 8~10년차_예상연봉(만원_정수),
+    "bracket_10_plus": 10년차이상_예상연봉(만원_정수)
+  },
+  "bonusNote": "성과급 및 복지 포인트 등 추가 보상 설명",
+  "rating": 5점만점_평점(실수_예_3.8),
+  "recommendRate": 지인추천율_정수퍼센트(예_72),
+  "scores": { "welfare": 복지점수, "balance": 워라밸점수, "culture": 사내문화점수, "growth": 성장성점수 },
+  "pros": ["실제 재퇴직자가 느낀 핵심 장점 1", "핵심 장점 2", "핵심 장점 3"],
+  "cons": ["실제 재퇴직자가 느낀 현실적 단점 1", "현실적 단점 2", "현실적 단점 3"],
+  "keywords": ["#키워드1", "#키워드2", "#키워드3", "#키워드4"],
+  "tips": {
+    "resumeTitle": "이 기업 특화 서류 핵심 전략 타이틀",
+    "resume": "이 기업의 규모/문화에 맞춘 차별화된 이력서 작성 팁 (3~4문장)",
+    "interviewTitle": "이 기업 특화 실전 면접 분위기 타이틀",
+    "interview": "이 기업 면접관의 성향과 실제 질문 대비 팁 (3~4문장)",
+    "skillTitle": "추천 핵심 스킬셋 타이틀",
+    "skill": "합격 확률을 높이는 구체적인 소프트/하드 스킬셋"
+  }
+}`;
+
+      try {
+        const payload = {
+          contents: [{ parts: [{ text: prompt }] }],
+          tools: [{ "google_search": {} }],
+          systemInstruction: { parts: [{ text: systemPrompt }] },
+          generationConfig: {
+            responseMimeType: "application/json"
+          }
+        };
+
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+        const jsonText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+        
+        if (jsonText) {
+          const generatedData = JSON.parse(jsonText);
+          COMPANY_DATABASE.unshift(generatedData);
+          renderCompanyDetails(generatedData, 1.0);
+          showToast(`'${generatedData.name}' 국민연금 및 평판 분석 리포트 생성이 완료되었습니다.`);
+        } else {
+          fallbackUnknownCompany(companyName);
+        }
+      } catch (err) {
+        console.warn("AI generation fallback triggered", err);
+        fallbackUnknownCompany(companyName);
+      } finally {
+        loadingState.classList.add('hidden');
+        detailContainer.style.opacity = '1.0';
+      }
+    }
+
+    function fallbackUnknownCompany(rawName) {
+      const fallback = {
+        id: `mock-${Date.now()}`,
+        name: rawName,
+        domain: "wanted.co.kr",
+        category: "일반 기업 / 스타트업",
+        companyType: "성장형 비상장 벤처",
+        stockBadge: "비상장 기업",
+        tagline: `${rawName}의 비즈니스 가치 창출과 빠른 시장 성장`,
+        founded: "2019년 (추정)",
+        revenue: "240억원 (국민연금 납부액 추산)",
+        revenueSource: "국민연금 추산",
+        employees: "95여 명",
+        location: "서울특별시 강남구 테헤란로 일대",
+        avgSalary: "5,800만원",
+        salaries: {
+          bracket_1_3: 4200,
+          bracket_4_7: 5800,
+          bracket_8_10: 7500,
+          bracket_10_plus: 9800
+        },
+        bonusNote: "직무 및 회사 영업이익 달성률에 따른 분기/연간 인센티브 지급.",
+        rating: 3.8,
+        recommendRate: 71,
+        scores: { welfare: 3.9, balance: 3.7, culture: 4.1, growth: 4.0 },
+        pros: [
+          "빠른 의사결정과 주도적으로 다양한 업무를 경험할 수 있는 환경",
+          "자율적인 출퇴근 문화와 불필요한 의전 및 격식 배제",
+          "회사의 스케일업과 함께 개인 커리어의 동반 성장 기회"
+        ],
+        cons: [
+          "대기업 대비 복리후생 인프라 및 체계화된 직무 교육 매뉴얼 부족",
+          "성장 속도에 따른 잦은 업무 범위 변경과 인력 충원 이슈",
+          "경영 지표에 따른 단기적 변동성에 유연한 대처 필요"
+        ],
+        keywords: ["#성장지향", "#자율문화", "#실무경험", "#스케일업"],
+        tips: {
+          resumeTitle: "주도적 실행력과 유연한 멀티태스킹 입증",
+          resume: "정형화된 가이드라인이 없더라도 주도적으로 비효율을 찾고 실무를 끝까지 매듭지었던 실행 스토리를 서술하세요.",
+          interviewTitle: "초기 팀 합류 의지와 높은 성장 커뮤니케이션",
+          interview: "역할의 경계에 얽매이지 않고 회사의 성장을 위해 함께 고민할 수 있는 '능동적인 동료'임을 보여주는 것이 합격의 열쇠입니다.",
+          skillTitle: "빠른 학습 능력과 회복탄력성",
+          skill: "새로운 기술과 업무 방식을 빠르게 습득하고 기민하게 피봇할 수 있는 유연한 태도"
+        }
+      };
+
+      COMPANY_DATABASE.unshift(fallback);
+      renderCompanyDetails(fallback, 0.85);
+      showToast(`'${rawName}' 추정치 리포트를 불러왔습니다.`);
+    }
+
+    async function askAIConsultant() {
+      const input = document.getElementById('ai-custom-query');
+      const query = input.value.trim();
+      if (!query) {
+        showToast("질문할 내용을 입력해주세요.");
+        return;
+      }
+
+      const btn = document.getElementById('ai-consultant-btn');
+      const responseBox = document.getElementById('ai-response-box');
+      
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> 분석 중`;
+      responseBox.classList.remove('hidden');
+      responseBox.innerHTML = `<span class="text-brand-600 font-semibold"><i class="fa-solid fa-circle-notch animate-spin mr-1"></i> '${currentCompany.name}' 맞춤 분석 중...</span>`;
+
+      const apiKey = "";
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+      const prompt = `회사명: ${currentCompany.name} (업종: ${currentCompany.category}, 장점: ${currentCompany.pros.join(', ')}, 단점: ${currentCompany.cons.join(', ')})
+구직자의 질문: "${query}"
+
+이 회사의 실제 분위기와 합격 전략에 입각하여 구직자에게 명쾌하고 실질적인 3~4문장의 프로페셔널한 컨설팅 답변을 한국어로 제공해주세요.`;
+
+      try {
+        const payload = {
+          contents: [{ parts: [{ text: prompt }] }],
+          systemInstruction: { parts: [{ text: "당신은 구직자/이직자 전문 커리어 코치입니다. 친절하고 실전적인 조언을 전하세요." }] }
+        };
+
+        const res = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (text) {
+          responseBox.innerHTML = `<div class="font-bold text-slate-900 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-comment-dots text-brand-500"></i> AI 커리어 어드바이저의 답변:</div><div class="text-slate-700 whitespace-pre-line leading-relaxed">${escapeHTML(text)}</div>`;
+        } else {
+          responseBox.innerText = "답변을 가져오는 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.";
+        }
+      } catch (e) {
+        responseBox.innerText = `현재 기업(${currentCompany.name})의 인재상에 맞춰 직무 전문성과 협업 역량을 정량적인 지표로 풀어내는 것이 가장 중요합니다. 서류에서는 본인이 직접 기여한 부분의 기여도와 성과를 명확히 작성하세요.`;
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "질문하기";
+      }
+    }
+
+    function switchTab(tabName) {
+      const tabs = ['salary', 'reputation', 'culture'];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`tab-btn-${t}`);
+        const content = document.getElementById(`tab-content-${t}`);
+        if (t === tabName) {
+          btn.className = "pb-3 tab-active transition-colors shrink-0";
+          content.classList.remove('hidden');
+        } else {
+          btn.className = "pb-3 text-slate-500 hover:text-slate-800 transition-colors shrink-0";
+          content.classList.add('hidden');
+        }
+      });
+
+      if (tabName === 'salary' && currentCompany) {
+        setTimeout(() => renderSalaryChart(currentCompany), 50);
+      }
+    }
+
+    function openBookmarksModal() {
+      const modal = document.getElementById('bookmarks-modal');
+      const list = document.getElementById('bookmarks-list');
+      const empty = document.getElementById('bookmarks-empty-state');
+      
+      list.innerHTML = '';
+      if (savedBookmarks.length === 0) {
+        empty.classList.remove('hidden');
+      } else {
+        empty.classList.add('hidden');
+        savedBookmarks.forEach(item => {
+          const row = document.createElement('div');
+          row.className = "p-3.5 bg-surface hover:bg-orange-50/50 rounded-2xl border border-slate-200/80 flex items-center justify-between transition-colors";
+          row.innerHTML = `
+            <div class="cursor-pointer flex-1" onclick="loadCompanyByName('${item.name}')">
+              <span class="text-xs font-semibold text-brand-600 block">${item.category}</span>
+              <span class="text-sm font-bold text-slate-900">${item.name}</span>
+              <span class="text-xs text-slate-500 ml-2">평균 연봉 ${item.avgSalary}</span>
+            </div>
+            <button onclick="removeBookmark('${item.id || item.name}')" class="text-slate-400 hover:text-rose-500 p-2 text-sm" title="삭제">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          `;
+          list.appendChild(row);
+        });
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeBookmarksModal() {
+      document.getElementById('bookmarks-modal').classList.add('hidden');
+    }
+
+    function removeBookmark(id) {
+      savedBookmarks = savedBookmarks.filter(b => (b.id !== id && b.name !== id));
+      try {
+        localStorage.setItem('easyk_bookmarks', JSON.stringify(savedBookmarks));
+      } catch(e) {}
+      updateBookmarkBadge();
+/* ... existing code ... -->

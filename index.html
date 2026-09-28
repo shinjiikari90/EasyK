@@ -191,14 +191,22 @@
     </div>
 
     <!-- Error Alert Diagnostic Banner (Hidden by default, shown if Worker fails) -->
-    <div id="diagnosticBanner" class="hidden bg-red-50 border border-red-200 rounded-2xl p-4 text-xs text-red-800 space-y-1.5 shadow-sm">
-      <div class="flex items-center gap-2 font-bold text-red-700">
-        <i data-lucide="alert-circle" class="w-4 h-4 shrink-0"></i>
-        <span>Cloudflare Worker 통신 안내</span>
+    <div id="diagnosticBanner" class="hidden bg-amber-50 border border-amber-200 rounded-2xl p-4 text-xs text-amber-900 space-y-2 shadow-sm relative">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2 font-bold text-amber-800">
+          <i data-lucide="alert-triangle" class="w-4 h-4 shrink-0 text-brand-500"></i>
+          <span>Worker 모델 설정 안내</span>
+        </div>
+        <button onclick="document.getElementById('diagnosticBanner').classList.add('hidden')" class="text-amber-500 hover:text-amber-700 p-0.5">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
       </div>
-      <p id="diagnosticMessage" class="text-slate-600 leading-relaxed">
-        Worker 연결 상태를 확인하고 있습니다.
+      <p id="diagnosticMessage" class="text-slate-600 leading-relaxed font-mono bg-white/80 p-2.5 rounded-xl border border-amber-100 break-all text-[11px]">
+        Worker 상태를 확인하고 있습니다.
       </p>
+      <div class="text-[11px] text-brand-700 bg-brand-50/70 p-2 rounded-lg font-medium">
+        💡 <strong>해결 방법:</strong> Cloudflare Worker 코드에서 모델명을 구버전 <code>gemini-1.5-flash</code> 대신 최신 <code>gemini-2.5-flash</code>로 변경해 주시면 즉시 해결됩니다.
+      </div>
     </div>
 
     <!-- ONE-PAGE COMPLETE COMPANY REPORT CARD -->
